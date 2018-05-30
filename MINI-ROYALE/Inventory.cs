@@ -34,7 +34,7 @@ namespace MINI_ROYALE
             }
             else if (check >= 0)
             {
-                items.Add(new Item() { information });
+                //items.Add(new Item() { information });
                 return 1;
             }
             else
