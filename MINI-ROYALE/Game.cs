@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Input;
+using System;
 namespace MINI_ROYALE
 {
     /// <summary>
@@ -9,13 +10,19 @@ namespace MINI_ROYALE
     public class Game : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
+        TileMap tm;
+        private SpriteBatch spritebatch;
+        Player p;
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
+            IsMouseVisible = true;
             Content.RootDirectory = "Content";
+            
+            
         }
+
+       
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -26,8 +33,13 @@ namespace MINI_ROYALE
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
+            spritebatch = new SpriteBatch(GraphicsDevice);
+            tm = new TileMap(GraphicsDevice,100, 100, 5, 5);
+
+            //Initializes a player
+            p = new Player();
+            
         }
 
         /// <summary>
@@ -37,7 +49,8 @@ namespace MINI_ROYALE
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            
+           
 
             // TODO: use this.Content to load your game content here
         }
@@ -59,8 +72,32 @@ namespace MINI_ROYALE
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
-
             base.Update(gameTime);
+            var speed = 9;
+            Vector2 moveVel = Vector2.Zero;
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                moveVel += new Vector2(0, -1);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                moveVel += new Vector2(0, 1);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                moveVel += new Vector2(-1, 0);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                moveVel +=new Vector2(1, 0);
+            }
+            moveVel *= speed;
+            p.Move(moveVel);
+            
+            tm.Camera.Move(moveVel);
+
+
+
         }
 
         /// <summary>
@@ -69,11 +106,10 @@ namespace MINI_ROYALE
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            GraphicsDevice.Clear(Color.Orange);
+            tm.draw(spritebatch);
             base.Draw(gameTime);
+          
         }
     }
 }
