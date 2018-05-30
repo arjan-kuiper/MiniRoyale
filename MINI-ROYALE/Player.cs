@@ -9,7 +9,7 @@ namespace MINI_ROYALE
 {
     class Player
     {
-        private Position pos;
+        public Position pos;
         private bool alive;
         private byte hp;
         private byte armor;

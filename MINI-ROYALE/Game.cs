@@ -73,7 +73,7 @@ namespace MINI_ROYALE
         {
             // TODO: Add your update logic here
             base.Update(gameTime);
-            var speed = 9;
+            float speed = 3.5224f;
             Vector2 moveVel = Vector2.Zero;
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
@@ -94,10 +94,7 @@ namespace MINI_ROYALE
             moveVel *= speed;
             p.Move(moveVel);
             
-            tm.Camera.Move(moveVel);
-
-
-
+            tm.Camera.LookAt(new Vector2(p.pos.x, p.pos.y));
         }
 
         /// <summary>
