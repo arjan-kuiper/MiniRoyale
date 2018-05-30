@@ -110,6 +110,7 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="GUI.cs" />
     <Compile Include="HealingItem.cs" />
     <Compile Include="Inventory.cs" />
