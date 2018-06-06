@@ -28,6 +28,22 @@ namespace MINI_ROYALE
         public bool use()
         {
             // TODO
+            if(this is Weapon)
+            {
+                //Reference to player.
+            }
+            if(this is Armor)
+            {
+
+            }
+            if(this is HealingItem)
+            {
+
+            }
+            if(this is Explosive)
+            {
+
+            }
             return true;
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MINI_ROYALE
 {
-    class Explosive
+    class Explosive : Item
     {
     }
 }

@@ -22,25 +22,27 @@ namespace MINI_ROYALE
         public Player()
         {
             this.pos = new Position(0, 0);
+            inventory = new Inventory();
         }
 
         public void Move(Vector2 vec)
         {
             this.pos.x += vec.X;
             pos.y += vec.Y;
-            System.Diagnostics.Debug.WriteLine("{0} {1}", pos.x, pos.y);
+            //System.Diagnostics.Debug.WriteLine("{0} {1}", pos.x, pos.y);
         }
-      
+        
 
         public int pickup(Item item)
         {
-            // TODO
+            inventory.addItem(item);
             return 0;
         }
 
         public Item dropItem(int slot)
         {
             // TODO
+            
             return null;
         }
 
