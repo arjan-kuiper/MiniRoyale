@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using System;
 namespace MINI_ROYALE
 {
@@ -15,7 +16,7 @@ namespace MINI_ROYALE
         Player p;
 
         // voor items op de map (Busy)
-        List<Item/*, Position pos*/> items;
+        private List<Item/*, Position pos*/> items;
 
         public Game()
         {
@@ -149,9 +150,9 @@ namespace MINI_ROYALE
             foreach(Item needle in items)
             {
                 count++;
-                if (x = 0/*needle.pos = pos*/)
+                if (x == 0/*needle.pos = pos*/)
                 {
-                    needle.remove(count);
+                    items.RemoveAt(count);
                     return true;
                 }
             }
@@ -160,7 +161,7 @@ namespace MINI_ROYALE
 
         public bool addItem(/*Item item, pos x, pos y (Position pos)*/)
         {
-
+            return true;
         }
 
     }

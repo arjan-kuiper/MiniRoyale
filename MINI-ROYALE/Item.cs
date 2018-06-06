@@ -12,11 +12,13 @@ namespace MINI_ROYALE
         private string itemName;
         private Texture2D sprite;
         private Position position;
+        private Game game;
 
         public bool removeFromMap(/*pos x, pos y (Position pos)*/)
         {
             // TODO
-            Game.remove();
+            game = new Game();
+            game.removeItem();
             return true;
         }
 
