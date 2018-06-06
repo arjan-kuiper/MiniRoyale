@@ -14,21 +14,22 @@ namespace MINI_ROYALE
         private Position position;
         private Game game;
 
-        public bool removeFromMap(/*pos x, pos y (Position pos)*/)
+        public bool RemoveFromMap(/*pos x, pos y (Position pos)*/)
         {
             // TODO
             game = new Game();
-            game.removeItem();
+            game.RemoveItemFromMap();
             return true;
         }
 
-        public bool addToMap(Item item, Position pos)
+        public bool AddToMap(Position pos)
         {
+            // for Item use this
             // TODO
             return true;
         }
 
-        public bool use()
+        public bool Use()
         {
             // TODO
             if(this is Weapon)

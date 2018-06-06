@@ -125,7 +125,7 @@ namespace MINI_ROYALE
         }
 
 
-        public bool removeItem(/*pos x, pos y (Position pos)*/)
+        public bool RemoveItemFromMap(/*pos x, pos y (Position pos)*/)
         {
             // kut shit hier moet weg!!!!
             int x = 0;
@@ -142,8 +142,9 @@ namespace MINI_ROYALE
             return false;
         }
 
-        public bool addItem(/*Item item, pos x, pos y (Position pos)*/)
+        public bool AddItemToMap(/*Item item, pos x, pos y (Position pos)*/)
         {
+            //items.Add(Item item);
             return true;
         }
 
