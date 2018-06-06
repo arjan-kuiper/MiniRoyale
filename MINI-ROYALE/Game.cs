@@ -13,12 +13,18 @@ namespace MINI_ROYALE
         TileMap tm;
         private SpriteBatch spritebatch;
         Player p;
+
+        // voor items op de map (Busy)
+        List<Item/*, Position pos*/> items;
+
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
-            
+
+            // list voor items
+            items = new List<Item/*, Position*/>();
         }
  
        
@@ -133,5 +139,29 @@ namespace MINI_ROYALE
             base.Draw(gameTime);
           
         }
+
+
+        public bool removeItem(/*pos x, pos y (Position pos)*/)
+        {
+            // kut shit hier moet weg!!!!
+            int x = 0;
+            int count = 0;
+            foreach(Item needle in items)
+            {
+                count++;
+                if (x = 0/*needle.pos = pos*/)
+                {
+                    needle.remove(count);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool addItem(/*Item item, pos x, pos y (Position pos)*/)
+        {
+
+        }
+
     }
 }
