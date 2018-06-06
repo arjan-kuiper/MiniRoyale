@@ -14,7 +14,7 @@ namespace MINI_ROYALE
         TileMap tm;
         private SpriteBatch spritebatch;
         Player p;
-        inputHandler h;
+        InputHandler h;
 
         // voor items op de map (Busy)
         private List<Item/*, Position pos*/> items;
@@ -46,7 +46,7 @@ namespace MINI_ROYALE
 
             //Initializes a player
             p = new Player();
-            h = new inputHandler(p);
+            h = new InputHandler(p);
         }
 
         /// <summary>
