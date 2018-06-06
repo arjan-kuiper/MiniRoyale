@@ -112,12 +112,11 @@ namespace MINI_ROYALE
             Texture2D playerImg = Content.Load<Texture2D>("player");
             Vector2 playerOrigin = new Vector2(playerImg.Width / 2f, playerImg.Height / 2f);
             MouseState current_mouse = Mouse.GetState();
-            Vector2 mousePos = new Vector2(current_mouse.X, current_mouse.Y);
-            Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - mousePos;
+            Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
             float rotation = (float)Math.Atan2(dPos.Y, dPos.X);
             System.Diagnostics.Debug.WriteLine("{0} {1}", current_mouse.X, current_mouse.Y);
                         
-            spritebatch.Draw(playerImg, new Vector2(viewport.Width / 2f, viewport.Height / 2f), null, Color.White, rotation, playerOrigin, 1f, SpriteEffects.None, 0f);
+            spritebatch.Draw(playerImg, new Vector2(viewport.Width / 2f, viewport.Height / 2f), null, Color.White, rotation + (float)Math.PI, playerOrigin, 1f, SpriteEffects.None, 0f);
             spritebatch.End();
 
             base.Draw(gameTime);
