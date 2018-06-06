@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace MINI_ROYALE
 {
@@ -18,7 +19,9 @@ namespace MINI_ROYALE
         int _height;
         Tile[,] bitmap;
         private Camera2D cam;
-
+        Game game;
+        
+        
         public Camera2D Camera
         {
             get
@@ -33,20 +36,23 @@ namespace MINI_ROYALE
             _width = width;
             _height = height;
             cam = new Camera2D(gd);
-
             bitmap = generateMap(null);
+            
         }
-
+        public int getTileSize()
+        {
+            return _tileHeight;
+        }
         public Tile[,] generateMap(int[,] mapArray)
         {
             return new Tile[,] {
-                { new Tile(Color.Blue),new Tile(Color.Blue),new Tile(Color.Blue),new Tile(Color.Blue),new Tile(Color.Blue) },
-                { new Tile(Color.Red),new Tile(Color.Red),new Tile(Color.Red),new Tile(Color.Red),new Tile(Color.Red) },
-                {new Tile(Color.White),new Tile(Color.White),new Tile(Color.White),new Tile(Color.White),new Tile(Color.White) },
-                { new Tile(Color.Blue),new Tile(Color.Blue),new Tile(Color.Blue),new Tile(Color.Blue),new Tile(Color.Blue) },
-                { new Tile(Color.OrangeRed), new Tile(Color.OrangeRed),new Tile(Color.OrangeRed), new Tile(Color.OrangeRed), new Tile(Color.OrangeRed) } };
+                {new Tile("sprite", false) }
+        };
+            }
+        public void setGameDevice(Game g)
+        {
+            this.game = g;
         }
-
         public void draw(SpriteBatch spriteBatch)
         {
             Vector2 tilePos = Vector2.Zero;
@@ -56,7 +62,8 @@ namespace MINI_ROYALE
                 for(int y = 0; y < _height; y++)
                 {
                     Tile t = bitmap[x, y];
-                    spriteBatch.FillRectangle(tilePos, new Size2(_tileWidth, _tileHeight), t.getColor());
+                    //spriteBatch.FillRectangle(tilePos, new Size2(_tileWidth, _tileHeight), t.getSprite());
+                    spriteBatch.Draw(game.Content.Load<Texture2D>(t.file) , new Rectangle(x, y, _tileWidth, _tileHeight), Color.Black);
                     tilePos.X += _tileWidth;
                 }
                 tilePos.Y += _tileHeight;

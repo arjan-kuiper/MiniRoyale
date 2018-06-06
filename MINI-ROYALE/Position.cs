@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,12 @@ namespace MINI_ROYALE
         {
             this.x = x;
             this.y = y;
+        }
+        public float[] getGridPosition(float tileSize)
+        {
+            //Format X,Y in tiles.
+            float[] position = { (float)x / tileSize, (float)y / tileSize };
+            return position;
         }
     }
 }

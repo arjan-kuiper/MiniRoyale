@@ -18,28 +18,28 @@ namespace MINI_ROYALE
         }
 
         // function to add an item to the inventory
-        public byte addItem(String information)
+        public bool addItem(Item item)
         {
             // check to see if there is inventory space and if there is to much in the inventorys;
-            int check = getSizeOfInv();
-            if (check > 5)
+            int itemCount = items.Count;
+            if (itemCount > 5)
             {
                 // inventory is overflowed full 
-                return 0;
+                return false;
             }
-            else if (check == 5)
+            else if (itemCount == 5)
             {
                 // inventory is full 
-                return 0;
+                return false;
             }
-            else if (check >= 0)
+            else if (itemCount >= 0)
             {
                 //items.Add(new Item() { information });
-                return 1;
+                return true;
             }
             else
             {
-                return 0;
+                return false;
             }
         }
 
@@ -47,13 +47,7 @@ namespace MINI_ROYALE
         // don't rlly know why...
         public int getSizeOfInv()
         {
-            int sizeInv = 0;
-            // foreach loop trough the list of items
-            foreach (Item needle in items)
-            {
-                sizeInv++;
-            }
-            return sizeInv;
+            return items.Count;
         }
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MINI_ROYALE
 {
-    class Weapon
+    class Weapon : Item , Throwable
     {
+
     }
 }

@@ -19,9 +19,8 @@ namespace MINI_ROYALE
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
             
-            
         }
-
+ 
        
 
         /// <summary>
@@ -35,7 +34,7 @@ namespace MINI_ROYALE
             // TODO: Add your initialization logic here
             base.Initialize();
             spritebatch = new SpriteBatch(GraphicsDevice);
-            tm = new TileMap(GraphicsDevice,100, 100, 5, 5);
+            tm = new TileMap(GraphicsDevice,100, 100, 1, 1);
 
             //Initializes a player
             p = new Player();
@@ -93,8 +92,19 @@ namespace MINI_ROYALE
             }
             moveVel *= speed;
             p.Move(moveVel);
-            
             tm.Camera.LookAt(new Vector2(p.pos.x, p.pos.y));
+
+        }
+        protected bool collisionCheck()
+        {
+            p.pos.getGridPosition(tm.getTileSize());
+            //Check for colission
+            if (true)
+            {
+                //dome something with the colission
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -104,6 +114,7 @@ namespace MINI_ROYALE
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Orange);
+            tm.setGameDevice(this);
             tm.draw(spritebatch);
 
             spritebatch.Begin();

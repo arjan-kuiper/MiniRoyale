@@ -8,5 +8,6 @@ namespace MINI_ROYALE
 {
     interface Throwable
     {
+
     }
 }

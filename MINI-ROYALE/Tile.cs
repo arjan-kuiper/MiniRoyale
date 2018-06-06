@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +11,14 @@ namespace MINI_ROYALE
 {
     class Tile
     {
-        Color c;
-        public Tile(Color c)
+
+        public static bool hasCollision;
+        public string file { get; set; }
+        public Tile(string file, bool collision)
         {
-            this.c = c;
+            this.file = file;
+            hasCollision = collision;
         }
-        public Color getColor()
-        {
-            return c;
-        }
+       
     }
 }
