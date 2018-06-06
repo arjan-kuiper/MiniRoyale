@@ -22,7 +22,7 @@ namespace MINI_ROYALE
         public Player()
         {
             this.pos = new Position(0, 0);
-            inventory = new Inventory();
+            inventory = new Inventory(this);
         }
 
         public void Move(Vector2 vec)
@@ -35,7 +35,7 @@ namespace MINI_ROYALE
 
         public int pickup(Item item)
         {
-            inventory.addItem(item);
+            inventory.AddItemToInv(item);
             return 0;
         }
 

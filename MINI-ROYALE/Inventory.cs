@@ -11,41 +11,55 @@ namespace MINI_ROYALE
         // list of Item as items
         private List<Item> items;
 
+        private Player player;
+
         // making the list Item with a size of 5
-        public Inventory()
+        public Inventory(Player p)
         {
             items = new List<Item>(5);
+            player = p;
         }
 
         // function to add an item to the inventory
-        public bool addItem(Item item)
+        public bool AddItemToInv(Item item)
         {
             // check to see if there is inventory space and if there is to much in the inventorys;
-            int itemCount = items.Count;
-            if (itemCount > 5)
+            if (GetSizeOfInv() > 5)
             {
                 // inventory is overflowed full 
                 return false;
             }
-            else if (itemCount == 5)
+            else if (GetSizeOfInv() == 5)
             {
                 // inventory is full 
                 return false;
             }
-            else if (itemCount >= 0)
+            else if (GetSizeOfInv() >= 0 && GetSizeOfInv() < 5)
             {
-                //items.Add(new Item() { information });
+                // add item to inv
+                items.Add(item);
+                item.RemoveFromMap();
+                item.AddToMap(player.pos);
                 return true;
             }
             else
             {
+                // something went wrong
                 return false;
             }
         }
 
+        public bool RemoveItemFromInv(int x /*Item item of index nummer*/)
+        {
+            Item i = items[x];
+            items.RemoveAt(x);
+            i.AddToMap(player.pos);
+            return true;
+        }
+
         // function to check the size of the list.
         // don't rlly know why...
-        public int getSizeOfInv()
+        public int GetSizeOfInv()
         {
             return items.Count;
         }
