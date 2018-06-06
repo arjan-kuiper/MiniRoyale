@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace MINI_ROYALE
 {
-    class inputHandler
+    class InputHandler
     {
         Player p;
-        public inputHandler(Player pl)
+        public InputHandler(Player pl)
         {
             p = pl;
         }
