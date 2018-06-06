@@ -14,6 +14,7 @@ namespace MINI_ROYALE
         TileMap tm;
         private SpriteBatch spritebatch;
         Player p;
+        inputHandler h;
 
         // voor items op de map (Busy)
         private List<Item/*, Position pos*/> items;
@@ -45,7 +46,7 @@ namespace MINI_ROYALE
 
             //Initializes a player
             p = new Player();
-            
+            h = new inputHandler(p);
         }
 
         /// <summary>
@@ -79,26 +80,8 @@ namespace MINI_ROYALE
         {
             // TODO: Add your update logic here
             base.Update(gameTime);
-            float speed = 3.5224f;
-            Vector2 moveVel = Vector2.Zero;
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                moveVel += new Vector2(0, -1);
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                moveVel += new Vector2(0, 1);
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                moveVel += new Vector2(-1, 0);
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                moveVel +=new Vector2(1, 0);
-            }
-            moveVel *= speed;
-            p.Move(moveVel);
+
+            h.walk();
             tm.Camera.LookAt(new Vector2(p.pos.x, p.pos.y));
 
         }

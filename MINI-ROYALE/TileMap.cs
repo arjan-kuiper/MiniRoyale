@@ -69,6 +69,7 @@ namespace MINI_ROYALE
                 tilePos.Y += _tileHeight;
                 tilePos.X = 0;
             }
+            System.Diagnostics.Debug.WriteLine("Draw");
             spriteBatch.End();
         }
     }
