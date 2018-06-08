@@ -42,7 +42,7 @@ namespace MINI_ROYALE
             // TODO: Add your initialization logic here
             base.Initialize();
             spritebatch = new SpriteBatch(GraphicsDevice);
-            tm = new TileMap(GraphicsDevice,100, 100, 1, 1);
+            tm = new TileMap(GraphicsDevice);
 
             //Initializes a player
             p = new Player();
@@ -87,13 +87,7 @@ namespace MINI_ROYALE
         }
         protected bool collisionCheck()
         {
-            p.pos.getGridPosition(tm.getTileSize());
-            //Check for colission
-            if (true)
-            {
-                //dome something with the colission
-                return true;
-            }
+            // TODO
             return false;
         }
 
@@ -114,9 +108,9 @@ namespace MINI_ROYALE
             MouseState current_mouse = Mouse.GetState();
             Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
             float rotation = (float)Math.Atan2(dPos.Y, dPos.X);
-            System.Diagnostics.Debug.WriteLine("{0} {1}", current_mouse.X, current_mouse.Y);
+           // System.Diagnostics.Debug.WriteLine("{0} {1}", current_mouse.X, current_mouse.Y);
                         
-            spritebatch.Draw(playerImg, new Vector2(viewport.Width / 2f, viewport.Height / 2f), null, Color.White, rotation + (float)Math.PI, playerOrigin, 1f, SpriteEffects.None, 0f);
+            spritebatch.Draw(playerImg, new Vector2(viewport.Width / 2f, viewport.Height / 2f), null, Color.White, rotation + (float)Math.PI, playerOrigin, .5f, SpriteEffects.None, 0f);
             spritebatch.End();
 
             base.Draw(gameTime);

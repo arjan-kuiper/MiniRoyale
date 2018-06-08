@@ -8,16 +8,15 @@ using MonoGame.Extended.Tiled;
 using MonoGame.Extended;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using System.IO;
 
 namespace MINI_ROYALE
 {
     class TileMap
     {
-        int _tileWidth;
-        int _tileHeight;
-        int _width;
-        int _height;
-        Tile[,] bitmap;
+        bool mapLoaded = false;
+        int[,] mapCoords;
+        Dictionary<int[], Tile> bitmap = new Dictionary<int[], Tile>();
         private Camera2D cam;
         Game game;
         
@@ -29,48 +28,62 @@ namespace MINI_ROYALE
                 return cam;
             }
         }
-        public TileMap(GraphicsDevice gd, int Tilewidth, int TileHeight, int width, int height)
+        public TileMap(GraphicsDevice gd)
         {
-            _tileWidth = Tilewidth;
-            _tileHeight = TileHeight;
-            _width = width;
-            _height = height;
             cam = new Camera2D(gd);
-            bitmap = generateMap(null);
-            
+            //cam.Zoom = 5;
+            loadMap();
         }
-        public int getTileSize()
-        {
-            return _tileHeight;
-        }
-        public Tile[,] generateMap(int[,] mapArray)
-        {
-            return new Tile[,] {
-                {new Tile("sprite", false) }
-        };
-            }
         public void setGameDevice(Game g)
         {
             this.game = g;
         }
         public void draw(SpriteBatch spriteBatch)
         {
-            Vector2 tilePos = Vector2.Zero;
-            spriteBatch.Begin(transformMatrix: cam.GetViewMatrix());
-            for (int x = 0; x< _width; x++)
+            if (!mapLoaded) return;
+            spriteBatch.Begin(transformMatrix: cam.GetViewMatrix(), samplerState: SamplerState.PointClamp);
+            foreach (KeyValuePair<int[], Tile> tile in bitmap)
             {
-                for(int y = 0; y < _height; y++)
-                {
-                    Tile t = bitmap[x, y];
-                    //spriteBatch.FillRectangle(tilePos, new Size2(_tileWidth, _tileHeight), t.getSprite());
-                    spriteBatch.Draw(game.Content.Load<Texture2D>(t.file) , new Rectangle(x, y, _tileWidth, _tileHeight), Color.Black);
-                    tilePos.X += _tileWidth;
-                }
-                tilePos.Y += _tileHeight;
-                tilePos.X = 0;
+                int[] coords = tile.Key;
+                Tile currTile = tile.Value;
+                Texture2D tileToUse = game.Content.Load<Texture2D>("environment/1");
+                
+                spriteBatch.Draw(tileToUse, new Vector2(coords[0], coords[1]), Color.White);
             }
-            System.Diagnostics.Debug.WriteLine("Draw");
             spriteBatch.End();
+        }
+
+        private async void loadMap()
+        {
+            var localizationDirectory = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
+            Windows.Storage.StorageFile sampleFile = await localizationDirectory.GetFileAsync("map.txt");
+            string txt = await Windows.Storage.FileIO.ReadTextAsync(sampleFile);
+
+            int[] rawCoords = txt.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+            int[,] coords = new int[401, 401];
+            int currRow = 0, currColumn = 0;
+            for(int i = 0; i < rawCoords.Length; i++)
+            {
+                coords[currRow, currColumn] = rawCoords[i];
+                if(i % 400 == 0)
+                {
+                    currRow++;
+                    currColumn = 0;
+                }
+                currColumn++;
+            }
+            mapCoords = coords;
+            
+            for (int y = 1; y < 400; y++)
+            {
+                for(int x = 1; x < 400; x++)
+                {
+                    int[] c = new int[] { x * 16, y * 16};
+                    bitmap.Add(c, new Tile("environment/" + coords[y, x], false));
+                }
+            }
+
+            mapLoaded = true;
         }
     }
 }
