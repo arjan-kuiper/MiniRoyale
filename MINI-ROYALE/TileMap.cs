@@ -46,7 +46,7 @@ namespace MINI_ROYALE
             {
                 int[] coords = tile.Key;
                 Tile currTile = tile.Value;
-                Texture2D tileToUse = game.Content.Load<Texture2D>("environment/1");
+                Texture2D tileToUse = game.Content.Load<Texture2D>(currTile.file);
                 
                 spriteBatch.Draw(tileToUse, new Vector2(coords[0], coords[1]), Color.White);
             }
