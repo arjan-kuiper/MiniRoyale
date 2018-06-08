@@ -100,21 +100,9 @@ namespace MINI_ROYALE
             GraphicsDevice.Clear(Color.Orange);
             tm.setGameDevice(this);
             tm.draw(spritebatch);
-
-            spritebatch.Begin();
-            Viewport viewport = graphics.GraphicsDevice.Viewport;
-            Texture2D playerImg = Content.Load<Texture2D>("player");
-            Vector2 playerOrigin = new Vector2(playerImg.Width / 2f, playerImg.Height / 2f);
-            MouseState current_mouse = Mouse.GetState();
-            Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
-            float rotation = (float)Math.Atan2(dPos.Y, dPos.X);
-           // System.Diagnostics.Debug.WriteLine("{0} {1}", current_mouse.X, current_mouse.Y);
-                        
-            spritebatch.Draw(playerImg, new Vector2(viewport.Width / 2f, viewport.Height / 2f), null, Color.White, rotation + (float)Math.PI, playerOrigin, .5f, SpriteEffects.None, 0f);
-            spritebatch.End();
+            p.draw(spritebatch, this);
 
             base.Draw(gameTime);
-          
         }
 
 
