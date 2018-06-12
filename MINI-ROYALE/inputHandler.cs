@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,16 @@ namespace MINI_ROYALE
             }
             moveVel *= speed;
             p.Move(moveVel);
+        }
+
+        public void mouseListener()
+        {
+            MouseState ms = Mouse.GetState();
+            if(ms.LeftButton == ButtonState.Pressed)
+            {
+                p.shoot(new Vector2(0,0), 0);
+                
+            }
         }
 
     }
