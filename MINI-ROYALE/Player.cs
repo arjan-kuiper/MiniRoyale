@@ -35,10 +35,10 @@ namespace MINI_ROYALE
             Vector2 playerOrigin = new Vector2(playerImg.Width / 2f, playerImg.Height / 2f);
             MouseState current_mouse = Mouse.GetState();
             Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
-            float rotation = (float)Math.Atan2(dPos.Y, dPos.X);
+            float rotation = (float)Math.Atan2(dPos.Y, dPos.X) + (float)Math.PI;
             // System.Diagnostics.Debug.WriteLine("{0} {1}", current_mouse.X, current_mouse.Y);
 
-            spriteBatch.Draw(playerImg, new Vector2(viewport.Width / 2f, viewport.Height / 2f), null, Color.White, rotation + (float)Math.PI, playerOrigin, .5f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(playerImg, new Vector2(viewport.Width / 2f, viewport.Height / 2f), null, Color.White, rotation, playerOrigin, .5f, SpriteEffects.None, 0f);
             spriteBatch.End();
         }
 
@@ -99,10 +99,9 @@ namespace MINI_ROYALE
         }
 
 
-        private float shoot(Vector2 pos, float orientation)
+        public void shoot(Vector2 toPos, float orientation)
         {
             
-            return 0;
         }
 
         private bool checkCollision(Vector2 pos)

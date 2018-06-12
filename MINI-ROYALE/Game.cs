@@ -10,6 +10,7 @@ namespace MINI_ROYALE
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
+        public static Game instance;
         GraphicsDeviceManager graphics;
         TileMap tm;
         private SpriteBatch spritebatch;
@@ -27,9 +28,8 @@ namespace MINI_ROYALE
 
             // list voor items
             items = new List<Item/*, Position*/>();
+            instance = this;
         }
- 
-       
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -82,6 +82,7 @@ namespace MINI_ROYALE
             base.Update(gameTime);
 
             h.walk();
+            h.mouseListener();
             tm.Camera.LookAt(new Vector2(p.pos.X, p.pos.Y));
 
         }

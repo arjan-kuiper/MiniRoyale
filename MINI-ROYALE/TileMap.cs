@@ -74,9 +74,9 @@ namespace MINI_ROYALE
             }
             mapCoords = coords;
             
-            for (int y = 1; y < 400; y++)
+            for (int y = 1; y < 200; y++)
             {
-                for(int x = 1; x < 400; x++)
+                for(int x = 1; x < 200; x++)
                 {
                     int[] c = new int[] { x * 16, y * 16};
                     bitmap.Add(c, new Tile("environment/" + coords[y, x], false));
