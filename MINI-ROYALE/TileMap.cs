@@ -16,10 +16,10 @@ namespace MINI_ROYALE
     {
         bool mapLoaded = false;
         int[,] mapCoords;
-        Dictionary<int[], Tile> bitmap = new Dictionary<int[], Tile>();
+        public Dictionary<int[], Tile> bitmap = new Dictionary<int[], Tile>();
         private Camera2D cam;
         Game game;
-        
+        public static TileMap instance;
         
         public Camera2D Camera
         {
@@ -33,6 +33,7 @@ namespace MINI_ROYALE
             cam = new Camera2D(gd);
             cam.Zoom = 5; // This seems about right
             loadMap();
+            instance = this;
         }
         public void setGameDevice(Game g)
         {
