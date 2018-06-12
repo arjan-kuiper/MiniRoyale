@@ -88,7 +88,7 @@ namespace MINI_ROYALE
                 {
                     Tuple<int, int> c = new Tuple<int, int>(x*16,y*16);
                     
-                    bitmap.Add(c, new Tile("environment/" + coords[y, x], false));
+                    bitmap.Add(c, new Tile("environment/" + coords[y, x], coords[y, x]));
                 }
             }
 
