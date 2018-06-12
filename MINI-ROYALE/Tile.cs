@@ -14,10 +14,18 @@ namespace MINI_ROYALE
 
         public static bool hasCollision;
         public string file { get; set; }
-        public Tile(string file, bool collision)
+        public Tile(string file, int tileId)
         {
             this.file = file;
-            hasCollision = collision;
+            switch (tileId)
+            {
+                case 1: case 2://Tiles met collision DEZE DOORLOPEN!!!
+                    hasCollision = true;
+                    break;
+                default://loopbare tiles
+                    hasCollision = false;
+                    break;
+            }
         }
        
     }
