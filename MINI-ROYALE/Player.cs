@@ -11,7 +11,7 @@ namespace MINI_ROYALE
 {
     class Player
     {
-        public Position pos;
+        public Vector2 pos;
         private bool alive;
         private byte hp;
         private byte armor;
@@ -23,7 +23,7 @@ namespace MINI_ROYALE
 
         public Player()
         {
-            this.pos = new Position(0, 0);
+            this.pos = new Vector2(0, 0);
             inventory = new Inventory(this);
         }
 
@@ -44,8 +44,8 @@ namespace MINI_ROYALE
 
         public void Move(Vector2 vec)
         {
-            this.pos.x += vec.X;
-            pos.y += vec.Y;
+            this.pos.X += vec.X;
+            pos.Y += vec.Y;
             //System.Diagnostics.Debug.WriteLine("{0} {1}", pos.x, pos.y);
         }
         
@@ -99,13 +99,13 @@ namespace MINI_ROYALE
         }
 
 
-        private float shoot(Position pos, float orientation)
+        private float shoot(Vector2 pos, float orientation)
         {
-            // TODO
+            
             return 0;
         }
 
-        private bool checkCollision(Position pos)
+        private bool checkCollision(Vector2 pos)
         {
             // TODO
             return true;

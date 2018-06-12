@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace MINI_ROYALE
             return true;
         }
 
-        public bool AddToMap(Position pos)
+        public bool AddToMap(Vector2 pos)
         {
             // for Item use this
             // TODO

@@ -82,7 +82,7 @@ namespace MINI_ROYALE
             base.Update(gameTime);
 
             h.walk();
-            tm.Camera.LookAt(new Vector2(p.pos.x, p.pos.y));
+            tm.Camera.LookAt(new Vector2(p.pos.X, p.pos.Y));
 
         }
         protected bool collisionCheck()
