@@ -27,6 +27,12 @@ namespace MINI_ROYALE
             inventory = new Inventory(this);
         }
 
+        public int collidesWithSurrounding()
+        {
+           
+            return 1;
+        }
+
         public void draw(SpriteBatch spriteBatch, Game game)
         {
             spriteBatch.Begin();
