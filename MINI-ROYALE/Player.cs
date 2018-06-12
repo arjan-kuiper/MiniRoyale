@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace MINI_ROYALE
 {
     class Player
@@ -29,7 +28,17 @@ namespace MINI_ROYALE
 
         public int collidesWithSurrounding()
         {
-           
+            var xCoord = (int)this.pos.X / 16;
+            var yCoord = (int)this.pos.Y / 16;
+            //Half block check met modulo
+            for (int y = yCoord - 1; y < yCoord + 1; y++)
+            {
+                for (int x = xCoord - 1; x <= xCoord+1; x++)
+                {
+                    //if (new Rectangle(pos.X, pos.Y, 16, 16)
+                    //If player left side > block to left right side && collision is true CONFLICT
+                }
+            }
             return 1;
         }
 

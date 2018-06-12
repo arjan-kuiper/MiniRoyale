@@ -16,7 +16,7 @@ namespace MINI_ROYALE
     {
         bool mapLoaded = false;
         int[,] mapCoords;
-        public Dictionary<int[], Tile> bitmap = new Dictionary<int[], Tile>();
+        public Dictionary<Tuple<int,int>, Tile> bitmap = new Dictionary<Tuple<int, int>, Tile>();
         private Camera2D cam;
         Game game;
         public static TileMap instance;
@@ -27,6 +27,13 @@ namespace MINI_ROYALE
             {
                 return cam;
             }
+        }
+        
+
+        public Tile getTileOnLoc(int x, int y)
+        {
+            return bitmap[new Tuple<int,int>(x,y)];
+
         }
         public TileMap(GraphicsDevice gd)
         {
@@ -43,13 +50,13 @@ namespace MINI_ROYALE
         {
             if (!mapLoaded) return;
             spriteBatch.Begin(transformMatrix: cam.GetViewMatrix(), samplerState: SamplerState.PointClamp);
-            foreach (KeyValuePair<int[], Tile> tile in bitmap)
+            foreach (KeyValuePair<Tuple<int,int>, Tile> tile in bitmap)
             {
-                int[] coords = tile.Key;
+                Tuple<int,int> coords = tile.Key;
                 Tile currTile = tile.Value;
                 Texture2D tileToUse = game.Content.Load<Texture2D>(currTile.file);
                 
-                spriteBatch.Draw(tileToUse, new Vector2(coords[0], coords[1]), Color.White);
+                spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.White);
             }
             spriteBatch.End();
         }
@@ -79,7 +86,8 @@ namespace MINI_ROYALE
             {
                 for(int x = 1; x < 400; x++)
                 {
-                    int[] c = new int[] { x * 16, y * 16};
+                    Tuple<int, int> c = new Tuple<int, int>(x*16,y*16);
+                    
                     bitmap.Add(c, new Tile("environment/" + coords[y, x], false));
                 }
             }
