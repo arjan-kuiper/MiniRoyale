@@ -46,17 +46,26 @@ namespace MINI_ROYALE
         {
             this.game = g;
         }
-        public void draw(SpriteBatch spriteBatch)
+        public void draw(SpriteBatch spriteBatch, Player p)
         {
             if (!mapLoaded) return;
             spriteBatch.Begin(transformMatrix: cam.GetViewMatrix(), samplerState: SamplerState.PointClamp);
+            Viewport viewport = game.GraphicsDevice.Viewport;
+
             foreach (KeyValuePair<Tuple<int,int>, Tile> tile in bitmap)
             {
                 Tuple<int,int> coords = tile.Key;
-                Tile currTile = tile.Value;
-                Texture2D tileToUse = game.Content.Load<Texture2D>(currTile.file);
-                
-                spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.White);
+                // Only draw visible tiles
+                if(coords.Item1 > p.pos.X - (viewport.Width / 2) && coords.Item1 < p.pos.X + (viewport.Width / 2))
+                {
+                    if (coords.Item2 > p.pos.Y - (viewport.Height / 2) && coords.Item2 < p.pos.Y + (viewport.Height / 2))
+                    {
+                        Tile currTile = tile.Value;
+                        Texture2D tileToUse = game.Content.Load<Texture2D>(currTile.file);
+
+                        spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.White);
+                    }
+                }
             }
             spriteBatch.End();
         }
@@ -82,9 +91,9 @@ namespace MINI_ROYALE
             }
             mapCoords = coords;
             
-            for (int y = 1; y < 200; y++)
+            for (int y = 1; y < 400; y++)
             {
-                for(int x = 1; x < 200; x++)
+                for(int x = 1; x < 400; x++)
                 {
                     Tuple<int, int> c = new Tuple<int, int>(x*16,y*16);
                     

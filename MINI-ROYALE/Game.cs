@@ -100,7 +100,7 @@ namespace MINI_ROYALE
         {
             GraphicsDevice.Clear(Color.Orange);
             tm.setGameDevice(this);
-            tm.draw(spritebatch);
+            tm.draw(spritebatch, p);
             p.draw(spritebatch, this);
 
             base.Draw(gameTime);

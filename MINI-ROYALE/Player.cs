@@ -116,7 +116,7 @@ namespace MINI_ROYALE
 
         public void shoot(Vector2 toPos, float orientation)
         {
-            
+            System.Diagnostics.Debug.WriteLine("Shoot");
         }
 
         private bool checkCollision(Vector2 pos)
