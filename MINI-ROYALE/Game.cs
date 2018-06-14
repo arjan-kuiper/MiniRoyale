@@ -18,7 +18,7 @@ namespace MINI_ROYALE
         InputHandler h;
 
         // voor items op de map (Busy)
-        private List<Item/*, Position pos*/> items;
+        private Dictionary<Vector2, Item> items;
 
         public Game()
         {
@@ -27,7 +27,7 @@ namespace MINI_ROYALE
             Content.RootDirectory = "Content";
 
             // list voor items
-            items = new List<Item/*, Position*/>();
+            items = new Dictionary<Vector2, Item>();
             instance = this;
         }
 
@@ -86,7 +86,7 @@ namespace MINI_ROYALE
             tm.Camera.LookAt(new Vector2(p.pos.X, p.pos.Y));
 
         }
-        protected bool collisionCheck()
+        protected bool CollisionCheck()
         {
             // TODO
             return false;
@@ -107,26 +107,23 @@ namespace MINI_ROYALE
         }
 
 
-        public bool RemoveItemFromMap(/*pos x, pos y (Position pos)*/)
+        public bool RemoveItemFromMap(Vector2 pos)
         {
-            // kut shit hier moet weg!!!!
-            int x = 0;
-            int count = 0;
-            foreach(Item needle in items)
+            foreach(KeyValuePair<Vector2, Item> needle in items)
             {
-                count++;
-                if (x == 0/*needle.pos = pos*/)
+                if (pos == needle.Key)
                 {
-                    items.RemoveAt(count);
+                    items.Remove(needle.Key);
                     return true;
                 }
             }
             return false;
         }
 
-        public bool AddItemToMap(/*Item item, pos x, pos y (Position pos)*/)
+        public bool AddItemToMap(Vector2 pos, Item item)
         {
-            //items.Add(Item item);
+
+            items.Add(pos, item);
             return true;
         }
 

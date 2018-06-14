@@ -6,8 +6,58 @@ using System.Threading.Tasks;
 
 namespace MINI_ROYALE
 {
-    class Weapon : Item , Throwable
+    class Weapon : Item, Throwable
     {
+        private float damage { get; set; }
+        private float shotCoolDown { get; set; }
+        private enum FiringType { SEMI, FULL }
+        private int bulletInClip { get; set; }
+        private int maxBulletInClip { get; set; }
+        private float spread { get; set; }
+        private float recoil { get; set; }
 
+        private int Reload()
+        {
+            if (bulletInClip == 0)
+            {
+                bulletInClip = maxBulletInClip;
+            }
+            return bulletInClip;
+        }
+
+        private int Fire()
+        {
+            shotCoolDown = 111;
+            // something like this?
+            for (float i = 0; i < 999; i++)
+            {
+                if (i == shotCoolDown)
+                {
+                    i = 0;
+                }
+                // something for full and semi?? override or??
+                if (bulletInClip > 0)
+                {
+                    //shoot
+                    // shoot bullet don't know yet how
+                }
+                else
+                {
+                    // reload and can't shoot
+                    Reload();
+                    i = 0;
+                }
+            }
+            return 0;
+        }
+
+        public void ThrowItem(){
+            
+        }
+
+        public bool Use()
+        {
+            return true;
+        }
     }
 }

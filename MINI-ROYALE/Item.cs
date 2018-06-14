@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 
 namespace MINI_ROYALE
 {
-    abstract class Item
+    abstract public class Item
     {
-        private string itemName;
-        private Texture2D sprite;
-        private Position position;
-        private Game game;
+        private string itemName { get; set; }
+        private Texture2D sprite { get; set; }
+        private Position position { get; set; }
+        private Game game { get; }
 
-        public bool RemoveFromMap(/*pos x, pos y (Position pos)*/)
+        public bool RemoveItemFromMap(Vector2 pos)
         {
             // TODO
-            game = new Game();
-            game.RemoveItemFromMap();
+            game.RemoveItemFromMap(pos);
             return true;
         }
 
-        public bool AddToMap(Vector2 pos)
+        public bool AddItemToMap(Vector2 pos, Item item)
         {
             // for Item use this
             // TODO
+            game.AddItemToMap(pos, item);
             return true;
         }
 
