@@ -45,6 +45,7 @@ namespace MINI_ROYALE
             tm = new TileMap(GraphicsDevice);
 
             //Initializes a player
+            
             p = new Player();
             h = new InputHandler(p);
         }
