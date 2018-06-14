@@ -33,8 +33,8 @@ namespace MINI_ROYALE
 
         private int Fire()
         {
-            shotCoolDown = 111;
             // something like this?
+            // for loop for shots maybe 2 fast 
             for (float i = 0; i < 999; i++)
             {
                 if (i == shotCoolDown)
@@ -44,8 +44,9 @@ namespace MINI_ROYALE
                 // something for full and semi?? override or??
                 if (bulletInClip > 0)
                 {
-                    //shoot
+                    // SHOOT
                     // shoot bullet don't know yet how
+
                 }
                 else
                 {
@@ -57,8 +58,9 @@ namespace MINI_ROYALE
             return 0;
         }
 
-        public void ThrowItem(){
-            
+        public void ThrowItem()
+        {
+
         }
 
         public bool Use()
