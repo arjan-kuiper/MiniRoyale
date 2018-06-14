@@ -19,6 +19,7 @@ namespace MINI_ROYALE
         public void walk()
         {
             float speed = 1f;
+            bool running = false;
             Vector2 moveVel = Vector2.Zero;
             KeyboardState k = Keyboard.GetState();
             if (k.IsKeyDown(Keys.Up) || k.IsKeyDown(Keys.W))
@@ -37,6 +38,12 @@ namespace MINI_ROYALE
             {
                 moveVel += new Vector2(1, 0);
             }
+            if (k.IsKeyDown(Keys.LeftShift))
+            {
+                running = true;
+            }
+
+            if (running) speed *= 2;
             moveVel *= speed;
             p.Move(moveVel);
         }

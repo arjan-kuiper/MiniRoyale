@@ -57,5 +57,14 @@ namespace MINI_ROYALE
             }
             return true;
         }
+
+        public void draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(transformMatrix: TileMap.instance.cam.GetViewMatrix());
+            
+            // Need rectangle stuff so we can resize it
+            spriteBatch.Draw(sprite, new Rectangle((int)pos.X, (int)pos.Y, 16, 16), new Rectangle(0, 0, sprite.Width, sprite.Height), Color.White);
+            spriteBatch.End();
+        }
     }
 }

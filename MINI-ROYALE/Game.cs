@@ -56,7 +56,7 @@ namespace MINI_ROYALE
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            
+            items.Add(new Vector2(32, 32), new HealingItem("test", Content.Load<Texture2D>("items/medic"), new Vector2(32, 32)));
            
 
             // TODO: use this.Content to load your game content here
@@ -101,6 +101,10 @@ namespace MINI_ROYALE
             GraphicsDevice.Clear(Color.Orange);
             tm.setGameDevice(this);
             tm.draw(spritebatch, p);
+            foreach(KeyValuePair<Vector2, Item> item in items)
+            {
+                item.Value.draw(spritebatch);
+            }
             p.draw(spritebatch, this);
 
             base.Draw(gameTime);
