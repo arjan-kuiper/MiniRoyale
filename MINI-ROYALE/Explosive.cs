@@ -65,7 +65,9 @@ namespace MINI_ROYALE
                         GetBlastRadius();
                         dmg = 70;
                     }
+                    x = 0;
                 }
+                i = 0;
             }
         }
 
