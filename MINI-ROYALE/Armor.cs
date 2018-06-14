@@ -17,5 +17,35 @@ namespace MINI_ROYALE
         {
 
         }
+
+        public void Use()
+        {
+            InterruptUse();
+        }
+
+        public void InterruptUse()
+        {
+            // check so you have to wait 1 time and not more than ones
+            int check = 0;
+            // armor default test has te boe replaced with player.armor
+            int armor = 0;
+            if(check == 0)
+            {
+                // waiting time
+                for (int i = 0; i == 500; i++)
+                {
+                    // check to 1
+                    check = 1;
+                }
+            }
+            else if (check == 1)
+            {
+                // armor increased
+                armor = 100;
+                // set check to 2
+                check = 2;
+            }
+            
+        }
     }
 }
