@@ -12,13 +12,19 @@ namespace MINI_ROYALE
     {
         private string itemName { get; set; }
         private Texture2D sprite { get; set; }
-        private Position position { get; set; }
-        private Game game { get; }
+        private Vector2 pos { get; set; }
+
+        public Item(String itemName, Texture2D sprite, Vector2 pos)
+        {
+            this.itemName = itemName;
+            this.sprite = sprite;
+            this.pos = pos;
+        }
 
         public bool RemoveItemFromMap(Vector2 pos)
         {
             // TODO
-            game.RemoveItemFromMap(pos);
+            Game.instance.RemoveItemFromMap(pos);
             return true;
         }
 
@@ -26,7 +32,7 @@ namespace MINI_ROYALE
         {
             // for Item use this
             // TODO
-            game.AddItemToMap(pos, item);
+            Game.instance.AddItemToMap(pos, item);
             return true;
         }
 
@@ -50,6 +56,15 @@ namespace MINI_ROYALE
 
             }
             return true;
+        }
+
+        public void draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(transformMatrix: TileMap.instance.cam.GetViewMatrix());
+            
+            // Need rectangle stuff so we can resize it
+            spriteBatch.Draw(sprite, new Rectangle((int)pos.X, (int)pos.Y, 16, 16), new Rectangle(0, 0, sprite.Width, sprite.Height), Color.White);
+            spriteBatch.End();
         }
     }
 }

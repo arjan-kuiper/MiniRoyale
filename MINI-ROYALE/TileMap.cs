@@ -17,7 +17,7 @@ namespace MINI_ROYALE
         public bool mapLoaded = false;
         int[,] mapCoords;
         public Dictionary<Tuple<int,int>, Tile> bitmap = new Dictionary<Tuple<int, int>, Tile>();
-        private Camera2D cam;
+        public Camera2D cam;
         Game game;
         public static TileMap instance;
         

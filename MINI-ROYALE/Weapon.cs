@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,10 @@ namespace MINI_ROYALE
         private float spread { get; set; }
         private float recoil { get; set; }
 
+        public Weapon(String itemName, Texture2D sprite, Vector2 pos) : base(itemName, sprite, pos)
+        {
+
+        }
         private int Reload()
         {
             if (bulletInClip == 0)
@@ -27,8 +33,8 @@ namespace MINI_ROYALE
 
         private int Fire()
         {
-            shotCoolDown = 111;
             // something like this?
+            // for loop for shots maybe 2 fast 
             for (float i = 0; i < 999; i++)
             {
                 if (i == shotCoolDown)
@@ -38,8 +44,9 @@ namespace MINI_ROYALE
                 // something for full and semi?? override or??
                 if (bulletInClip > 0)
                 {
-                    //shoot
+                    // SHOOT
                     // shoot bullet don't know yet how
+
                 }
                 else
                 {
@@ -51,12 +58,14 @@ namespace MINI_ROYALE
             return 0;
         }
 
-        public void ThrowItem(){
-            
+        public void ThrowItem()
+        {
+            // throw function from trhow class here.
         }
 
         public bool Use()
         {
+            Fire();
             return true;
         }
     }
