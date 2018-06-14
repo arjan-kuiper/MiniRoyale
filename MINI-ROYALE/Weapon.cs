@@ -62,7 +62,7 @@ namespace MINI_ROYALE
             // throw function from trhow class here.
         }
 
-        public bool Use()
+        public new bool Use()
         {
             Fire();
             return true;

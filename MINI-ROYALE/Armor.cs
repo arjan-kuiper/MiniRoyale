@@ -18,7 +18,7 @@ namespace MINI_ROYALE
 
         }
 
-        public void Use()
+        public new void Use()
         {
             InterruptUse();
         }
