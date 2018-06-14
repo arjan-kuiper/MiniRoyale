@@ -14,8 +14,11 @@ namespace MINI_ROYALE
 
         public static bool hasCollision;
         public string file { get; set; }
-        public Tile(string file, int tileId)
+        public Rectangle Collisionbox { get; set; }
+        public Vector2 position;
+        public Tile(string file, int tileId, Vector2 pos)
         {
+            this.position = pos;
             this.file = file;
             switch (tileId)
             {

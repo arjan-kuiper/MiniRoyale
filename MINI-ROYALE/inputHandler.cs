@@ -46,7 +46,7 @@ namespace MINI_ROYALE
             MouseState ms = Mouse.GetState();
             if(ms.LeftButton == ButtonState.Pressed)
             {
-                p.shoot(new Vector2(0,0), 0);
+                p.shoot();
                 
             }
         }
