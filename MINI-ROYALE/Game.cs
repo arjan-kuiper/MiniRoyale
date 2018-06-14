@@ -57,6 +57,9 @@ namespace MINI_ROYALE
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             items.Add(new Vector2(32, 32), new HealingItem("test", Content.Load<Texture2D>("items/medic"), new Vector2(32, 32)));
+            items.Add(new Vector2(32, 48), new HealingItem("test", Content.Load<Texture2D>("items/bandage"), new Vector2(32, 48)));
+            items.Add(new Vector2(32, 64), new HealingItem("test", Content.Load<Texture2D>("items/potion-health"), new Vector2(32, 64)));
+            items.Add(new Vector2(32, 80), new Weapon("test", Content.Load<Texture2D>("items/pistol"), new Vector2(32, 80)));
            
 
             // TODO: use this.Content to load your game content here
