@@ -60,11 +60,12 @@ namespace MINI_ROYALE
 
         public void ThrowItem()
         {
-
+            // throw function from trhow class here.
         }
 
         public bool Use()
         {
+            Fire();
             return true;
         }
     }

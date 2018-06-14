@@ -27,7 +27,7 @@ namespace MINI_ROYALE
 
         public void Use()
         {
-            armExplosive();
+            ArmExplosive();
         }
 
         public void Throw()
@@ -35,12 +35,12 @@ namespace MINI_ROYALE
             // throw function from trhow class here.
         }
 
-        public void armExplosive()
+        public void ArmExplosive()
         {
             for (int i = 0; i == 500; i++)
             {
                 Throw();
-                for (int x = 0; x == getExplosionTime(); x++)
+                for (int x = 0; x == GetExplosionTime(); x++)
                 {
                     int dmg = 25;
                     // blast
@@ -50,31 +50,31 @@ namespace MINI_ROYALE
                     if (bomb == type.CONTROLLED)
                     {
                         // moet uitgewerkt worden
-                        getBlastRadius();
+                        GetBlastRadius();
                         dmg = 50;
                     }
                     else if(bomb == type.IRREGULAR)
                     {
                         // moet uitgewerkt worden
-                        getBlastRadius();
+                        GetBlastRadius();
                         dmg = 60;
                     }
                     else if(bomb == type.PREFORMED)
                     {
                         // moet uitgewerkt worden
-                        getBlastRadius();
+                        GetBlastRadius();
                         dmg = 70;
                     }
                 }
             }
         }
 
-        public int getBlastRadius()
+        public int GetBlastRadius()
         {
             return blastRadius;
         }
 
-        public int getExplosionTime()
+        public int GetExplosionTime()
         {
             return explosionTime;
         }
