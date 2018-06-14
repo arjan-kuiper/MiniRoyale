@@ -9,9 +9,8 @@ namespace MINI_ROYALE
     class Inventory
     {
         // list of Item as items
-        private List<Item> items;
-
-        private Player player;
+        private List<Item> items { get; }
+        private Player player { get; }
 
         // making the list Item with a size of 5
         public Inventory(Player p)
@@ -38,8 +37,8 @@ namespace MINI_ROYALE
             {
                 // add item to inv
                 items.Add(item);
-                item.RemoveFromMap();
-                item.AddToMap(player.pos);
+
+                item.RemoveItemFromMap(player.pos);
                 return true;
             }
             else
@@ -53,7 +52,7 @@ namespace MINI_ROYALE
         {
             Item i = items[x];
             items.RemoveAt(x);
-            i.AddToMap(player.pos);
+            i.AddItemToMap(player.pos, i);
             return true;
         }
 

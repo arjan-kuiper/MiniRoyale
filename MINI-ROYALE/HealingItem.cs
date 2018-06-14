@@ -8,5 +8,7 @@ namespace MINI_ROYALE
 {
     class HealingItem : Item
     {
+        private float healingCount { get; set; }
+        private int useTime { get; set; }
     }
 }
