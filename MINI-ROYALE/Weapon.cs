@@ -24,7 +24,7 @@ namespace MINI_ROYALE
         }
         private int Reload()
         {
-            if (bulletInClip == 0)
+            for(int i = 0; i == 500; i++)
             {
                 bulletInClip = maxBulletInClip;
             }
@@ -52,7 +52,6 @@ namespace MINI_ROYALE
                 {
                     // reload and can't shoot
                     Reload();
-                    i = 0;
                 }
             }
             return 0;

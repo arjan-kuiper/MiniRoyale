@@ -12,7 +12,7 @@ namespace MINI_ROYALE
     class Tile
     {
 
-        public static bool hasCollision;
+        public bool hasCollision;
         public string file { get; set; }
         public Rectangle Collisionbox { get; set; }
         public Vector2 position;
@@ -22,7 +22,7 @@ namespace MINI_ROYALE
             this.file = file;
             switch (tileId)
             {
-                case 1: case 2://Tiles met collision DEZE DOORLOPEN!!!
+                case 44://Tiles met collision DEZE DOORLOPEN!!!
                     hasCollision = true;
                     break;
                 default://loopbare tiles

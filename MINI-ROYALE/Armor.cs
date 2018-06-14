@@ -36,6 +36,7 @@ namespace MINI_ROYALE
                 {
                     // check to 1
                     check = 1;
+                    i = 0;
                 }
             }
             else if (check == 1)

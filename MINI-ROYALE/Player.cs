@@ -23,9 +23,9 @@ namespace MINI_ROYALE
 
         public Player()
         {
-            this.pos = new Vector2(0, 0);
+            this.pos = new Vector2(32,32);
             inventory = new Inventory(this);
-            this.boundingBox = new Rectangle(0, 0, 16, 16);
+            this.boundingBox = new Rectangle(32, 32, 16, 16);
         }
 
         public int collidesWithSurrounding()
@@ -35,19 +35,27 @@ namespace MINI_ROYALE
             //System.Diagnostics.Debug.WriteLine("X = {0}. Y = {1}", xCoord, yCoord);
             //Half block check met modulo
             for (int y = yCoord - 1; y < yCoord + 1; y++)
-            {
+            { 
                 for (int x = xCoord - 1; x <= xCoord+1; x++)
                 {
-                    //if (new Rectangle(pos.X, pos.Y, 16, 16)
-                    //If player left side > block to left right side && collision is true CONFLICT
-                    if (boundingBox.Intersects(new Rectangle(32, 32, 8, 8)))
+                   
+                    if (TileMap.instance.mapLoaded == true)
                     {
-                        System.Diagnostics.Debug.WriteLine("COLLISION DETECTED");
+
+                        bool tileHasCollision = TileMap.instance.getTileOnLoc(x, y).hasCollision;
+                        if (tileHasCollision == true)
+                        {
+                            //System.Diagnostics.Debug.WriteLine("A tile was loaded");
+                            if (boundingBox.Intersects(new Rectangle((int)TileMap.instance.getTileOnLoc(x, y).position.X, (int)TileMap.instance.getTileOnLoc(x, y).position.Y, 16,16)))
+                            {
+                                //System.Diagnostics.Debug.WriteLine("Collision detected: " + position);
+                            }
+                            System.Diagnostics.Debug.WriteLine("Collision detected ");
+
+                        }
                     }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine("NO COLLISION DETECTED");
-                    }
+                    
+                    
                 }
             }
             return 1;
@@ -63,7 +71,7 @@ namespace MINI_ROYALE
             Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
             float rotation = (float)Math.Atan2(dPos.Y, dPos.X) + (float)Math.PI;
             // System.Diagnostics.Debug.WriteLine("{0} {1}", current_mouse.X, current_mouse.Y);
-            collidesWithSurrounding(); // debugging only
+            //collidesWithSurrounding(); // debugging only
             this.orientation = rotation;
             spriteBatch.Draw(playerImg, new Vector2(viewport.Width / 2f, viewport.Height / 2f), null, Color.White, rotation, playerOrigin, .5f, SpriteEffects.None, 0f);
             spriteBatch.End();
@@ -75,6 +83,8 @@ namespace MINI_ROYALE
         {
             this.pos.X += vec.X;
             pos.Y += vec.Y;
+            this.boundingBox.X = (int)pos.X;
+            this.boundingBox.Y = (int)pos.Y;
             //System.Diagnostics.Debug.WriteLine("{0} {1}", pos.x, pos.y);
         }
         
@@ -100,8 +110,12 @@ namespace MINI_ROYALE
 
         public byte increaseHealth(byte amount)
         {
-            // TODO
-            return 0;
+            this.hp += amount;
+            if(hp > 100)
+            {
+                hp = 100;
+            }
+            return hp;
         }
 
         public byte increaseArmor(byte amount)
