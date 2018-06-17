@@ -142,9 +142,17 @@ namespace MINI_ROYALE
         }
 
 
-        public void shoot()
+        public void Shoot()
         {
-            System.Diagnostics.Debug.WriteLine("Shoot" + orientation);
+            Vector2 spawnPosition;
+            float bulletTarget;
+
+            bulletTarget = orientation;
+
+            spawnPosition.X = pos.X;
+            spawnPosition.Y = pos.Y;
+
+            Bullet bullet = new Bullet( spawnPosition, bulletTarget);
         }
 
         private bool checkCollision(Vector2 pos)
