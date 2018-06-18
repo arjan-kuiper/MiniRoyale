@@ -15,7 +15,7 @@ namespace MINI_ROYALE
             this.texture = texture;
             this.position = position;
             this.direction = direction;
-            origin = new Vector2(texture.Width / 2, texture.Height / 2);
+            //origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
 
         public Texture2D texture { get; set; }
@@ -24,7 +24,7 @@ namespace MINI_ROYALE
 
         public Vector2 direction { get; set; }
 
-        private Vector2 origin;
+        //private Vector2 origin;
         private float speed = 15f;
         public float lifeTime = 60f; //2 sec
 
