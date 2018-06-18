@@ -89,10 +89,9 @@ namespace MINI_ROYALE
         }
         
 
-        public int pickup(Item item)
+        public bool pickup(Item item)
         {
-            inventory.AddItemToInv(item);
-            return 0;
+            return inventory.AddItemToInv(item);
         }
 
         public Item dropItem(int slot)
@@ -100,6 +99,11 @@ namespace MINI_ROYALE
             // TODO
             
             return null;
+        }
+
+        public Item getItemInSlot(int slot)
+        {
+            return inventory.GetItemInSlot(slot);
         }
 
         public byte takeDamage(byte damage)
@@ -124,13 +128,7 @@ namespace MINI_ROYALE
             return 0;
         }
 
-        public Throwable throwItem(byte slot)
-        {
-            // TODO
-            return null;
-        }
-
-        public Item dropItem(byte slot)
+        public Throwable throwItem(int slot)
         {
             // TODO
             return null;
@@ -152,7 +150,7 @@ namespace MINI_ROYALE
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
 
-            Bullet bullet = new Bullet( spawnPosition, bulletTarget);
+            // broken af Bullet bullet = new Bullet( spawnPosition, bulletTarget);
         }
 
         private bool checkCollision(Vector2 pos)

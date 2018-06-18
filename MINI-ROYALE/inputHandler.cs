@@ -12,10 +12,13 @@ namespace MINI_ROYALE
     class InputHandler
     {
         Player p;
+        double interactionRange = .6; // In tiles
+
         public InputHandler(Player pl)
         {
             p = pl;
         }
+
         public void walk()
         {
             float speed = 1f;
@@ -53,8 +56,28 @@ namespace MINI_ROYALE
             MouseState ms = Mouse.GetState();
             if(ms.LeftButton == ButtonState.Pressed)
             {
-                p.shoot();
+                p.Shoot();
                 
+            }
+        }
+
+        public void interaction()
+        {
+            KeyboardState k = Keyboard.GetState();
+            if (k.IsKeyDown(Keys.E))
+            {
+                foreach(Item item in Game.instance.items)
+                {
+                    if(Vector2.Distance(p.pos, item.pos) < interactionRange * 16)
+                    {
+                        System.Diagnostics.Debug.WriteLine(item.ToString());
+                        if (p.pickup(item))
+                        {
+                            Game.instance.RemoveItemFromMap(item.pos);
+                        }
+                        break;
+                    }
+                }
             }
         }
 

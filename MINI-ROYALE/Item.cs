@@ -12,7 +12,7 @@ namespace MINI_ROYALE
     {
         private string itemName { get; set; }
         private Texture2D sprite { get; set; }
-        private Vector2 pos { get; set; }
+        public Vector2 pos { get; set; }
 
         public Item(String itemName, Texture2D sprite, Vector2 pos)
         {
