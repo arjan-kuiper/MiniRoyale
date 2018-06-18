@@ -145,14 +145,15 @@ namespace MINI_ROYALE
         public void Shoot()
         {
             Vector2 spawnPosition;
-            float bulletTarget;
+            Vector2 bulletTarget;
 
-            bulletTarget = orientation;
+            bulletTarget.X = Mouse.GetState().X;
+            bulletTarget.Y = Mouse.GetState().Y;
 
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
 
-            Bullet bullet = new Bullet( spawnPosition, bulletTarget);
+            Bullet bullet = new Bullet(spawnPosition, bulletTarget);
         }
 
         private bool checkCollision(Vector2 pos)
