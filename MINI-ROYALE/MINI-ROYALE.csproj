@@ -111,7 +111,6 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
-    <Compile Include="GameState.cs" />
     <Compile Include="GUI.cs" />
     <Compile Include="HealingItem.cs" />
     <Compile Include="InputHandler.cs" />
@@ -125,6 +124,11 @@
     <Compile Include="Throwable.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileMap.cs" />
+    <Compile Include="UI\Component.cs" />
+    <Compile Include="UI\Controls\Button.cs" />
+    <Compile Include="UI\GameStates\GameState.cs" />
+    <Compile Include="UI\GameStates\MenuState.cs" />
+    <Compile Include="UI\GameStates\State.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="Zone.cs" />
   </ItemGroup>
@@ -171,6 +175,7 @@
       <Version>3.6.0.1625</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
