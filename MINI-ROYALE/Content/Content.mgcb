@@ -5065,3 +5065,10 @@
 /processorParam:TextureFormat=Color
 /build:sprite.png
 
+#begin TempInv.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:TempInv.spritefont
+

@@ -11,6 +11,7 @@ namespace MINI_ROYALE
     public class Game : Microsoft.Xna.Framework.Game
     {
         public static Game instance;
+        private SpriteFont font;
         GraphicsDeviceManager graphics;
         TileMap tm;
         private SpriteBatch spritebatch;
@@ -18,16 +19,15 @@ namespace MINI_ROYALE
         InputHandler h;
 
         // voor items op de map (Busy)
-        private Dictionary<Vector2, Item> items;
+        public List<Item> items = new List<Item>();
 
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
+
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
-
-            // list voor items
-            items = new Dictionary<Vector2, Item>();
+            
             instance = this;
         }
 
@@ -57,10 +57,14 @@ namespace MINI_ROYALE
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            items.Add(new Vector2(32, 32), new HealingItem("test", Content.Load<Texture2D>("items/medic"), new Vector2(32, 32)));
-            items.Add(new Vector2(32, 48), new HealingItem("test", Content.Load<Texture2D>("items/bandage"), new Vector2(32, 48)));
-            items.Add(new Vector2(32, 64), new HealingItem("test", Content.Load<Texture2D>("items/potion-health"), new Vector2(32, 64)));
-            items.Add(new Vector2(32, 80), new Weapon("test", Content.Load<Texture2D>("items/pistol"), new Vector2(32, 80)));
+            items.Add(new HealingItem("test", Content.Load<Texture2D>("items/medic"), new Vector2(32, 32)));
+            items.Add(new HealingItem("test", Content.Load<Texture2D>("items/bandage"), new Vector2(32, 48)));
+            items.Add(new HealingItem("test", Content.Load<Texture2D>("items/potion-health"), new Vector2(32, 64)));
+            items.Add(new Weapon("test", Content.Load<Texture2D>("items/pistol"), new Vector2(32, 80)));
+            items.Add(new Weapon("test", Content.Load<Texture2D>("items/shotgun"), new Vector2(32, 96)));
+            items.Add(new Weapon("test", Content.Load<Texture2D>("items/shotgun"), new Vector2(32, 112)));
+
+            font = Content.Load<SpriteFont>("TempInv");
            
 
             // TODO: use this.Content to load your game content here
@@ -87,7 +91,8 @@ namespace MINI_ROYALE
 
             h.walk();
             h.mouseListener();
-            tm.Camera.LookAt(new Vector2(p.pos.X, p.pos.Y));
+            h.interaction();
+            tm.Camera.LookAt(p.pos);
 
         }
         protected bool CollisionCheck()
@@ -105,11 +110,24 @@ namespace MINI_ROYALE
             GraphicsDevice.Clear(Color.Orange);
             tm.setGameDevice(this);
             tm.draw(spritebatch, p);
-            foreach(KeyValuePair<Vector2, Item> item in items)
+            foreach(Item item in items)
             {
-                item.Value.draw(spritebatch);
+                item.draw(spritebatch);
             }
             p.draw(spritebatch, this);
+
+            spritebatch.Begin();
+            String invItems = "Inventory Items:\n";
+            if (p.getItemInSlot(0) != null) invItems += p.getItemInSlot(0).ToString() + "\n";
+            if (p.getItemInSlot(1) != null) invItems += p.getItemInSlot(1).ToString() + "\n";
+            if (p.getItemInSlot(2) != null) invItems += p.getItemInSlot(2).ToString() + "\n";
+            if (p.getItemInSlot(3) != null) invItems += p.getItemInSlot(3).ToString() + "\n";
+            if (p.getItemInSlot(4) != null) invItems += p.getItemInSlot(4).ToString() + "\n";
+            if (p.getItemInSlot(5) != null) invItems += p.getItemInSlot(5).ToString() + "\n";
+
+            spritebatch.DrawString(font, invItems, new Vector2(100, 100), Color.Black);
+            spritebatch.End();
+            
 
             base.Draw(gameTime);
         }
@@ -117,11 +135,12 @@ namespace MINI_ROYALE
 
         public bool RemoveItemFromMap(Vector2 pos)
         {
-            foreach(KeyValuePair<Vector2, Item> needle in items)
+            // Een traditionele loop, omdat die removal safe is
+            for(int i = items.Count - 1; i >= 0; i--)
             {
-                if (pos == needle.Key)
+                if (pos == items[i].pos)
                 {
-                    items.Remove(needle.Key);
+                    items.RemoveAt(i);
                     return true;
                 }
             }
@@ -131,7 +150,7 @@ namespace MINI_ROYALE
         public bool AddItemToMap(Vector2 pos, Item item)
         {
 
-            items.Add(pos, item);
+            items.Add(item);
             return true;
         }
 

@@ -62,5 +62,11 @@ namespace MINI_ROYALE
         {
             return items.Count;
         }
+
+        public Item GetItemInSlot(int slot)
+        {
+            //System.Diagnostics.Debug.WriteLine(slot);
+            return items.ElementAtOrDefault(slot);
+        }
     }
 }
