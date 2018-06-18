@@ -24,6 +24,7 @@ namespace MINI_ROYALE
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
+
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
             
@@ -91,7 +92,7 @@ namespace MINI_ROYALE
             h.walk();
             h.mouseListener();
             h.interaction();
-            tm.Camera.LookAt(new Vector2(p.pos.X, p.pos.Y));
+            tm.Camera.LookAt(p.pos);
 
         }
         protected bool CollisionCheck()
