@@ -65,7 +65,21 @@ namespace MINI_ROYALE
         {
             spriteBatch.Begin();
             Viewport viewport = game.GraphicsDevice.Viewport;
-            Texture2D playerImg = game.Content.Load<Texture2D>("player");
+
+            Item item = getItemInSlot(currentItem);
+            string texture = "";
+            if (item is Weapon)
+            {
+                texture = "Weapon";
+            }
+            else
+            {
+                texture = "Player";
+            }
+
+            Texture2D playerImg = game.Content.Load<Texture2D>(texture);
+
+
             Vector2 playerOrigin = new Vector2(playerImg.Width / 2f, playerImg.Height / 2f);
             MouseState current_mouse = Mouse.GetState();
             Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
