@@ -12,6 +12,7 @@ namespace MINI_ROYALE
     class InputHandler
     {
         private KeyboardState oldKeyState;
+        private MouseState oldMouseState;
         Player p;
         double interactionRange = .6; // In tiles
 
@@ -55,11 +56,16 @@ namespace MINI_ROYALE
         public void mouseListener()
         {
             MouseState ms = Mouse.GetState();
-            if(ms.LeftButton == ButtonState.Pressed)
+
+            if(ms.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
-                p.Shoot();
-                
+                if(p.getItemInSlot(p.currentItem - 1) is Weapon)
+                {
+                    p.Shoot();
+                }
             }
+
+            oldMouseState = ms;
         }
 
         public void interaction()

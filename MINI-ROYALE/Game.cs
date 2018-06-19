@@ -20,6 +20,7 @@ namespace MINI_ROYALE
 
         // voor items op de map (Busy)
         public List<Item> items = new List<Item>();
+        public List<Bullet> spawnedBullets = new List<Bullet>();
 
         public Game()
         {
@@ -116,6 +117,19 @@ namespace MINI_ROYALE
             {
                 item.draw(spritebatch);
             }
+
+            List<Bullet> toRemove = new List<Bullet>();
+            foreach(Bullet bullet in spawnedBullets)
+            {
+                if(bullet.isDead()) {
+                    toRemove.Add(bullet);
+                    continue;
+                }
+                bullet.Update();
+                bullet.Draw(spritebatch);
+            }
+            foreach(Bullet bullet in toRemove) { spawnedBullets.Remove(bullet); }
+            
             p.draw(spritebatch, this);
 
             spritebatch.Begin();

@@ -162,16 +162,16 @@ namespace MINI_ROYALE
 
         public void Shoot()
         {
+            Viewport viewport = Game.instance.GraphicsDevice.Viewport;
+            MouseState current_mouse = Mouse.GetState();
+            Vector2 bulletTarget = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
             Vector2 spawnPosition;
-            Vector2 bulletTarget;
-
-            bulletTarget.X = Mouse.GetState().X;
-            bulletTarget.Y = Mouse.GetState().Y;
 
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
             
-            Bullet bullet = new Bullet(spawnPosition, bulletTarget);
+            Bullet bullet = new Bullet(spawnPosition, -bulletTarget);
+            Game.instance.spawnedBullets.Add(bullet);
         }
 
         public void ThrowExplosive()
@@ -186,6 +186,7 @@ namespace MINI_ROYALE
             spawnPosition.Y = pos.Y;
 
             Bullet bullet = new Bullet(spawnPosition, bulletTarget);
+            Game.instance.spawnedBullets.Add(bullet);
         }
 
         private bool checkCollision(Vector2 pos)
