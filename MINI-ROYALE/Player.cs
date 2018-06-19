@@ -155,6 +155,20 @@ namespace MINI_ROYALE
             Bullet bullet = new Bullet(spawnPosition, bulletTarget);
         }
 
+        public void ThrowExplosive()
+        {
+            Vector2 spawnPosition;
+            Vector2 bulletTarget;
+
+            bulletTarget.X = Mouse.GetState().X;
+            bulletTarget.Y = Mouse.GetState().Y;
+
+            spawnPosition.X = pos.X;
+            spawnPosition.Y = pos.Y;
+
+            Bullet bullet = new Bullet(spawnPosition, bulletTarget);
+        }
+
         private bool checkCollision(Vector2 pos)
         {
             // TODO

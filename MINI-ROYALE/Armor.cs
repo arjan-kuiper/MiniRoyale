@@ -12,6 +12,7 @@ namespace MINI_ROYALE
     {
         private float armor { get; set; }
         private TimeSpan useTime { get; set; } // ook mogelijk om localtime te gebruiken, nog kijken welke het makkelijkst haalbaar is
+        private Player play { get; set; }
 
         public Armor(String itemName, Texture2D sprite, Vector2 pos) : base(itemName, sprite, pos)
         {
@@ -46,7 +47,6 @@ namespace MINI_ROYALE
                 // set check to 2
                 check = 2;
             }
-            
         }
     }
 }
