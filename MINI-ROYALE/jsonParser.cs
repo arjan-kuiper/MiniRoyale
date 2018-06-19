@@ -18,11 +18,11 @@ namespace MINI_ROYALE
     // return will be an object filled with the info
 
 
-    class jsonParser
+    class JsonParser
     {
         public string serializeJson(object o)
         {
-            return serializeObject(o);
+            return serializeJson(o);
         }
 
         public object deSerializeJson(string s)

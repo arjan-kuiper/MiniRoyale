@@ -117,6 +117,7 @@
     <Compile Include="InputHandler.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="JsonParser.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Position.cs" />
