@@ -10,24 +10,25 @@ using System.Threading.Tasks;
 namespace MINI_ROYALE {
     public class MenuState : State {
         private List<Component> _components = new List<Component>();
-        private GraphicsDevice _graphicsDevice;
 
         public MenuState(Game game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content) {
-            _graphicsDevice = graphicsDevice;
             createComponents();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             spriteBatch.Begin();
+            // Draw the background screen.
             Texture2D background = _content.Load<Texture2D>("Controls/Menu_Background");
             spriteBatch.Draw(background, _graphicsDevice.Viewport.Bounds, Color.White);
+
+            // Draw the components to the screen.
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
 
         public override void PostUpdate(GameTime gametime) {
-            // Remove sprites if they're not needed.
+            // Not needed for this case.
         }
 
         public override void Update(GameTime gameTime) {
@@ -103,7 +104,7 @@ namespace MINI_ROYALE {
         }
 
         private void SettingsGameButton_Click(object sender, EventArgs e) {
-            throw new NotImplementedException();
+            _game.ChangeState(new Settings(_game, _graphicsDevice, _content));
         }
         #endregion
     }

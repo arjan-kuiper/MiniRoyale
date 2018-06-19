@@ -128,6 +128,7 @@
     <Compile Include="UI\Controls\Button.cs" />
     <Compile Include="UI\GameStates\GameState.cs" />
     <Compile Include="UI\GameStates\MenuState.cs" />
+    <Compile Include="UI\GameStates\Settings.cs" />
     <Compile Include="UI\GameStates\State.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="Zone.cs" />
