@@ -68,7 +68,7 @@ namespace MINI_ROYALE
             {
                 foreach(Item item in Game.instance.items)
                 {
-                    if(Vector2.Distance(p.pos, item.pos) < interactionRange * 16)
+                    if(Vector2.Distance(p.pos, new Vector2(item.pos.X + 8, item.pos.Y + 8)) < interactionRange * 16)
                     {
                         System.Diagnostics.Debug.WriteLine(item.ToString());
                         if (p.pickup(item))

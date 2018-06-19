@@ -94,6 +94,8 @@ namespace MINI_ROYALE
             h.interaction();
             tm.Camera.LookAt(p.pos);
 
+            Viewport viewport = GraphicsDevice.Viewport;
+            System.Diagnostics.Debug.WriteLine(new Vector2(viewport.Width, viewport.Height));
         }
         protected bool CollisionCheck()
         {
