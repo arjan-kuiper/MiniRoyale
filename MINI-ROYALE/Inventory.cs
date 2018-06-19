@@ -48,11 +48,9 @@ namespace MINI_ROYALE
             }
         }
 
-        public bool RemoveItemFromInv(int x /*Item item of index nummer*/)
+        public bool RemoveItemFromInv(Item item)
         {
-            Item i = items[x];
-            items.RemoveAt(x);
-            i.AddItemToMap(player.pos, i);
+            items.Remove(item);
             return true;
         }
 
@@ -67,6 +65,11 @@ namespace MINI_ROYALE
         {
             //System.Diagnostics.Debug.WriteLine(slot);
             return items.ElementAtOrDefault(slot);
+        }
+
+        public string GetItemName(int slot)
+        {
+            return items.ElementAt(slot).getName();
         }
     }
 }

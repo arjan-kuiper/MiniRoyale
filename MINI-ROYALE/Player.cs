@@ -15,7 +15,7 @@ namespace MINI_ROYALE
         private byte hp;
         private byte armor;
         private Inventory inventory;
-        private byte currentItem;
+        public byte currentItem;
         private float orientation;
         private int team;
         public Rectangle boundingBox;
@@ -91,15 +91,20 @@ namespace MINI_ROYALE
 
         public bool pickup(Item item)
         {
+            if(inventory.GetSizeOfInv() == 0) { currentItem = 1; }
             return inventory.AddItemToInv(item);
+        }
+
+        public string getCurrentItemName()
+        {
+            return inventory.GetItemName(currentItem - 1);
         }
 
         // Voor het removen van een item heb de functie naar een bool veranderd van een Item. 
         // Als dit niet goed is graag aangeven
-        public bool dropItem(int slot)
+        public bool dropItem(Item item)
         {
-            // TODO
-            return inventory.RemoveItemFromInv(slot);
+            return inventory.RemoveItemFromInv(item);
         }
 
         public Item getItemInSlot(int slot)
