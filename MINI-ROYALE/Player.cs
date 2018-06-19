@@ -94,11 +94,12 @@ namespace MINI_ROYALE
             return inventory.AddItemToInv(item);
         }
 
-        public Item dropItem(int slot)
+        // Voor het removen van een item heb de functie naar een bool veranderd van een Item. 
+        // Als dit niet goed is graag aangeven
+        public bool dropItem(int slot)
         {
             // TODO
-            
-            return null;
+            return inventory.RemoveItemFromInv(slot);
         }
 
         public Item getItemInSlot(int slot)
