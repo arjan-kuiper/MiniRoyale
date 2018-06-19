@@ -150,7 +150,7 @@ namespace MINI_ROYALE
 
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
-
+            
             Bullet bullet = new Bullet(spawnPosition, bulletTarget);
         }
 

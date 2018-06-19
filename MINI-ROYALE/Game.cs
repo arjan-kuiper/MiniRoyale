@@ -128,7 +128,6 @@ namespace MINI_ROYALE
             spritebatch.DrawString(font, invItems, new Vector2(100, 100), Color.Black);
             spritebatch.End();
             
-
             base.Draw(gameTime);
         }
 
@@ -149,7 +148,6 @@ namespace MINI_ROYALE
 
         public bool AddItemToMap(Vector2 pos, Item item)
         {
-
             items.Add(item);
             return true;
         }
