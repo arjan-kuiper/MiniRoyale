@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
+
 namespace MINI_ROYALE
 {
     /// <summary>
@@ -10,6 +12,14 @@ namespace MINI_ROYALE
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
+        // === GameState Manager variables ===
+        #region GameStateVars
+        private State currentState, nextState;
+        private SpriteBatch spriteBatch;
+
+        private MouseState _currentMouse, _previousMouse;
+        #endregion
+
         public static Game instance;
         private SpriteFont font;
         GraphicsDeviceManager graphics;
@@ -21,6 +31,10 @@ namespace MINI_ROYALE
         // voor items op de map (Busy)
         public List<Item> items = new List<Item>();
 
+
+        public void ChangeState(State state) {
+            nextState = state;
+        }
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -39,15 +53,17 @@ namespace MINI_ROYALE
         /// </summary>
         protected override void Initialize()
         {
+            IsMouseVisible = true;
             // TODO: Add your initialization logic here
             base.Initialize();
-            spritebatch = new SpriteBatch(GraphicsDevice);
+            /*spritebatch = new SpriteBatch(GraphicsDevice);
             tm = new TileMap(GraphicsDevice);
 
             //Initializes a player
             
             p = new Player();
             h = new InputHandler(p);
+            */
         }
 
         /// <summary>
@@ -56,6 +72,9 @@ namespace MINI_ROYALE
         /// </summary>
         protected override void LoadContent()
         {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            currentState = new MenuState(this, graphics.GraphicsDevice, Content);
+           /*
             // Create a new SpriteBatch, which can be used to draw textures.
             items.Add(new HealingItem("test", Content.Load<Texture2D>("items/medic"), new Vector2(32, 32)));
             items.Add(new HealingItem("test", Content.Load<Texture2D>("items/bandage"), new Vector2(32, 48)));
@@ -65,7 +84,7 @@ namespace MINI_ROYALE
             items.Add(new Weapon("test", Content.Load<Texture2D>("items/shotgun"), new Vector2(32, 112)));
 
             font = Content.Load<SpriteFont>("TempInv");
-           
+           */
 
             // TODO: use this.Content to load your game content here
         }
@@ -86,14 +105,29 @@ namespace MINI_ROYALE
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            _previousMouse = _currentMouse;
+            _currentMouse = Mouse.GetState();
+
+            // Check whether the user has pressed and released the leftmouse button whilst hovering over the button object.
+            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed) {
+                Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
+            }
+
+            if (nextState != null) {
+                currentState = nextState;
+                nextState = null;
+            }
+            currentState.Update(gameTime);
+            currentState.PostUpdate(gameTime);
+
             // TODO: Add your update logic here
             base.Update(gameTime);
-
+            /*
             h.walk();
             h.mouseListener();
             h.interaction();
             tm.Camera.LookAt(p.pos);
-
+            */
         }
         protected bool CollisionCheck()
         {
@@ -107,7 +141,9 @@ namespace MINI_ROYALE
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Orange);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            currentState.Draw(gameTime, spriteBatch);
+           /* GraphicsDevice.Clear(Color.Orange);
             tm.setGameDevice(this);
             tm.draw(spritebatch, p);
             foreach(Item item in items)
@@ -127,7 +163,7 @@ namespace MINI_ROYALE
 
             spritebatch.DrawString(font, invItems, new Vector2(100, 100), Color.Black);
             spritebatch.End();
-            
+            */        
 
             base.Draw(gameTime);
         }

@@ -43,7 +43,7 @@ namespace MINI_ROYALE {
             if (_isHovering)
                 buttonTexture = _hoverTexture;
 
-            spriteBatch.Draw(buttonTexture, btnRectangle, Color.Transparent);
+            spriteBatch.Draw(buttonTexture, btnRectangle, Color.White);
 
 
         }
