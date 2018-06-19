@@ -57,12 +57,12 @@ namespace MINI_ROYALE
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            items.Add(new HealingItem("test", Content.Load<Texture2D>("items/medic"), new Vector2(32, 32)));
-            items.Add(new HealingItem("test", Content.Load<Texture2D>("items/bandage"), new Vector2(32, 48)));
-            items.Add(new HealingItem("test", Content.Load<Texture2D>("items/potion-health"), new Vector2(32, 64)));
-            items.Add(new Weapon("test", Content.Load<Texture2D>("items/pistol"), new Vector2(32, 80)));
-            items.Add(new Weapon("test", Content.Load<Texture2D>("items/shotgun"), new Vector2(32, 96)));
-            items.Add(new Weapon("test", Content.Load<Texture2D>("items/shotgun"), new Vector2(32, 112)));
+            items.Add(new HealingItem("Medkit", Content.Load<Texture2D>("items/medic"), new Vector2(32, 32)));
+            items.Add(new HealingItem("Bandage", Content.Load<Texture2D>("items/bandage"), new Vector2(32, 48)));
+            items.Add(new HealingItem("Health Potion", Content.Load<Texture2D>("items/potion-health"), new Vector2(32, 64)));
+            items.Add(new Weapon("Pistol", Content.Load<Texture2D>("items/pistol"), new Vector2(32, 80)));
+            items.Add(new Weapon("Shotgun", Content.Load<Texture2D>("items/shotgun"), new Vector2(32, 96)));
+            items.Add(new Weapon("Shotgun", Content.Load<Texture2D>("items/shotgun"), new Vector2(32, 112)));
 
             font = Content.Load<SpriteFont>("TempInv");
            
@@ -94,6 +94,8 @@ namespace MINI_ROYALE
             h.interaction();
             tm.Camera.LookAt(p.pos);
 
+            Viewport viewport = GraphicsDevice.Viewport;
+            //System.Diagnostics.Debug.WriteLine(new Vector2(viewport.Width, viewport.Height));
         }
         protected bool CollisionCheck()
         {
@@ -118,12 +120,11 @@ namespace MINI_ROYALE
 
             spritebatch.Begin();
             String invItems = "Inventory Items:\n";
-            if (p.getItemInSlot(0) != null) invItems += p.getItemInSlot(0).ToString() + "\n";
-            if (p.getItemInSlot(1) != null) invItems += p.getItemInSlot(1).ToString() + "\n";
-            if (p.getItemInSlot(2) != null) invItems += p.getItemInSlot(2).ToString() + "\n";
-            if (p.getItemInSlot(3) != null) invItems += p.getItemInSlot(3).ToString() + "\n";
-            if (p.getItemInSlot(4) != null) invItems += p.getItemInSlot(4).ToString() + "\n";
-            if (p.getItemInSlot(5) != null) invItems += p.getItemInSlot(5).ToString() + "\n";
+            if (p.getItemInSlot(0) != null) invItems += p.getItemInSlot(0).getName() + ((p.currentItem == 1) ? " (SELECTED)" : "") + "\n";
+            if (p.getItemInSlot(1) != null) invItems += p.getItemInSlot(1).getName() + ((p.currentItem == 2) ? " (SELECTED)" : "") + "\n";
+            if (p.getItemInSlot(2) != null) invItems += p.getItemInSlot(2).getName() + ((p.currentItem == 3) ? " (SELECTED)" : "") + "\n";
+            if (p.getItemInSlot(3) != null) invItems += p.getItemInSlot(3).getName() + ((p.currentItem == 4) ? " (SELECTED)" : "") + "\n";
+            if (p.getItemInSlot(4) != null) invItems += p.getItemInSlot(4).getName() + ((p.currentItem == 5) ? " (SELECTED)" : "") + "\n";
 
             spritebatch.DrawString(font, invItems, new Vector2(100, 100), Color.Black);
             spritebatch.End();
@@ -146,7 +147,7 @@ namespace MINI_ROYALE
             return false;
         }
 
-        public bool AddItemToMap(Vector2 pos, Item item)
+        public bool AddItemToMap(Item item)
         {
             items.Add(item);
             return true;

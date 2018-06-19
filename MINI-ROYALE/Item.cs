@@ -12,13 +12,18 @@ namespace MINI_ROYALE
     {
         private string itemName { get; set; }
         private Texture2D sprite { get; set; }
-        public Vector2 pos { get; set; }
+        public Vector2 pos;
 
         public Item(String itemName, Texture2D sprite, Vector2 pos)
         {
             this.itemName = itemName;
             this.sprite = sprite;
             this.pos = pos;
+        }
+
+        public string getName()
+        {
+            return this.itemName;
         }
 
         public bool RemoveItemFromMap(Vector2 pos)
@@ -32,7 +37,7 @@ namespace MINI_ROYALE
         {
             // for Item use this
             // TODO
-            Game.instance.AddItemToMap(pos, item);
+            Game.instance.AddItemToMap(item);
             return true;
         }
 
