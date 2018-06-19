@@ -66,15 +66,15 @@ namespace MINI_ROYALE
             spriteBatch.Begin();
             Viewport viewport = game.GraphicsDevice.Viewport;
 
-            Item item = getItemInSlot(currentItem);
+            Item item = getItemInSlot(currentItem - 1);
             string texture = "";
             if (item is Weapon)
             {
-                texture = "Weapon";
+                texture = "player-weapon";
             }
             else
             {
-                texture = "Player";
+                texture = "player-normal";
             }
 
             Texture2D playerImg = game.Content.Load<Texture2D>(texture);
