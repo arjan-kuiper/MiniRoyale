@@ -71,17 +71,18 @@ namespace MINI_ROYALE
         public void interaction()
         {
             KeyboardState k = Keyboard.GetState();
+            GameState state = (GameState)Game.instance.getState();
 
             if (k.IsKeyDown(Keys.E) && oldKeyState.IsKeyUp(Keys.E))
             {
-                foreach(Item item in Game.instance.items)
+                foreach (Item item in state.items)
                 {
                     if(Vector2.Distance(p.pos, new Vector2(item.pos.X + 8, item.pos.Y + 8)) < interactionRange * 16)
                     {
                         System.Diagnostics.Debug.WriteLine(item.ToString());
                         if (p.pickup(item))
                         {
-                            Game.instance.RemoveItemFromMap(item.pos);
+                            state.RemoveItemFromMap(item.pos);
                         }
                         break;
                     }
@@ -96,8 +97,7 @@ namespace MINI_ROYALE
                     {
                         item.pos.X = p.pos.X - 8;
                         item.pos.Y = p.pos.Y - 8;
-
-                        Game.instance.AddItemToMap(item);
+                        state.AddItemToMap(item);
                     }
                 }
                 
@@ -105,25 +105,15 @@ namespace MINI_ROYALE
 
             // Item Selection
             if (k.IsKeyDown(Keys.D1))
-            {
                 p.currentItem = 1;
-            }
             if (k.IsKeyDown(Keys.D2))
-            {
                 p.currentItem = 2;
-            }
             if (k.IsKeyDown(Keys.D3))
-            {
                 p.currentItem = 3;
-            }
             if (k.IsKeyDown(Keys.D4))
-            {
                 p.currentItem = 4;
-            }
             if (k.IsKeyDown(Keys.D5))
-            {
                 p.currentItem = 5;
-            }
 
             oldKeyState = k;
         }

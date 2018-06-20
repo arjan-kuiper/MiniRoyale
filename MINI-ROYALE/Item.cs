@@ -28,16 +28,16 @@ namespace MINI_ROYALE
 
         public bool RemoveItemFromMap(Vector2 pos)
         {
-            // TODO
-            Game.instance.RemoveItemFromMap(pos);
+            GameState state = (GameState)Game.instance.getState();
+            state.RemoveItemFromMap(pos);
             return true;
         }
 
         public bool AddItemToMap(Vector2 pos, Item item)
         {
             // for Item use this
-            // TODO
-            Game.instance.AddItemToMap(item);
+            GameState state = (GameState)Game.instance.getState();
+            state.AddItemToMap(item);
             return true;
         }
 
