@@ -21,8 +21,8 @@ namespace MINI_ROYALE {
 
 
         private int counter;
-        private const int LIMIT = 60;
-        private const float COUNT_DURATION = 1800f;
+        private const int LIMIT = 15;
+        private const float COUNT_DURATION = 45f;
         private float currentTime = 0f;
 
         // Collections used in the GameState state.
@@ -135,7 +135,7 @@ namespace MINI_ROYALE {
             if (currentTime >= COUNT_DURATION) {
                 counter++;
                 currentTime -= COUNT_DURATION;   // "use up" the time
-                zone.draw(spriteBatch);         //any actions to perform
+                zone.update(zone.GetRandomCoordsForZone(), zone.GetRandomCoordsForZone());         //any actions to perform
             }
             if (counter >= LIMIT) {
                 //Reset the counter;
