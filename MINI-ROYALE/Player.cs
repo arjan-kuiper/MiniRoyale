@@ -146,7 +146,8 @@ namespace MINI_ROYALE
         }
 
 
-        public void Shoot() {
+        public void Shoot(float orientation)
+        {
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
             MouseState current_mouse = Mouse.GetState();
             Vector2 bulletTarget = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
@@ -155,7 +156,7 @@ namespace MINI_ROYALE
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
             
-            Bullet bullet = new Bullet(spawnPosition, -bulletTarget);
+            Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation);
             state.spawnedBullets.Add(bullet);
         }
 
@@ -169,13 +170,18 @@ namespace MINI_ROYALE
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
 
-            Bullet bullet = new Bullet(spawnPosition, bulletTarget);
+            Bullet bullet = new Bullet(spawnPosition, bulletTarget, orientation);
             state.spawnedBullets.Add(bullet);
         }
 
         private bool checkCollision(Vector2 pos) {
             // TODO
             return true;
+        }
+
+        public float getOrientation()
+        {
+            return orientation;
         }
     }
 }

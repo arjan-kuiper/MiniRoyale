@@ -38,7 +38,7 @@ namespace MINI_ROYALE
         public TileMap(GraphicsDevice gd)
         {
             cam = new Camera2D(gd);
-            cam.Zoom = 5; // This seems about right
+            cam.Zoom = 1; // This seems about right
             loadMap();
             instance = this;
         }
@@ -62,8 +62,14 @@ namespace MINI_ROYALE
                     {
                         Tile currTile = tile.Value;
                         Texture2D tileToUse = game.Content.Load<Texture2D>(currTile.file);
-
-                        spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.White);
+                        if(currTile.inZone == true)
+                        {
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.Purple);
+                        }
+                        else
+                        {
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.White);
+                        }
                     }
                 }
             }

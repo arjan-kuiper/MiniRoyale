@@ -47,7 +47,7 @@ namespace MINI_ROYALE
                 {
                     // SHOOT
                     // mogelijke schiet functie gaat volgensmij de verkeerde kant op moet vanuit weapon naar player en niet player naar weapon
-                    play.Shoot();
+                    play.Shoot(play.getOrientation());
                 }
                 else
                 {

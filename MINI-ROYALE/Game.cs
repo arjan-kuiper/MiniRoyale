@@ -17,12 +17,12 @@ namespace MINI_ROYALE
         #region GameStateVars
         private State currentState, nextState;
         private SpriteBatch spriteBatch;
-
+        private GraphicsDeviceManager graphics;
         private MouseState _currentMouse, _previousMouse;
         #endregion
 
         public static Game instance;
-        private GraphicsDeviceManager graphics;
+        
 
         // voor items op de map (Busy)
         public List<Item> items = new List<Item>();
@@ -93,14 +93,14 @@ namespace MINI_ROYALE
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
 
-            // Check whether the user has pressed and released the leftmouse button whilst hovering over the button object.
-            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed) {
-                Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
-            }
-
             if (nextState != null) {
                 currentState = nextState;
                 nextState = null;
+            }
+
+            // Check whether the user has pressed and released the leftmouse button whilst hovering over the button object.
+            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed) {
+                Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
             }
 
             // === Call the current state's update methods. ===

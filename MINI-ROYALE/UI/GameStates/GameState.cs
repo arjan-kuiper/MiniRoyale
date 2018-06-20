@@ -17,10 +17,18 @@ namespace MINI_ROYALE {
         private TileMap tileMap;
         private Player player;
         private InputHandler inputHandler;
+        private Zone zone = new Zone();
+
+
+        private int counter;
+        private const int LIMIT = 60;
+        private const float COUNT_DURATION = 1800f;
+        private float currentTime = 0f;
 
         // Collections used in the GameState state.
         public List<Item> items = new List<Item>();
         public List<Bullet> spawnedBullets = new List<Bullet>();
+
         #endregion
         #region StateMethods
         public GameState(Game game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content) {
@@ -37,9 +45,10 @@ namespace MINI_ROYALE {
             tileMap.setGameDevice(_game);
             tileMap.draw(spriteBatch, player);
             Draw_Items(spriteBatch);
-            player.draw(spriteBatch, _game);
             Draw_Bullets(spriteBatch);
-            Draw_Inventory(spriteBatch); 
+            player.draw(spriteBatch, _game);
+            Draw_Inventory(spriteBatch);
+            ZoneContraction(gameTime, spriteBatch);
         }
 
         public override void PostUpdate(GameTime gametime) {
@@ -118,6 +127,21 @@ namespace MINI_ROYALE {
             items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), new Vector2(32, 112)));
 
             font = _content.Load<SpriteFont>("TempInv");
+        }
+
+        private void ZoneContraction(GameTime gameTime, SpriteBatch spriteBatch) {
+            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds; //Time passed since last Update() 
+
+            if (currentTime >= COUNT_DURATION) {
+                counter++;
+                currentTime -= COUNT_DURATION;   // "use up" the time
+                zone.draw(spriteBatch);         //any actions to perform
+            }
+            if (counter >= LIMIT) {
+                //Reset the counter;
+                counter = 0;
+            }
+            zone.draw(spriteBatch);
         }
 
         /// <summary>
