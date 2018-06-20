@@ -61,7 +61,7 @@ namespace MINI_ROYALE
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
             MouseState current_mouse = Mouse.GetState();
 
-            spriteBatch.Draw(bulletSprite, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(bulletSprite, position, null, Color.White, (rotation - 80), origin, scale, SpriteEffects.None, 0);
             spriteBatch.End();
             boundingBox.X = (int)position.X;
             boundingBox.Y = (int)position.Y;
