@@ -98,6 +98,19 @@ namespace MINI_ROYALE
                 Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
             }
 
+            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds; //Time passed since last Update() 
+
+            if (currentTime >= countDuration)
+            {
+                counter++;
+                currentTime -= countDuration;   // "use up" the time
+                zone.draw(spritebatch);         //any actions to perform
+            }
+            if (counter >= limit)
+            {
+                counter = 0;//Reset the counter;
+                            //any actions to perform
+            }
             if (nextState != null) {
                 currentState = nextState;
                 nextState = null;
@@ -123,6 +136,7 @@ namespace MINI_ROYALE
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            zone.draw(spritebatch);
             // Draw base-background color incase something goes wrong. Followed by the currentState's draw methods.
             GraphicsDevice.Clear(Color.CornflowerBlue);
             currentState.Draw(gameTime, spriteBatch);

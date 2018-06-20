@@ -146,7 +146,8 @@ namespace MINI_ROYALE
         }
 
 
-        public void Shoot() {
+        public void Shoot(float orientation)
+        {
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
             MouseState current_mouse = Mouse.GetState();
             Vector2 bulletTarget = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
@@ -176,6 +177,11 @@ namespace MINI_ROYALE
         private bool checkCollision(Vector2 pos) {
             // TODO
             return true;
+        }
+
+        public float getOrientation()
+        {
+            return orientation;
         }
     }
 }

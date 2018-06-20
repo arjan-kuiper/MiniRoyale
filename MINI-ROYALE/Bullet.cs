@@ -14,26 +14,34 @@ namespace MINI_ROYALE
         public Vector2 position { get; set; }
         public Vector2 direction { get; set; }
 
-        private float speed = 0.2f;
+        public Vector2 velocity;
+
+        private float speed = 20f;
         public float lifeTime = 60f; //2 sec
+        public float rotation;
         public float scale;
         public static float radius = 4f;
 
         public Rectangle boundingBox;
         public Texture2D bulletSprite;
 
-        public Bullet(Vector2 position, Vector2 direction)
+        public Bullet(Vector2 position, Vector2 direction, float rotation)
         {
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
             this.position = new Vector2(viewport.Width / 2f, viewport.Height / 2f);
             this.direction = direction;
+            this.rotation = rotation;
             this.boundingBox = new Rectangle();
         }
 
         public void Update()
         {
+            velocity.Y = speed;
+            velocity.X = speed;
+            Vector2 direction = new Vector2((float)Math.Cos(rotation),
+                                     (float)Math.Sin(rotation));
             direction.Normalize();
-            position += direction * speed;
+            position += direction * velocity;
             boundingBox.X = (int)position.X;
             boundingBox.Y = (int)position.Y;
             if (lifeTime > 0) { lifeTime--; }
@@ -48,14 +56,12 @@ namespace MINI_ROYALE
         {
             spriteBatch.Begin();
             bulletSprite = Game.instance.Content.Load<Texture2D>("Bulletsprite");
-            Vector2 origin = new Vector2(bulletSprite.Width / 2, bulletSprite.Height / 2);
+            Vector2 origin = new Vector2(bulletSprite.Width, bulletSprite.Height);
             scale = radius * 2 / bulletSprite.Width;
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
             MouseState current_mouse = Mouse.GetState();
-            Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
-            float rotation = (float)Math.Atan2(dPos.Y, dPos.X) + ((float)Math.PI / 2) + (float)Math.PI;
 
-            spriteBatch.Draw(bulletSprite, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, 1);
+            spriteBatch.Draw(bulletSprite, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, 0);
             spriteBatch.End();
             boundingBox.X = (int)position.X;
             boundingBox.Y = (int)position.Y;
