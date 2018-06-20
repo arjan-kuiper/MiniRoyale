@@ -16,6 +16,7 @@ namespace MINI_ROYALE
         TileMap tm;
         private SpriteBatch spritebatch;
         Player p;
+        Zone zone;
         InputHandler h;
 
         // voor items op de map (Busy)
@@ -48,6 +49,7 @@ namespace MINI_ROYALE
             //Initializes a player
             
             p = new Player();
+            zone = new Zone();
             h = new InputHandler(p);
 
             NetworkManager nm = new NetworkManager();
@@ -116,7 +118,8 @@ namespace MINI_ROYALE
             GraphicsDevice.Clear(Color.Orange);
             tm.setGameDevice(this);
             tm.draw(spritebatch, p);
-            foreach(Item item in items)
+            zone.draw(spritebatch);
+            foreach (Item item in items)
             {
                 item.draw(spritebatch);
             }
