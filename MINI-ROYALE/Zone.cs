@@ -15,6 +15,7 @@ namespace MINI_ROYALE
         private int min = 0;
         private int max = 6401;
         private int radius = 250 * 16;
+        private int Coords;
 
         public void draw(SpriteBatch spriteBatch)
         {
@@ -22,16 +23,24 @@ namespace MINI_ROYALE
 
             // Need rectangle stuff so we can resize it
             //spriteBatch.Draw(sprite, new Rectangle((int)pos.X, (int)pos.Y, xcoord, ycoord), new Rectangle(4, 4, sprite.Width, sprite.Height), Color.Purple);
-            update(GetRandomCoordsForZone(), GetRandomCoordsForZone());
+            //update(GetRandomCoordsForZone(), GetRandomCoordsForZone());
             spriteBatch.End();
         }
         
         public int GetRandomCoordsForZone()
         {
             Random rnd = new Random();
-            int Coords = rnd.Next(min, max);
+            Coords = rnd.Next(min, max);
             min = Coords - radius;
             max = Coords + radius;
+            if (min < 0)
+            {
+                min = 0;
+            }
+            if (max > 6401)
+            {
+                max = 6401;
+            }
             return Coords;
         }
 
@@ -48,7 +57,19 @@ namespace MINI_ROYALE
                 if ((worldX < x - radius || worldX > x + radius) || (worldY < y - radius || worldY > y + radius))
                 {
                     // Tile is in zone
-                    tile.Value.SetZone(true);
+
+                    if (tile.Value.getZone() == 2)
+                    {
+                        tile.Value.SetZone(3);
+                    }
+                    else if (tile.Value.getZone() == 1)
+                    {
+                        tile.Value.SetZone(2);
+                    }
+                    else if (tile.Value.getZone() == 0)
+                    {
+                        tile.Value.SetZone(1);
+                    }
                     
                 }
             }
