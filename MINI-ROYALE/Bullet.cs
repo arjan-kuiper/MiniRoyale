@@ -11,19 +11,19 @@ namespace MINI_ROYALE
 {
     public class Bullet
     {
-        public Vector2 position { get; set; }
-        public Vector2 direction { get; set; }
+        private Vector2 position { get; set; }
+        private Vector2 direction { get; set; }
 
-        public Vector2 velocity;
+        private Vector2 velocity;
 
         private float speed = 20f;
-        public float lifeTime = 60f; //2 sec
-        public float rotation;
-        public float scale;
-        public static float radius = 4f;
+        private float lifeTime = 60f; //2 sec
+        private float rotation;
+        private float scale;
+        private static float radius = 4f;
 
-        public Rectangle boundingBox;
-        public Texture2D bulletSprite;
+        private Rectangle boundingBox;
+        private Texture2D bulletSprite;
 
         public Bullet(Vector2 position, Vector2 direction, float rotation)
         {
