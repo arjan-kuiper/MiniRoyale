@@ -61,7 +61,7 @@ namespace MINI_ROYALE
             {
                 if(p.getItemInSlot(p.currentItem - 1) is Weapon)
                 {
-                    p.Shoot();
+                    p.Shoot(p.getOrientation());
                 }
             }
 

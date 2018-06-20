@@ -16,17 +16,19 @@ namespace MINI_ROYALE
 
         private float speed = 0.2f;
         public float lifeTime = 60f; //2 sec
+        public float rotation;
         public float scale;
         public static float radius = 4f;
 
         public Rectangle boundingBox;
         public Texture2D bulletSprite;
 
-        public Bullet(Vector2 position, Vector2 direction)
+        public Bullet(Vector2 position, Vector2 direction, float rotation)
         {
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
             this.position = new Vector2(viewport.Width / 2f, viewport.Height / 2f);
             this.direction = direction;
+            this.rotation = rotation - 80;
             this.boundingBox = new Rectangle();
         }
 
@@ -52,8 +54,6 @@ namespace MINI_ROYALE
             scale = radius * 2 / bulletSprite.Width;
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
             MouseState current_mouse = Mouse.GetState();
-            Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
-            float rotation = (float)Math.Atan2(dPos.Y, dPos.X) + ((float)Math.PI / 2) + (float)Math.PI;
 
             spriteBatch.Draw(bulletSprite, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, 1);
             spriteBatch.End();
