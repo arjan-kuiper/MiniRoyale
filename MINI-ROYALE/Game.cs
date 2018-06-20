@@ -49,6 +49,9 @@ namespace MINI_ROYALE
             
             p = new Player();
             h = new InputHandler(p);
+
+            NetworkManager nm = new NetworkManager();
+            NetworkManager.callSendServerSocket("BERICHT");
         }
 
         /// <summary>

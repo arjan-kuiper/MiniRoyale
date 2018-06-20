@@ -119,6 +119,7 @@
     <Compile Include="Item.cs" />
     <Compile Include="JsonParser.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
