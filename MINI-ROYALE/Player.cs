@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace MINI_ROYALE
 {
     class Player
@@ -148,6 +146,11 @@ namespace MINI_ROYALE
 
         public void Shoot(float orientation)
         {
+            // Sound management variables
+            List<Sounds> sounds = new List<Sounds> { Sounds.SHOT_PISTOL_0, Sounds.SHOT_PISTOL_1};
+            Random rand = new Random();
+
+            // Bullet variables.
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
             MouseState current_mouse = Mouse.GetState();
             Vector2 bulletTarget = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
@@ -155,9 +158,14 @@ namespace MINI_ROYALE
 
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
-            
+
+
             Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation);
             state.spawnedBullets.Add(bullet);
+            
+            // Play the gunsound.
+            int sound = rand.Next(0, sounds.Count());
+            state.PlaySoundEffect(sounds[sound]);
         }
 
         public void ThrowExplosive() {

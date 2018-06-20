@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace MINI_ROYALE {
     /// <summary>
@@ -17,7 +19,10 @@ namespace MINI_ROYALE {
         private TileMap tileMap;
         private Player player;
         private InputHandler inputHandler;
+
         private Zone zone = new Zone();
+        private Dictionary<Sounds, SoundEffect> sounds = new Dictionary<Sounds, SoundEffect>();
+        
 
 
         private int counter;
@@ -36,9 +41,9 @@ namespace MINI_ROYALE {
             tileMap = new TileMap(graphicsDevice);
             player = new Player(this);
             inputHandler = new InputHandler(player);
-
             LoadContent();
         }
+
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             // Draw game components.
@@ -127,21 +132,33 @@ namespace MINI_ROYALE {
             items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), new Vector2(32, 112)));
 
             font = _content.Load<SpriteFont>("TempInv");
+
+            // Load the sound effects for the game.
+            sounds.Add(Sounds.SHOT_PISTOL_0, _content.Load<SoundEffect>(@"Sounds\Shot_Pistol_0"));
+            sounds.Add(Sounds.SHOT_PISTOL_1, _content.Load<SoundEffect>(@"Sounds\Shot_Pistol_1"));
+            sounds.Add(Sounds.SHOT_SHOTGUN_0, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_0"));
+            sounds.Add(Sounds.SHOT_SHOTGUN_1, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_1"));
+            sounds.Add(Sounds.HIT_0, _content.Load<SoundEffect>(@"Sounds\Hit_0"));
         }
 
         private void ZoneContraction(GameTime gameTime, SpriteBatch spriteBatch) {
-            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds; //Time passed since last Update() 
+            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;                        //Time passed since last Update() 
 
             if (currentTime >= COUNT_DURATION) {
                 counter++;
-                currentTime -= COUNT_DURATION;   // "use up" the time
-                zone.update(zone.GetRandomCoordsForZone(), zone.GetRandomCoordsForZone());         //any actions to perform
+                currentTime -= COUNT_DURATION;                                                  // "use up" the time
+                zone.update(zone.GetRandomCoordsForZone(), zone.GetRandomCoordsForZone());      //any actions to perform
             }
             if (counter >= LIMIT) {
                 //Reset the counter;
                 counter = 0;
             }
             zone.draw(spriteBatch);
+        }
+
+        public void PlaySoundEffect(Sounds sound) {
+            SoundEffectInstance instance = sounds[sound].CreateInstance();
+            instance.Play();
         }
 
         /// <summary>

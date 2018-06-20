@@ -5185,6 +5185,54 @@
 /processorParam:TextureFormat=Color
 /build:player-weapon.png
 
+#begin Sounds/Ambient.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Ambient.ogg
+
+#begin Sounds/Hit_0.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Hit_0.wav
+
+#begin Sounds/Loss.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Loss.ogg
+
+#begin Sounds/Shot_Pistol_0.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Shot_Pistol_0.wav
+
+#begin Sounds/Shot_Pistol_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Shot_Pistol_1.wav
+
+#begin Sounds/Shot_Shotgun_0.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Shot_Shotgun_0.wav
+
+#begin Sounds/Shot_Shotgun_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Shot_Shotgun_1.wav
+
+#begin Sounds/Win.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Win.ogg
+
 #begin sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor

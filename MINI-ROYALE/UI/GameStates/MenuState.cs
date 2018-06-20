@@ -95,7 +95,7 @@ namespace MINI_ROYALE {
         }
 
         private void CreditsGameButton_Click(object sender, EventArgs e) {
-            throw new NotImplementedException();
+            _game.ChangeSong(Songs.WIN);
         }
 
         private void PlayGameButton_Click(object sender, EventArgs e) {

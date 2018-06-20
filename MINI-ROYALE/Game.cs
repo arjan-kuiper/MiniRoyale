@@ -4,9 +4,12 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Media;
 
 namespace MINI_ROYALE
 {
+    public enum Songs { NONE, AMBIENT, WIN, LOSS }
+    public enum Sounds { NONE, SHOT_PISTOL_0, SHOT_PISTOL_1, SHOT_SHOTGUN_0, SHOT_SHOTGUN_1, HIT_0, HIT_1}
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -19,6 +22,9 @@ namespace MINI_ROYALE
         private SpriteBatch spriteBatch;
         private GraphicsDeviceManager graphics;
         private MouseState _currentMouse, _previousMouse;
+
+        private Dictionary<Songs, Song> songs = new Dictionary<Songs, Song>();
+        private Songs currentSong, nextSong;
         #endregion
 
         public static Game instance;
@@ -56,6 +62,7 @@ namespace MINI_ROYALE
         protected override void Initialize()
         {
             IsMouseVisible = true;
+            nextSong = Songs.AMBIENT;
             base.Initialize();
             /*
              * NetworkManager nm = new NetworkManager();
@@ -71,6 +78,11 @@ namespace MINI_ROYALE
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             currentState = new MenuState(this, graphics.GraphicsDevice, Content);
+
+            // Load songs.
+            songs.Add(Songs.AMBIENT, Content.Load<Song>(@"Sounds\Ambient"));
+            songs.Add(Songs.WIN, Content.Load<Song>(@"Sounds\Win"));
+            songs.Add(Songs.LOSS, Content.Load<Song>(@"Sounds\Loss"));
         }
 
         /// <summary>
@@ -111,11 +123,28 @@ namespace MINI_ROYALE
             // === Call the current state's update methods. ===
             currentState.Update(gameTime);
             currentState.PostUpdate(gameTime);
+            SoundHandler(gameTime);
 
             base.Update(gameTime);
         }
+        /// <summary>
+        /// This method is being called each update. to check whether another song should be played.
+        /// </summary>
+        /// <param name="gametime"></param>
+        private void SoundHandler(GameTime gametime) {
+            if (nextSong != Songs.NONE) {
+                currentSong = nextSong;
+                nextSong = Songs.NONE;
 
-        //
+                MediaPlayer.Volume = 0.1f;
+                MediaPlayer.Play(songs[currentSong]);
+            }
+        }
+
+        public void ChangeSong(Songs song) {
+            nextSong = song;
+        }
+
         protected bool CollisionCheck()
         {
             // TODO
