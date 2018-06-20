@@ -8,6 +8,7 @@ using Windows.Networking.Sockets;
 using Windows.Networking;
 using System.Net;
 using System.IO;
+using System.Numerics;
 
 namespace MINI_ROYALE
 {
@@ -16,17 +17,17 @@ namespace MINI_ROYALE
         public static NetworkManager instance;
         private string port;
         private HostName address;
-     
+
         public NetworkManager(string port = "1997", string address = "") {
             instance = this;
             this.port = port;
             // Set the hostname variable. if no address was given, enter the local IP address.
             this.address = address == "" ? new HostName(Convert.ToString(IPAddress.Loopback)) : new HostName(address);
-        }  
+        }
 
         public static string callSendServerSocket(string request) {
-                Debug.WriteLine("[NetworkManager] Attempting to connect to: " + NetworkManager.instance.address.ToString());
-                NetworkManager.instance.sendServerSocket();
+            Debug.WriteLine("[NetworkManager] Attempting to connect to: " + NetworkManager.instance.address.ToString());
+            NetworkManager.instance.sendServerSocket();
 
 
             return "";
@@ -50,6 +51,19 @@ namespace MINI_ROYALE
                 } catch (Exception e) {
                     Debug.WriteLine("[NetworkManager] Oops! Something went wrong! {" + e.Message + '}');
                 }
+            }
+        }
+
+        public class PackageServer
+        {
+            private bool GameStarted { get; set; }
+            private Vector2[] playerPos;
+            private Vector2[] ItemPos;
+            private byte e;
+
+            public PackageServer()
+            {
+                   
             }
         }
     }

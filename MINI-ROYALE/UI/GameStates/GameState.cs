@@ -33,6 +33,7 @@ namespace MINI_ROYALE {
         // Collections used in the GameState state.
         public List<Item> items = new List<Item>();
         public List<Bullet> spawnedBullets = new List<Bullet>();
+        public List<Bot> bots = new List<Bot>();
 
         #endregion
         #region StateMethods
@@ -51,6 +52,7 @@ namespace MINI_ROYALE {
             tileMap.draw(spriteBatch, player);
             Draw_Items(spriteBatch);
             Draw_Bullets(spriteBatch);
+            Draw_Bots(spriteBatch);
             player.draw(spriteBatch, _game);
             Draw_Inventory(spriteBatch);
             ZoneContraction(gameTime, spriteBatch);
@@ -68,6 +70,16 @@ namespace MINI_ROYALE {
         }
         #endregion
         #region GameStateMethods
+
+        public Player GetPlayer() {
+            return player;
+        }
+
+        private void Draw_Bots(SpriteBatch spriteBatch) {
+            foreach(Bot bot in bots) {
+                bot.draw(spriteBatch, _game);
+            }
+        }
         /// <summary>
         /// Update's the bullet's location. If lifecycle is ending, destroy the bullet instance.
         /// </summary>
@@ -124,6 +136,7 @@ namespace MINI_ROYALE {
         /// </summary>
         private void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
+
             items.Add(new HealingItem("Medkit", _content.Load<Texture2D>("items/medic"), new Vector2(32, 32)));
             items.Add(new HealingItem("Bandage", _content.Load<Texture2D>("items/bandage"), new Vector2(32, 48)));
             items.Add(new HealingItem("Health Potion", _content.Load<Texture2D>("items/potion-health"), new Vector2(32, 64)));
@@ -139,6 +152,7 @@ namespace MINI_ROYALE {
             sounds.Add(Sounds.SHOT_SHOTGUN_0, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_0"));
             sounds.Add(Sounds.SHOT_SHOTGUN_1, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_1"));
             sounds.Add(Sounds.HIT_0, _content.Load<SoundEffect>(@"Sounds\Hit_0"));
+            bots.Add(new Bot());
         }
 
         private void ZoneContraction(GameTime gameTime, SpriteBatch spriteBatch) {

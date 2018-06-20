@@ -11,6 +11,7 @@ namespace MINI_ROYALE
         // list of Item as items
         private List<Item> items { get; }
         private Player player { get; }
+        private Bot bot { get; }
 
         // making the list Item with a size of 5
         public Inventory(Player p)

@@ -29,10 +29,6 @@ namespace MINI_ROYALE
 
         public static Game instance;
         
-
-        // voor items op de map (Busy)
-        public List<Item> items = new List<Item>();
-        public List<Bullet> spawnedBullets = new List<Bullet>();
         #endregion
 
 

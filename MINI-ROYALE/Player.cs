@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace MINI_ROYALE
 {
-    class Player
+    public class Player
     {
         public Vector2 pos;
         public Rectangle boundingBox;

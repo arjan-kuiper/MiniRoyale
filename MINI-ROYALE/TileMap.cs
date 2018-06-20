@@ -38,7 +38,7 @@ namespace MINI_ROYALE
         public TileMap(GraphicsDevice gd)
         {
             cam = new Camera2D(gd);
-            cam.Zoom = 1; // This seems about right
+            cam.Zoom = 5; // This seems about right
             loadMap();
             instance = this;
         }
