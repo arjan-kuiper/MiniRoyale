@@ -15,7 +15,7 @@ namespace MINI_ROYALE
         private byte hp;
         private byte armor;
         private Inventory inventory;
-        private byte currentItem;
+        public byte currentItem;
         private float orientation;
         private int team;
         public Rectangle boundingBox;
@@ -65,7 +65,21 @@ namespace MINI_ROYALE
         {
             spriteBatch.Begin();
             Viewport viewport = game.GraphicsDevice.Viewport;
-            Texture2D playerImg = game.Content.Load<Texture2D>("player");
+
+            Item item = getItemInSlot(currentItem - 1);
+            string texture = "";
+            if (item is Weapon)
+            {
+                texture = "player-weapon";
+            }
+            else
+            {
+                texture = "player-normal";
+            }
+
+            Texture2D playerImg = game.Content.Load<Texture2D>(texture);
+
+
             Vector2 playerOrigin = new Vector2(playerImg.Width / 2f, playerImg.Height / 2f);
             MouseState current_mouse = Mouse.GetState();
             Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
@@ -91,14 +105,20 @@ namespace MINI_ROYALE
 
         public bool pickup(Item item)
         {
+            if(inventory.GetSizeOfInv() == 0) { currentItem = 1; }
             return inventory.AddItemToInv(item);
         }
 
-        public Item dropItem(int slot)
+        public string getCurrentItemName()
         {
-            // TODO
-            
-            return null;
+            return inventory.GetItemName(currentItem - 1);
+        }
+
+        // Voor het removen van een item heb de functie naar een bool veranderd van een Item. 
+        // Als dit niet goed is graag aangeven
+        public bool dropItem(Item item)
+        {
+            return inventory.RemoveItemFromInv(item);
         }
 
         public Item getItemInSlot(int slot)
@@ -142,6 +162,20 @@ namespace MINI_ROYALE
 
         public void Shoot()
         {
+            Viewport viewport = Game.instance.GraphicsDevice.Viewport;
+            MouseState current_mouse = Mouse.GetState();
+            Vector2 bulletTarget = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
+            Vector2 spawnPosition;
+
+            spawnPosition.X = pos.X;
+            spawnPosition.Y = pos.Y;
+            
+            Bullet bullet = new Bullet(spawnPosition, -bulletTarget);
+            Game.instance.spawnedBullets.Add(bullet);
+        }
+
+        public void ThrowExplosive()
+        {
             Vector2 spawnPosition;
             Vector2 bulletTarget;
 
@@ -152,6 +186,7 @@ namespace MINI_ROYALE
             spawnPosition.Y = pos.Y;
 
             Bullet bullet = new Bullet(spawnPosition, bulletTarget);
+            Game.instance.spawnedBullets.Add(bullet);
         }
 
         private bool checkCollision(Vector2 pos)

@@ -15,12 +15,13 @@ namespace MINI_ROYALE
     {
         private int explosionTime { get; set; }
         private int blastRadius { get; set; }
+        private Player play { get; }
 
         private type bomb;
 
         public Explosive(String itemName, Texture2D sprite, Vector2 pos) : base(itemName, sprite, pos)
         {
-
+            Use();
         }
 
 
@@ -52,18 +53,24 @@ namespace MINI_ROYALE
                         // moet uitgewerkt worden
                         GetBlastRadius();
                         dmg = 50;
+                        // mogelijke uitwerking voor explosive 
+                        play.ThrowExplosive();
                     }
                     else if(bomb == type.IRREGULAR)
                     {
                         // moet uitgewerkt worden
                         GetBlastRadius();
                         dmg = 60;
+                        // mogelijke uitwerking voor explosive 
+                        play.ThrowExplosive();
                     }
                     else if(bomb == type.PREFORMED)
                     {
                         // moet uitgewerkt worden
                         GetBlastRadius();
                         dmg = 70;
+                        // mogelijke uitwerking voor explosive 
+                        play.ThrowExplosive();
                     }
                     x = 0;
                 }
