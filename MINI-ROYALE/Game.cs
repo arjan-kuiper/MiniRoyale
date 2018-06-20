@@ -93,6 +93,11 @@ namespace MINI_ROYALE
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
 
+            // Check whether the user has pressed and released the leftmouse button whilst hovering over the button object.
+            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed) {
+                Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
+            }
+
             if (nextState != null) {
                 currentState = nextState;
                 nextState = null;
@@ -123,6 +128,7 @@ namespace MINI_ROYALE
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            zone.draw(spritebatch);
             // Draw base-background color incase something goes wrong. Followed by the currentState's draw methods.
             GraphicsDevice.Clear(Color.CornflowerBlue);
             currentState.Draw(gameTime, spriteBatch);
