@@ -34,17 +34,21 @@ namespace MINI_ROYALE
 
         public async void sendServerSocket() {
             using (StreamSocket streamSocket = new StreamSocket()) {
-                Debug.WriteLine("[NetworkManager] Initiating connection!");
-                // Connect to the server on the designated address and port.
-                await streamSocket.ConnectAsync(NetworkManager.instance.address, NetworkManager.instance.port);
-                Debug.WriteLine("[NetworkManager] Connected!");
+                try {
+                    Debug.WriteLine("[NetworkManager] Initiating connection!");
+                    // Connect to the server on the designated address and port.
+                    await streamSocket.ConnectAsync(NetworkManager.instance.address, NetworkManager.instance.port);
+                    Debug.WriteLine("[NetworkManager] Connected!");
 
-                string request = "Hello, World!";
-                using (Stream outputStream = streamSocket.OutputStream.AsStreamForWrite()) {
-                    using (var streamWriter = new StreamWriter(outputStream)) {
-                        await streamWriter.WriteLineAsync(request);
-                        await streamWriter.FlushAsync();
+                    string request = "Hello, World!";
+                    using (Stream outputStream = streamSocket.OutputStream.AsStreamForWrite()) {
+                        using (var streamWriter = new StreamWriter(outputStream)) {
+                            await streamWriter.WriteLineAsync(request);
+                            await streamWriter.FlushAsync();
+                        }
                     }
+                } catch (Exception e) {
+                    Debug.WriteLine("[NetworkManager] Oops! Something went wrong! {" + e.Message + '}');
                 }
             }
         }
