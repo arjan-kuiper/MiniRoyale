@@ -23,7 +23,7 @@ namespace MINI_ROYALE
 
         public void walk()
         {
-            float speed = 1f;
+            float speed = 8f;
             bool running = false;
             Vector2 moveVel = Vector2.Zero;
             KeyboardState k = Keyboard.GetState();
