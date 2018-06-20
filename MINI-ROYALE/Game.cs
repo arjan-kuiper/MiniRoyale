@@ -128,7 +128,6 @@ namespace MINI_ROYALE
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            zone.draw(spritebatch);
             // Draw base-background color incase something goes wrong. Followed by the currentState's draw methods.
             GraphicsDevice.Clear(Color.CornflowerBlue);
             currentState.Draw(gameTime, spriteBatch);
