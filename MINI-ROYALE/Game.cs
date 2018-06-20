@@ -18,6 +18,10 @@ namespace MINI_ROYALE
         Player p;
         Zone zone;
         InputHandler h;
+        int counter = 1;
+        int limit = 60;
+        float countDuration = 1800f; //every  180s 3 minuut.
+        float currentTime = 0f;
 
         // voor items op de map (Busy)
         public List<Item> items = new List<Item>();
@@ -99,6 +103,20 @@ namespace MINI_ROYALE
             h.mouseListener();
             h.interaction();
             tm.Camera.LookAt(p.pos);
+
+            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds; //Time passed since last Update() 
+
+            if (currentTime >= countDuration)
+            {
+                counter++;
+                currentTime -= countDuration;   // "use up" the time
+                zone.draw(spritebatch);         //any actions to perform
+            }
+            if (counter >= limit)
+            {
+                counter = 0;//Reset the counter;
+                            //any actions to perform
+            }
 
             Viewport viewport = GraphicsDevice.Viewport;
             //System.Diagnostics.Debug.WriteLine(new Vector2(viewport.Width, viewport.Height));

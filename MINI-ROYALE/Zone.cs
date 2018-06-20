@@ -12,6 +12,9 @@ namespace MINI_ROYALE
     {
         private Texture2D sprite { get; set; }
         public Vector2 pos;
+        private int min = 0;
+        private int max = 6401;
+        private int radius = 250 * 16;
 
         public void draw(SpriteBatch spriteBatch)
         {
@@ -26,15 +29,15 @@ namespace MINI_ROYALE
         public int GetRandomCoordsForZone()
         {
             Random rnd = new Random();
-            int Coords = rnd.Next(0, 6401);
-
+            int Coords = rnd.Next(min, max);
+            min = Coords - radius;
+            max = Coords + radius;
             return Coords;
         }
 
         public void update(int x, int y)
         {
             // elke minuut
-            int radius = 100 * 16;
 
             foreach (KeyValuePair<Tuple<int, int>, Tile> tile in TileMap.instance.bitmap)
             {
@@ -48,11 +51,8 @@ namespace MINI_ROYALE
                     tile.Value.SetZone(true);
                     
                 }
-                else
-                {
-                    tile.Value.SetZone(false);
-                }
             }
+            radius /= 2;
         }
     }
 }
