@@ -76,7 +76,7 @@ namespace MINI_ROYALE
 
                 if (timesTicked > timesToTick)
                 {
-                    Shoot(p, s);
+                    //Shoot(p, s);
                     timesTicked = 1;
                 }
                 else
