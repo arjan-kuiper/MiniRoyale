@@ -9,17 +9,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MINI_ROYALE {
     class Settings : State {
+        private List<Component> _components = new List<Component>();
+
+        #region StateMethods
         public Settings(Game game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content) {
+            createComponents();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             spriteBatch.Begin();
-
             // Draw the background screen.
             Texture2D background = _content.Load<Texture2D>("Controls/Menu_Background");
             spriteBatch.Draw(background, _graphicsDevice.Viewport.Bounds, Color.White);
 
-            //TODO: Draw components here.
+            // Draw the components to the screen.
+            foreach (Component component in _components)
+                component.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
 
@@ -28,7 +33,22 @@ namespace MINI_ROYALE {
         }
 
         public override void Update(GameTime gameTime) {
-            //TODO: Update components here.
+            foreach (Component component in _components) {
+                component.Update(gameTime);
+            }
         }
+        #endregion
+        #region SettingStateMethods
+        private void createComponents() {
+            SpriteFont font = _content.Load<SpriteFont>(@"Fonts\ThirtheenPixels");
+            
+
+            _components.Add(new TextField(font, 400, 100) {
+                position = new Vector2(148, 250),
+                text = "SETTINGS :D",
+                penColor = Color.Black
+            });
+        }
+        #endregion
     }
 }
