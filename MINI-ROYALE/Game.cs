@@ -10,29 +10,23 @@ namespace MINI_ROYALE
 {
     public enum Songs { NONE, AMBIENT, WIN, LOSS }
     public enum Sounds { NONE, SHOT_PISTOL_0, SHOT_PISTOL_1, SHOT_SHOTGUN_0, SHOT_SHOTGUN_1, HIT_0, HIT_1}
-    
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
         // === GameState Manager variables ===
-        #region Fields
+        #region Fields&Properties
         #region GameStateVars
         private State currentState, nextState;
         private SpriteBatch spriteBatch;
         private GraphicsDeviceManager graphics;
         private MouseState _currentMouse, _previousMouse;
+        #endregion
 
         private Dictionary<Songs, Song> songs = new Dictionary<Songs, Song>();
         private Songs currentSong, nextSong;
-        #endregion
-
-        public static Game instance;
-
-   
-
-        
+        public static Game instance;        
         #endregion
 
 
@@ -49,7 +43,6 @@ namespace MINI_ROYALE
 
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
-
             
             instance = this;
         }
@@ -92,7 +85,7 @@ namespace MINI_ROYALE
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            // Nothing is being unloaded.
         }
 
         /// <summary>
@@ -106,6 +99,7 @@ namespace MINI_ROYALE
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
 
+            //TODO: Remove this debug tool on deployment.
             // Check whether the user has pressed and released the leftmouse button whilst hovering over the button object.
             if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed) {
                 //Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);

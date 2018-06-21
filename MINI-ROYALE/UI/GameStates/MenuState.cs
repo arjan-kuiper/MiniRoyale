@@ -13,7 +13,7 @@ namespace MINI_ROYALE {
 
         #region StateMethods
         public MenuState(Game game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content) {
-            createComponents();
+            CreateComponents();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
@@ -42,7 +42,7 @@ namespace MINI_ROYALE {
         /// <summary>
         /// Constructs the components necessary to run the MenuState screen.
         /// </summary>
-        private void createComponents() {
+        private void CreateComponents() {
             Texture2D btnTexture, btnHoverTexture;
             Button btn;
 
@@ -95,7 +95,7 @@ namespace MINI_ROYALE {
         #region ClickEvents
         private void PlayGameButton_Click(object sender, EventArgs e) {
             // Change state to screen where you can enter IP and Port for server.
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+            _game.ChangeState(new LoadingState(_game, _graphicsDevice, _content));
         }
 
         private void SettingsGameButton_Click(object sender, EventArgs e) {

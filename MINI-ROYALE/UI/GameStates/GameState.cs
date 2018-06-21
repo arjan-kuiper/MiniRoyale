@@ -26,12 +26,12 @@ namespace MINI_ROYALE {
         private int counter;
         private const int LIMIT = 15;
         private const float COUNT_DURATION = 45f;
-        private float currentTime = 0f;
 
         // Collections used in the GameState state.
         public List<Item> items = new List<Item>();
         public List<Bullet> spawnedBullets = new List<Bullet>();
         public List<Bot> bots = new List<Bot>();
+        private float currentTime = 0f;
 
         #endregion
         #region StateMethods
@@ -61,6 +61,7 @@ namespace MINI_ROYALE {
         }
 
         public override void Update(GameTime gameTime) {
+            // Update the game time!
             inputHandler.walk();
             inputHandler.mouseListener();
             inputHandler.interaction();
@@ -68,6 +69,11 @@ namespace MINI_ROYALE {
         }
         #endregion
         #region GameStateMethods
+
+        /// <summary>
+        /// Returns the player object.
+        /// </summary>
+        /// <returns>The Player object.</returns>
         public Player GetPlayer() {
             return player;
         }
@@ -166,8 +172,7 @@ namespace MINI_ROYALE {
         /// <param name="gameTime">Time passed </param>
         /// <param name="spriteBatch">The SpriteBatch that draws the objects.</param>
         private void ZoneContraction(GameTime gameTime, SpriteBatch spriteBatch) {
-            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;                        //Time passed since last Update() 
-
+            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (currentTime >= COUNT_DURATION) {
                 counter++;
                 currentTime -= COUNT_DURATION;                                                  // "use up" the time
