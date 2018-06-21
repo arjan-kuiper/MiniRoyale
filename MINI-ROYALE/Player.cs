@@ -15,7 +15,7 @@ namespace MINI_ROYALE
         private byte hp;
         private Inventory inventory;
         private float orientation;
-
+        public Randomizer rnd;
         private GameState state;
 
         public bool[] moveDirs = { true, true, true, true };
@@ -27,6 +27,11 @@ namespace MINI_ROYALE
             this.boundingBox = new Rectangle(32, 32, 16, 16);
             alive = true;
             this.state = state;
+            if(Randomizer.instance == null)
+            {
+                rnd = new Randomizer();
+            }
+            
         }
 
         public void collidesWithSurrounding()
@@ -37,10 +42,11 @@ namespace MINI_ROYALE
             //Half block check met modulo
             if (TileMap.instance.mapLoaded)
             {
-                System.Diagnostics.Debug.WriteLine("X: {0}, Y: {1}", xCoord, yCoord);
+                //System.Diagnostics.Debug.WriteLine("X: {0}, Y: {1}", xCoord, yCoord);
                 if( TileMap.instance.getTileOnLoc(xCoord, (yCoord - 1)).hasCollision)
                 {
                     moveDirs[0] = false;
+
                 }
                 else
                 {
@@ -181,9 +187,16 @@ namespace MINI_ROYALE
 
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
-
-
-            Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation);
+            Weapon w = (Weapon)inventory.GetItemInSlot(currentItem - 1);
+            Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation, w.spread);
+            if(w.getName().Equals("Shotgun"))
+            {
+                System.Diagnostics.Debug.WriteLine("SHOT");
+                state.spawnedBullets.Add(new Bullet(spawnPosition, -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(spawnPosition, -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(spawnPosition, -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(spawnPosition, -bulletTarget, orientation, w.spread));
+            }
             state.spawnedBullets.Add(bullet);
             
             // Play the gunsound.
@@ -201,7 +214,7 @@ namespace MINI_ROYALE
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
 
-            Bullet bullet = new Bullet(spawnPosition, bulletTarget, orientation);
+            Bullet bullet = new Bullet(spawnPosition, bulletTarget, orientation,100);
             state.spawnedBullets.Add(bullet);
         }
 

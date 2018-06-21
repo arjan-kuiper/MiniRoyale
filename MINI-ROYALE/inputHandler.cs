@@ -92,7 +92,7 @@ namespace MINI_ROYALE
                 {
                     if(Vector2.Distance(p.pos, new Vector2(item.pos.X + 8, item.pos.Y + 8)) < interactionRange * 16)
                     {
-                        System.Diagnostics.Debug.WriteLine(item.ToString());
+                        //System.Diagnostics.Debug.WriteLine(item.ToString());
                         if (p.pickup(item))
                         {
                             state.RemoveItemFromMap(item.pos);

@@ -21,29 +21,46 @@ namespace MINI_ROYALE
         private float rotation;
         private float scale;
         private static float radius = 4f;
-
+        double shotoffset;
         private Rectangle boundingBox;
         private Texture2D bulletSprite;
 
-        public Bullet(Vector2 position, Vector2 direction, float rotation)
+        public Bullet(Vector2 position, Vector2 direction, float rotation, int randomnessfactor)
         {
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
             this.position = new Vector2(viewport.Width / 2f, viewport.Height / 2f);
             this.direction = direction;
             this.rotation = rotation;
-            this.boundingBox = new Rectangle();
+            this.boundingBox = new Rectangle((int)position.X, (int)position.Y,1,1);
+ 
+            var result = Randomizer.instance.randomNumber(-randomnessfactor, randomnessfactor);
+            System.Diagnostics.Debug.WriteLine(result);
+            shotoffset = rotation + 0.001 * result;
         }
 
         public void Update()
         {
             velocity.Y = speed;
             velocity.X = speed;
-            Vector2 direction = new Vector2((float)Math.Cos(rotation),
-                                     (float)Math.Sin(rotation));
+            Vector2 direction = new Vector2((float)Math.Cos(shotoffset),
+                                     (float)Math.Sin(shotoffset));
             direction.Normalize();
             position += direction * velocity;
             boundingBox.X = (int)position.X;
             boundingBox.Y = (int)position.Y;
+            
+            GameState state = (GameState)Game.instance.getState();
+            foreach(Bot b in state.bots)
+            {
+                if (boundingBox.Intersects(b.boundingBox))
+                {
+                    b.takeDamage(30);
+                    //System.Diagnostics.Debug.WriteLine("DAMAGE WAS TAKEN");
+                    //System.Diagnostics.Debug.WriteLine("X:{0}, Y:{1}", boundingBox.X, boundingBox.Y);
+                    state.PlaySoundEffect(Sounds.HIT_0);
+                    lifeTime = 0;
+                }
+            }
             if (lifeTime > 0) { lifeTime--; }
         }
 
@@ -67,7 +84,7 @@ namespace MINI_ROYALE
             boundingBox.Y = (int)position.Y;
             boundingBox.Width = bulletSprite.Width;
             boundingBox.Height = bulletSprite.Height;
-            System.Diagnostics.Debug.WriteLine("b update");
+            //System.Diagnostics.Debug.WriteLine("b update");
         }
     }
 }
