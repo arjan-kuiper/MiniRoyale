@@ -107,14 +107,14 @@ namespace MINI_ROYALE
             this.boundingBox.X = (int)Math.Round(pos.X - 16);
             this.boundingBox.Y = (int)Math.Round(pos.Y + 16);
             spriteBatch.End();
-            
         }
 
         public void Move(Vector2 vec)
         {
             this.pos.X += vec.X;
-            pos.Y += vec.Y;
-            
+            this.pos.Y += vec.Y;
+            boundingBox.X = (int)pos.X;
+            boundingBox.Y = (int)pos.Y;
             //System.Diagnostics.Debug.WriteLine("Box {0}, {1}, Box {2}, {3}", boundingBox.X, boundingBox.Y, pos.X, pos.Y);
         }
 

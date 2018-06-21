@@ -39,8 +39,8 @@ namespace MINI_ROYALE {
         }
         #endregion
         #region SettingStateMethods
-        private void CreateComponents() {
-            SpriteFont font = _content.Load<SpriteFont>(@"Fonts\ThirtheenPixels");
+        private void createComponents() {
+            SpriteFont font = _content.Load<SpriteFont>(@"Fonts\ThirteenPixels");
             
 
             _components.Add(new TextField(font, 400, 100) {
