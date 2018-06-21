@@ -28,16 +28,11 @@ namespace MINI_ROYALE
         #endregion
 
         public static Game instance;
-<<<<<<< HEAD
-        GraphicsDeviceManager graphics;
-        TileMap tm;
-        public SpriteBatch spritebatch;
-        Player p;
-        InputHandler h;
-=======
+
+   
+
         
         #endregion
->>>>>>> b3dabe3d2860c69eb5b484132f32a96985dfb7c1
 
 
         public State getState() {

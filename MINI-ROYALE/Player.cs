@@ -16,9 +16,11 @@ namespace MINI_ROYALE
         private Inventory inventory;
         private float orientation;
 
+        private GameState state;
+
         public bool[] moveDirs = { true, true, true, true };
 
-        public Player()
+        public Player(GameState state)
         {
             this.pos = new Vector2(400,400);
             inventory = new Inventory(this);
