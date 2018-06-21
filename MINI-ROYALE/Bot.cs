@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Windows.UI.Xaml;
 
 namespace MINI_ROYALE
 {
@@ -21,9 +22,16 @@ namespace MINI_ROYALE
 
         private GameState state;
 
-        public Bot()
+        DispatcherTimer dispatcherTimer;
+        DateTimeOffset startTime;
+        DateTimeOffset lastTime;
+        DateTimeOffset stopTime;
+        int timesTicked = 1;
+        int timesToTick = 20;
+
+        public Bot(Vector2 pos)
         {
-            this.pos = new Vector2(60, 60);
+            this.pos = pos;
             this.boundingBox = new Rectangle(32, 32, 16, 16);
         }
 
@@ -65,15 +73,25 @@ namespace MINI_ROYALE
             if (getTarget(p))
             {
                 rotation = 0;
-                //Shoot(p);
+
+                if (timesTicked > timesToTick)
+                {
+                    Shoot(p, s);
+                    timesTicked = 1;
+                }
+                else
+                {
+                    DispatcherTimerSetup();
+                }              
             }
             else
             {
-                Random r = new Random();
-                int r1 = r.Next(0, 2);
-                int r2 = r.Next(0, 2);
-             
+                int r1 = 0;
+                int r2 = 0;
                 rotation = 0.5f;
+
+                r1 = (p.pos.X > pos.X) ? 1 : -1;
+                r2 = (p.pos.Y > pos.Y) ? 1 : -1;
 
                 Move(new Vector2(r1, r2));
             }
@@ -112,16 +130,19 @@ namespace MINI_ROYALE
             return 0;
         }
 
-        public void Shoot(Player p)
+        public void Shoot(Player p, GameState state)
         {
             //TODO: Fire at player pos not mousePos
             // Sound management variables
+         
             List<Sounds> sounds = new List<Sounds> { Sounds.SHOT_PISTOL_0, Sounds.SHOT_PISTOL_1 };
             Random rand = new Random();
 
             // Bullet variables.
             Vector2 bulletTarget = new Vector2(p.pos.X, p.pos.Y);
             Vector2 spawnPosition;
+
+            orientation = 0;
 
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
@@ -154,6 +175,34 @@ namespace MINI_ROYALE
             else 
             {
                 return false;
+            }
+        }
+
+        public void DispatcherTimerSetup()
+        {
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            //IsEnabled defaults to false
+            startTime = DateTimeOffset.Now;
+            lastTime = startTime;
+            dispatcherTimer.Start();
+            //IsEnabled should now be true after calling start
+        }
+
+        void dispatcherTimer_Tick(object sender, object e)
+        {
+            DateTimeOffset time = DateTimeOffset.Now;
+            TimeSpan span = time - lastTime;
+            lastTime = time;
+            //Time since last tick should be very very close to Interval
+            timesTicked++;
+            if (timesTicked > timesToTick)
+            {
+                stopTime = time;
+                dispatcherTimer.Stop();
+                //IsEnabled should now be false after calling stop
+                span = stopTime - startTime;
             }
         }
     }
