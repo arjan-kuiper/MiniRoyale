@@ -153,7 +153,7 @@ namespace MINI_ROYALE {
             sounds.Add(Sounds.SHOT_SHOTGUN_0, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_0"));
             sounds.Add(Sounds.SHOT_SHOTGUN_1, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_1"));
             sounds.Add(Sounds.HIT_0, _content.Load<SoundEffect>(@"Sounds\Hit_0"));
-            bots.Add(new Bot());
+            bots.Add(new Bot(new Vector2(300, 300)));
         }
 
         /// <summary>
