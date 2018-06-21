@@ -74,15 +74,15 @@ namespace MINI_ROYALE
             {
                 rotation = 0;
 
-                if (timesTicked > timesToTick)
-                {
-                    Shoot(p, s);
-                    timesTicked = 1;
-                }
-                else
-                {
-                    DispatcherTimerSetup();
-                }              
+               // if (timesTicked > timesToTick)
+                //{
+                    //Shoot(p, s);
+                    //timesTicked = 1;
+               // }
+                //else
+                //{
+                    //DispatcherTimerSetup();
+                //}              
             }
             else
             {
