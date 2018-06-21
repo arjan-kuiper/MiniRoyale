@@ -132,6 +132,7 @@
     <Compile Include="UI\Controls\TextField.cs" />
     <Compile Include="UI\Controls\Button.cs" />
     <Compile Include="UI\GameStates\GameState.cs" />
+    <Compile Include="UI\GameStates\LoadingState.cs" />
     <Compile Include="UI\GameStates\MenuState.cs" />
     <Compile Include="UI\GameStates\Settings.cs" />
     <Compile Include="UI\GameStates\State.cs" />
