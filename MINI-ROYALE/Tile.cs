@@ -28,6 +28,7 @@ namespace MINI_ROYALE
                 case 2:
                 case 23:
                 case 24:*///Tiles met collision DEZE DOORLOPEN!!!
+                case 1:
                     hasCollision = true;
                     
                     break;

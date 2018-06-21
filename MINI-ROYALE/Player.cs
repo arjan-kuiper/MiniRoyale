@@ -11,7 +11,7 @@ namespace MINI_ROYALE
         public Vector2 pos;
         public Rectangle boundingBox;
         public byte currentItem;
-
+        public bool alive;
         private byte hp;
         private Inventory inventory;
         private float orientation;
@@ -25,6 +25,7 @@ namespace MINI_ROYALE
             this.pos = new Vector2(400,400);
             inventory = new Inventory(this);
             this.boundingBox = new Rectangle(32, 32, 16, 16);
+            alive = true;
         }
 
         public void collidesWithSurrounding()
@@ -133,8 +134,12 @@ namespace MINI_ROYALE
         }
 
         public byte takeDamage(byte damage) {
-            // TODO
-            return 0;
+            this.hp += damage;
+            if (hp <= 0)
+            {
+                this.alive = false;
+            }
+            return hp;
         }
 
         public byte increaseHealth(byte amount) {
