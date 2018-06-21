@@ -11,6 +11,7 @@ namespace MINI_ROYALE {
     public class MenuState : State {
         private List<Component> _components = new List<Component>();
 
+        #region StateMethods
         public MenuState(Game game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content) {
             createComponents();
         }
@@ -36,9 +37,12 @@ namespace MINI_ROYALE {
                 component.Update(gameTime);
             }
         }
-
+        #endregion
+        #region GameStateMethods
+        /// <summary>
+        /// Constructs the components necessary to run the MenuState screen.
+        /// </summary>
         private void createComponents() {
-            //TODO: Make this method dynamic with a while-loop.
             Texture2D btnTexture, btnHoverTexture;
             Button btn;
 
@@ -88,16 +92,7 @@ namespace MINI_ROYALE {
             // === Stop define Quit Button ===
         }
 
-        //TODO: Fill in the action upon buttonclick.
         #region ClickEvents
-        private void QuitGameButton_Click(object sender, EventArgs e) {
-            _game.Exit();
-        }
-
-        private void CreditsGameButton_Click(object sender, EventArgs e) {
-            _game.ChangeSong(Songs.WIN);
-        }
-
         private void PlayGameButton_Click(object sender, EventArgs e) {
             // Change state to screen where you can enter IP and Port for server.
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
@@ -106,6 +101,15 @@ namespace MINI_ROYALE {
         private void SettingsGameButton_Click(object sender, EventArgs e) {
             _game.ChangeState(new Settings(_game, _graphicsDevice, _content));
         }
+
+        private void CreditsGameButton_Click(object sender, EventArgs e) {
+            _game.ChangeSong(Songs.WIN);
+        }
+
+        private void QuitGameButton_Click(object sender, EventArgs e) {
+            _game.Exit();
+        }
+        #endregion
         #endregion
     }
 }

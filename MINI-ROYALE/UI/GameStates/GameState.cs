@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace MINI_ROYALE {
     /// <summary>
-    /// This is the 'GameState' test state. To Check whether the menu buttons actually push you to the correct gameState.
+    /// This is the GameState class. This class handles all in-game related operations to be performed.
     /// </summary>
     public class GameState : State {
         #region StateVariables
@@ -22,8 +22,6 @@ namespace MINI_ROYALE {
 
         private Zone zone = new Zone();
         private Dictionary<Sounds, SoundEffect> sounds = new Dictionary<Sounds, SoundEffect>();
-        
-
 
         private int counter;
         private const int LIMIT = 15;
@@ -70,11 +68,14 @@ namespace MINI_ROYALE {
         }
         #endregion
         #region GameStateMethods
-
         public Player GetPlayer() {
             return player;
         }
 
+        /// <summary>
+        /// This methods performs the drawing of each of the in-game bots.
+        /// </summary>
+        /// <param name="spriteBatch">The SpriteBatch that draws the objects.</param>
         private void Draw_Bots(SpriteBatch spriteBatch) {
             foreach(Bot bot in bots) {
                 bot.draw(spriteBatch, _game);
@@ -144,7 +145,7 @@ namespace MINI_ROYALE {
             items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), new Vector2(512, 480)));
             items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), new Vector2(550, 400)));
 
-            font = _content.Load<SpriteFont>("TempInv");
+            font = _content.Load<SpriteFont>(@"Fonts\TempInv");
 
             // Load the sound effects for the game.
             sounds.Add(Sounds.SHOT_PISTOL_0, _content.Load<SoundEffect>(@"Sounds\Shot_Pistol_0"));
@@ -155,6 +156,11 @@ namespace MINI_ROYALE {
             bots.Add(new Bot());
         }
 
+        /// <summary>
+        /// Contract the 'Rectangle' zone each duration time.
+        /// </summary>
+        /// <param name="gameTime">Time passed </param>
+        /// <param name="spriteBatch">The SpriteBatch that draws the objects.</param>
         private void ZoneContraction(GameTime gameTime, SpriteBatch spriteBatch) {
             currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;                        //Time passed since last Update() 
 
