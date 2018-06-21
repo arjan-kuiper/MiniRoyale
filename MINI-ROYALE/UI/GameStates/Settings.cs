@@ -41,13 +41,31 @@ namespace MINI_ROYALE {
         #region SettingStateMethods
         private void CreateComponents() {
             SpriteFont font = _content.Load<SpriteFont>(@"Fonts\ThirteenPixels");
-            
+            Texture2D btnTexture, btnHoverTexture;
+            Button btn;
 
             _components.Add(new TextField(font, 400, 100) {
                 position = new Vector2(148, 250),
                 text = "SETTINGS :D",
                 penColor = Color.Black
             });
+
+            // === Start define Play Button ===
+            btnTexture = _content.Load<Texture2D>("Controls/Quit");
+            btnHoverTexture = _content.Load<Texture2D>("Controls/Quit_Selected");
+
+            btn = new Button(btnTexture, btnHoverTexture) {
+                Position = new Vector2(25, 450)
+            };
+            // Set click event listener.
+            btn.Click += GoBack_Click;
+            _components.Add(btn);
+            // === Stop define Play Button ===
+        }
+
+        private void GoBack_Click(object sender, EventArgs e) {
+            // Change state to screen where you can enter IP and Port for server.
+            _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
         }
         #endregion
     }
