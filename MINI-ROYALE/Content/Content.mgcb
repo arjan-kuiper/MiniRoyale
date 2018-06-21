@@ -4933,6 +4933,20 @@
 /processorParam:TextureFormat=Color
 /build:environment/99.png
 
+#begin Fonts/TempInv.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/TempInv.spritefont
+
+#begin Fonts/ThirteenPixels.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/ThirteenPixels.spritefont
+
 #begin items/ammo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5244,11 +5258,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:sprite.png
-
-#begin TempInv.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:TempInv.spritefont
 
