@@ -116,7 +116,25 @@ namespace MINI_ROYALE
             }
 
             mapLoaded = true;
-            System.Diagnostics.Debug.WriteLine("MAPLOADED WAS SET TO TRUE");
+            //System.Diagnostics.Debug.WriteLine("MAPLOADED WAS SET TO TRUE");
+        }
+        public Vector2 getRandomOnMapPosition()
+        {
+            var result = true;
+            var vec2 = new Vector2();
+            Random rnd = new Random();
+            while(result == true)
+            {
+                var num1 = rnd.Next(1, 399);
+                var num2 = rnd.Next(1, 399);
+                var xCoord = (int)(num1/16);
+                var yCoord = (int)(num2 /16);
+                result = false; // this.getTileOnLoc(xCoord, yCoord).hasCollision;
+                vec2 = new Vector2(num1, num1);
+            }
+            //System.Diagnostics.Debug.WriteLine("Printed");
+            return vec2;
+
         }
     }
 }

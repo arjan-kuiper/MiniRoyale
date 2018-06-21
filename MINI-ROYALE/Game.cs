@@ -10,6 +10,7 @@ namespace MINI_ROYALE
 {
     public enum Songs { NONE, AMBIENT, WIN, LOSS }
     public enum Sounds { NONE, SHOT_PISTOL_0, SHOT_PISTOL_1, SHOT_SHOTGUN_0, SHOT_SHOTGUN_1, HIT_0, HIT_1}
+    
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -48,6 +49,7 @@ namespace MINI_ROYALE
 
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
+
             
             instance = this;
         }
@@ -106,7 +108,7 @@ namespace MINI_ROYALE
 
             // Check whether the user has pressed and released the leftmouse button whilst hovering over the button object.
             if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed) {
-                Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
+                //Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
             }
 
             if (nextState != null) {

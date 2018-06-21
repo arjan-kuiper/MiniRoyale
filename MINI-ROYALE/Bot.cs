@@ -47,7 +47,7 @@ namespace MINI_ROYALE
                             {
                                 //System.Diagnostics.Debug.WriteLine("Collision detected: " + position);
                             }
-                            System.Diagnostics.Debug.WriteLine("Collision detected ");
+                            //System.Diagnostics.Debug.WriteLine("Collision detected ");
                         }
                     }
                 }
@@ -94,17 +94,16 @@ namespace MINI_ROYALE
             spriteBatch.Draw(botImg, pos, null, Color.White, rotation, playerOrigin, .1f, SpriteEffects.None, 0f);
 
             spriteBatch.End();
-            boundingBox.X = (int)pos.X;
-            boundingBox.Y = (int)pos.Y;
+            
         }
 
         public void Move(Vector2 vec)
         {
             this.pos.X += vec.X;
             pos.Y += vec.Y;
-            this.boundingBox.X = (int)pos.X;
-            this.boundingBox.Y = (int)pos.Y;
-            //System.Diagnostics.Debug.WriteLine("{0} {1}", pos.x, pos.y);
+            boundingBox.X = (int)pos.X;
+            boundingBox.Y = (int)pos.Y;
+            //System.Diagnostics.Debug.WriteLine("Box {0}, {1}, Box {2}, {3}", boundingBox.X, boundingBox.Y, pos.X, pos.Y);
         }
 
         public byte takeDamage(byte damage)
@@ -127,7 +126,7 @@ namespace MINI_ROYALE
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
 
-            Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation);
+            Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation, 100);
             state.spawnedBullets.Add(bullet);
 
             // Play the gunsound.
@@ -145,7 +144,8 @@ namespace MINI_ROYALE
         {    
             float pX = p.pos.X;
             float pY = p.pos.Y;
-
+            
+            //System.Diagnostics.Debug.WriteLine(boundingBox.X);
             if (((pos.X - 54) <= pX && (pos.X + 54) >= pX) || ((pos.Y - 64) <= pY && (pos.Y + 64) >= pY))
             {
                 //System.Diagnostics.Debug.WriteLine("hit");

@@ -123,6 +123,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Randomizer.cs" />
     <Compile Include="SoundHandler.cs" />
     <Compile Include="Throwable.cs" />
     <Compile Include="Tile.cs" />

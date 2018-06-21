@@ -15,13 +15,15 @@ namespace MINI_ROYALE
         private enum FiringType { SEMI, FULL }
         private int bulletInClip { get; set; }
         private int maxBulletInClip { get; set; }
-        private float spread { get; set; }
+        public int spread;
         private float recoil { get; set; }
         private Player play { get; }
 
-        public Weapon(String itemName, Texture2D sprite, Vector2 pos) : base(itemName, sprite, pos)
+        public Weapon(String itemName, Texture2D sprite, Vector2 pos, int spread) : base(itemName, sprite, pos)
         {
+
             Use();
+            this.spread = spread;
         }
         private int Reload()
         {
