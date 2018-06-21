@@ -15,8 +15,8 @@ namespace MINI_ROYALE
         public Vector2 pos;
         public Rectangle boundingBox;
         public byte currentItem;
-
-        private byte hp;
+        public bool alive;
+        private int hp;
         private Inventory inventory;
         private float orientation;
 
@@ -33,6 +33,8 @@ namespace MINI_ROYALE
         {
             this.pos = pos;
             this.boundingBox = new Rectangle(32, 32, 16, 16);
+            alive = true;
+            hp = 100;
         }
 
         public int collidesWithSurrounding()
@@ -74,15 +76,7 @@ namespace MINI_ROYALE
             {
                 rotation = 0;
 
-               // if (timesTicked > timesToTick)
-                //{
-                    //Shoot(p, s);
-                    //timesTicked = 1;
-               // }
-                //else
-                //{
-                    //DispatcherTimerSetup();
-                //}              
+                //Shoot(p, s);
             }
             else
             {
@@ -110,7 +104,8 @@ namespace MINI_ROYALE
             this.orientation = rotation;
 
             spriteBatch.Draw(botImg, pos, null, Color.White, rotation, playerOrigin, .1f, SpriteEffects.None, 0f);
-
+            this.boundingBox.X = (int)Math.Round(pos.X - 16);
+            this.boundingBox.Y = (int)Math.Round(pos.Y + 16);
             spriteBatch.End();
             
         }
@@ -119,15 +114,20 @@ namespace MINI_ROYALE
         {
             this.pos.X += vec.X;
             pos.Y += vec.Y;
-            boundingBox.X = (int)pos.X;
-            boundingBox.Y = (int)pos.Y;
+            
             //System.Diagnostics.Debug.WriteLine("Box {0}, {1}, Box {2}, {3}", boundingBox.X, boundingBox.Y, pos.X, pos.Y);
         }
 
-        public byte takeDamage(byte damage)
+        public bool takeDamage(byte damage)
         {
-            // TODO
-            return 0;
+            hp -= damage;
+            //System.Diagnostics.Debug.WriteLine("Current hp: " + hp);
+            if (hp <= 0)
+            {
+                
+                alive = false;
+            }
+            return alive;
         }
 
         public void Shoot(Player p, GameState state)
@@ -144,8 +144,8 @@ namespace MINI_ROYALE
 
             orientation = 0;
 
-            spawnPosition.X = pos.X;
-            spawnPosition.Y = pos.Y;
+            spawnPosition.X = this.pos.X;
+            spawnPosition.Y = this.pos.Y;
 
             Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation, 100);
             state.spawnedBullets.Add(bullet);

@@ -65,6 +65,19 @@ namespace MINI_ROYALE {
             inputHandler.mouseListener();
             inputHandler.interaction();
             tileMap.Camera.LookAt(player.pos);
+            List<Bot> toRemove = new List<Bot>();
+            foreach(Bot b in bots)
+            {
+                if(b.alive == false)
+                {
+                    toRemove.Add(b);
+                    
+                }
+            }
+            foreach(Bot b in toRemove)
+            {
+                bots.Remove(b);
+            }
         }
         #endregion
         #region GameStateMethods

@@ -182,7 +182,7 @@ namespace MINI_ROYALE
             // Bullet variables.
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
             MouseState current_mouse = Mouse.GetState();
-            Vector2 bulletTarget = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
+            Vector2 bulletTarget = pos - current_mouse.Position.ToVector2();
             Vector2 spawnPosition;
 
             spawnPosition.X = pos.X;
@@ -192,10 +192,10 @@ namespace MINI_ROYALE
             if(w.getName().Equals("Shotgun"))
             {
                 System.Diagnostics.Debug.WriteLine("SHOT");
-                state.spawnedBullets.Add(new Bullet(spawnPosition, -bulletTarget, orientation, w.spread));
-                state.spawnedBullets.Add(new Bullet(spawnPosition, -bulletTarget, orientation, w.spread));
-                state.spawnedBullets.Add(new Bullet(spawnPosition, -bulletTarget, orientation, w.spread));
-                state.spawnedBullets.Add(new Bullet(spawnPosition, -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(pos, -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(pos, -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(pos, -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(pos, -bulletTarget, orientation, w.spread));
             }
             state.spawnedBullets.Add(bullet);
             

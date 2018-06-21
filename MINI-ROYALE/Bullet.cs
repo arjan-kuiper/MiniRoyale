@@ -31,7 +31,7 @@ namespace MINI_ROYALE
             this.position = new Vector2(viewport.Width / 2f, viewport.Height / 2f);
             this.direction = direction;
             this.rotation = rotation;
-            this.boundingBox = new Rectangle((int)position.X, (int)position.Y,1,1);
+            this.boundingBox = new Rectangle((int)position.X, (int)position.Y,3,3);
  
             var result = Randomizer.instance.randomNumber(-randomnessfactor, randomnessfactor);
             System.Diagnostics.Debug.WriteLine(result);
@@ -52,7 +52,7 @@ namespace MINI_ROYALE
             GameState state = (GameState)Game.instance.getState();
             foreach(Bot b in state.bots)
             {
-                if (boundingBox.Intersects(b.boundingBox))
+                if (b.boundingBox.Intersects(this.boundingBox))
                 {
                     b.takeDamage(30);
                     //System.Diagnostics.Debug.WriteLine("DAMAGE WAS TAKEN");
