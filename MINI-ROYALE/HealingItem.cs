@@ -17,5 +17,28 @@ namespace MINI_ROYALE
         {
 
         }
+
+        public new void Use()
+        {
+            if(useTime > 0)
+            {
+                InterruptUse();
+                useTime -= 1;
+            }
+            else
+            {
+                // destroy item in a way
+            }
+        }
+
+        public void InterruptUse()
+        {
+            int healthPlayer = 30;
+            for(int i = 0; i == healingCount; i++)
+            {
+                healthPlayer += 50;
+                i = 0;
+            }
+        }
     }
 }

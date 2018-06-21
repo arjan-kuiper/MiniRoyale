@@ -3,31 +3,57 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
+using Microsoft.Xna.Framework.Media;
+
 namespace MINI_ROYALE
 {
+    public enum Songs { NONE, AMBIENT, WIN, LOSS }
+    public enum Sounds { NONE, SHOT_PISTOL_0, SHOT_PISTOL_1, SHOT_SHOTGUN_0, SHOT_SHOTGUN_1, HIT_0, HIT_1}
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
+        // === GameState Manager variables ===
+        #region Fields
+        #region GameStateVars
+        private State currentState, nextState;
+        private SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private MouseState _currentMouse, _previousMouse;
+
+        private Dictionary<Songs, Song> songs = new Dictionary<Songs, Song>();
+        private Songs currentSong, nextSong;
+        #endregion
+
         public static Game instance;
+<<<<<<< HEAD
         GraphicsDeviceManager graphics;
         TileMap tm;
         public SpriteBatch spritebatch;
         Player p;
         InputHandler h;
+=======
+        
+        #endregion
+>>>>>>> b3dabe3d2860c69eb5b484132f32a96985dfb7c1
 
-        // voor items op de map (Busy)
-        private Dictionary<Vector2, Item> items;
 
+        public State getState() {
+            return currentState;
+        }
+
+        public void ChangeState(State state) {
+            nextState = state;
+        }
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
+
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
-
-            // list voor items
-            items = new Dictionary<Vector2, Item>();
+            
             instance = this;
         }
 
@@ -39,15 +65,13 @@ namespace MINI_ROYALE
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            IsMouseVisible = true;
+            nextSong = Songs.AMBIENT;
             base.Initialize();
-            spritebatch = new SpriteBatch(GraphicsDevice);
-            tm = new TileMap(GraphicsDevice);
-
-            //Initializes a player
-            
-            p = new Player();
-            h = new InputHandler(p);
+            /*
+             * NetworkManager nm = new NetworkManager();
+             * NetworkManager.callSendServerSocket("BERICHT");
+            */
         }
 
         /// <summary>
@@ -56,11 +80,13 @@ namespace MINI_ROYALE
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            items.Add(new Vector2(32, 32), new HealingItem("test", Content.Load<Texture2D>("items/medic"), new Vector2(32, 32)));
-           
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            currentState = new MenuState(this, graphics.GraphicsDevice, Content);
 
-            // TODO: use this.Content to load your game content here
+            // Load songs.
+            songs.Add(Songs.AMBIENT, Content.Load<Song>(@"Sounds\Ambient"));
+            songs.Add(Songs.WIN, Content.Load<Song>(@"Sounds\Win"));
+            songs.Add(Songs.LOSS, Content.Load<Song>(@"Sounds\Loss"));
         }
 
         /// <summary>
@@ -79,14 +105,50 @@ namespace MINI_ROYALE
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
+            // Set the previous mouse actions.
+            _previousMouse = _currentMouse;
+            _currentMouse = Mouse.GetState();
+
+            // Check whether the user has pressed and released the leftmouse button whilst hovering over the button object.
+            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed) {
+                Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
+            }
+
+            if (nextState != null) {
+                currentState = nextState;
+                nextState = null;
+            }
+
+            // Check whether the user has pressed and released the leftmouse button whilst hovering over the button object.
+            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed) {
+                Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
+            }
+
+            // === Call the current state's update methods. ===
+            currentState.Update(gameTime);
+            currentState.PostUpdate(gameTime);
+            SoundHandler(gameTime);
+
             base.Update(gameTime);
-
-            h.walk();
-            h.mouseListener();
-            tm.Camera.LookAt(new Vector2(p.pos.X, p.pos.Y));
-
         }
+        /// <summary>
+        /// This method is being called each update. to check whether another song should be played.
+        /// </summary>
+        /// <param name="gametime"></param>
+        private void SoundHandler(GameTime gametime) {
+            if (nextSong != Songs.NONE) {
+                currentSong = nextSong;
+                nextSong = Songs.NONE;
+
+                MediaPlayer.Volume = 0.1f;
+                MediaPlayer.Play(songs[currentSong]);
+            }
+        }
+
+        public void ChangeSong(Songs song) {
+            nextSong = song;
+        }
+
         protected bool CollisionCheck()
         {
             // TODO
@@ -94,43 +156,16 @@ namespace MINI_ROYALE
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        /// This method is called to write.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Orange);
-            tm.setGameDevice(this);
-            tm.draw(spritebatch, p);
-            foreach(KeyValuePair<Vector2, Item> item in items)
-            {
-                item.Value.draw(spritebatch);
-            }
-            p.draw(spritebatch, this);
+            // Draw base-background color incase something goes wrong. Followed by the currentState's draw methods.
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            currentState.Draw(gameTime, spriteBatch);
 
             base.Draw(gameTime);
         }
-
-
-        public bool RemoveItemFromMap(Vector2 pos)
-        {
-            foreach(KeyValuePair<Vector2, Item> needle in items)
-            {
-                if (pos == needle.Key)
-                {
-                    items.Remove(needle.Key);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public bool AddItemToMap(Vector2 pos, Item item)
-        {
-
-            items.Add(pos, item);
-            return true;
-        }
-
     }
 }

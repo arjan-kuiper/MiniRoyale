@@ -16,6 +16,7 @@ namespace MINI_ROYALE
         public string file { get; set; }
         public Rectangle Collisionbox { get; set; }
         public Vector2 position;
+        public byte inZone = 0;
         public Tile(string file, int tileId, Vector2 pos)
         {
             this.position = pos;
@@ -35,6 +36,16 @@ namespace MINI_ROYALE
                     break;
             }
         }
+
+        public byte SetZone(byte zones)
+        {
+            inZone = zones;
+            return inZone;
+        }
        
+        public byte getZone()
+        {
+            return inZone;
+        }
     }
 }

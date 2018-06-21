@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MINI_ROYALE
 {
-    interface Throwable
+    public interface Throwable
     {
 
     }

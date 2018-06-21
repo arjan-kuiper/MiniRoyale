@@ -17,14 +17,15 @@ namespace MINI_ROYALE
         private int maxBulletInClip { get; set; }
         private float spread { get; set; }
         private float recoil { get; set; }
+        private Player play { get; }
 
         public Weapon(String itemName, Texture2D sprite, Vector2 pos) : base(itemName, sprite, pos)
         {
-
+            Use();
         }
         private int Reload()
         {
-            if (bulletInClip == 0)
+            for(int i = 0; i == 500; i++)
             {
                 bulletInClip = maxBulletInClip;
             }
@@ -45,14 +46,13 @@ namespace MINI_ROYALE
                 if (bulletInClip > 0)
                 {
                     // SHOOT
-                    // shoot bullet don't know yet how
-
+                    // mogelijke schiet functie gaat volgensmij de verkeerde kant op moet vanuit weapon naar player en niet player naar weapon
+                    play.Shoot(play.getOrientation());
                 }
                 else
                 {
                     // reload and can't shoot
                     Reload();
-                    i = 0;
                 }
             }
             return 0;
@@ -60,10 +60,10 @@ namespace MINI_ROYALE
 
         public void ThrowItem()
         {
-            // throw function from trhow class here.
+            // throw function from throw class here.
         }
 
-        public bool Use()
+        public new bool Use()
         {
             Fire();
             return true;

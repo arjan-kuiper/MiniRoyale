@@ -62,8 +62,22 @@ namespace MINI_ROYALE
                     {
                         Tile currTile = tile.Value;
                         Texture2D tileToUse = game.Content.Load<Texture2D>(currTile.file);
-
-                        spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.White);
+                        if(currTile.inZone == 3)
+                        {
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.Purple);
+                        }
+                        else if (currTile.inZone == 2)
+                        {
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.LightPink);
+                        }
+                        else if (currTile.inZone == 1)
+                        {
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.Pink);
+                        }
+                        else if (currTile.inZone == 0)
+                        {
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.White);
+                        }
                     }
                 }
             }

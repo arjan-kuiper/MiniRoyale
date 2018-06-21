@@ -11,11 +11,16 @@ namespace MINI_ROYALE
 {
     class InputHandler
     {
+        private KeyboardState oldKeyState;
+        private MouseState oldMouseState;
         Player p;
+        double interactionRange = .6; // In tiles
+
         public InputHandler(Player pl)
         {
             p = pl;
         }
+
         public void walk()
         {
             float speed = 1f;
@@ -64,11 +69,66 @@ namespace MINI_ROYALE
         public void mouseListener()
         {
             MouseState ms = Mouse.GetState();
-            if(ms.LeftButton == ButtonState.Pressed)
+
+            if(ms.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
-                p.shoot();
+                if(p.getItemInSlot(p.currentItem - 1) is Weapon)
+                {
+                    p.Shoot(p.getOrientation());
+                }
+            }
+
+            oldMouseState = ms;
+        }
+
+        public void interaction()
+        {
+            KeyboardState k = Keyboard.GetState();
+            GameState state = (GameState)Game.instance.getState();
+
+            if (k.IsKeyDown(Keys.E) && oldKeyState.IsKeyUp(Keys.E))
+            {
+                foreach (Item item in state.items)
+                {
+                    if(Vector2.Distance(p.pos, new Vector2(item.pos.X + 8, item.pos.Y + 8)) < interactionRange * 16)
+                    {
+                        System.Diagnostics.Debug.WriteLine(item.ToString());
+                        if (p.pickup(item))
+                        {
+                            state.RemoveItemFromMap(item.pos);
+                        }
+                        break;
+                    }
+                }
+            }
+            if (k.IsKeyDown(Keys.Q) && oldKeyState.IsKeyUp(Keys.Q))
+            {
+                Item item = p.getItemInSlot(p.currentItem - 1);
+                if (item != null)
+                {
+                    if (p.dropItem(item))
+                    {
+                        item.pos.X = p.pos.X - 8;
+                        item.pos.Y = p.pos.Y - 8;
+                        state.AddItemToMap(item);
+                    }
+                }
                 
             }
+
+            // Item Selection
+            if (k.IsKeyDown(Keys.D1))
+                p.currentItem = 1;
+            if (k.IsKeyDown(Keys.D2))
+                p.currentItem = 2;
+            if (k.IsKeyDown(Keys.D3))
+                p.currentItem = 3;
+            if (k.IsKeyDown(Keys.D4))
+                p.currentItem = 4;
+            if (k.IsKeyDown(Keys.D5))
+                p.currentItem = 5;
+
+            oldKeyState = k;
         }
 
     }

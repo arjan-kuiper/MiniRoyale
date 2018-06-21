@@ -4,21 +4,17 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace MINI_ROYALE
 {
-    class Player
+    public class Player
     {
         public Vector2 pos;
-        private bool alive;
-        private byte hp;
-        private byte armor;
-        private Inventory inventory;
-        private byte currentItem;
-        private float orientation;
-        private int team;
         public Rectangle boundingBox;
+        public byte currentItem;
+
+        private byte hp;
+        private Inventory inventory;
+        private float orientation;
 
         public bool[] moveDirs = { true, true, true, true };
 
@@ -74,11 +70,24 @@ namespace MINI_ROYALE
             
         }
 
-        public void draw(SpriteBatch spriteBatch, Game game)
-        {
+        public void draw(SpriteBatch spriteBatch, Game game) {
             spriteBatch.Begin();
             Viewport viewport = game.GraphicsDevice.Viewport;
-            Texture2D playerImg = game.Content.Load<Texture2D>("player");
+
+            Item item = getItemInSlot(currentItem - 1);
+            string texture = "";
+            if (item is Weapon)
+            {
+                texture = "player-weapon";
+            }
+            else
+            {
+                texture = "player-normal";
+            }
+
+            Texture2D playerImg = game.Content.Load<Texture2D>(texture);
+
+
             Vector2 playerOrigin = new Vector2(playerImg.Width / 2f, playerImg.Height / 2f);
             MouseState current_mouse = Mouse.GetState();
             Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
@@ -92,8 +101,7 @@ namespace MINI_ROYALE
             boundingBox.Y = (int)Math.Round(pos.Y+16);
         }
 
-        public void Move(Vector2 vec)
-        {
+        public void Move(Vector2 vec) {
             this.pos.X += vec.X;
             pos.Y += vec.Y;
             boundingBox.X = (int)Math.Round(pos.X-16);
@@ -103,27 +111,31 @@ namespace MINI_ROYALE
         }
         
 
-        public int pickup(Item item)
-        {
-            inventory.AddItemToInv(item);
+        public bool pickup(Item item) {
+            if(inventory.GetSizeOfInv() == 0) { currentItem = 1; }
+            return inventory.AddItemToInv(item);
+        }
+
+        public string getCurrentItemName() {
+            return inventory.GetItemName(currentItem - 1);
+        }
+
+        // Voor het removen van een item heb de functie naar een bool veranderd van een Item. 
+        // Als dit niet goed is graag aangeven
+        public bool dropItem(Item item) {
+            return inventory.RemoveItemFromInv(item);
+        }
+
+        public Item getItemInSlot(int slot) {
+            return inventory.GetItemInSlot(slot);
+        }
+
+        public byte takeDamage(byte damage) {
+            // TODO
             return 0;
         }
 
-        public Item dropItem(int slot)
-        {
-            // TODO
-            
-            return null;
-        }
-
-        public byte takeDamage(byte damage)
-        {
-            // TODO
-            return 0;
-        }
-
-        public byte increaseHealth(byte amount)
-        {
+        public byte increaseHealth(byte amount) {
             this.hp += amount;
             if(hp > 100)
             {
@@ -132,39 +144,67 @@ namespace MINI_ROYALE
             return hp;
         }
 
-        public byte increaseArmor(byte amount)
-        {
+        public byte increaseArmor(byte amount) {
             // TODO
             return 0;
         }
 
-        public Throwable throwItem(byte slot)
-        {
+        public Throwable throwItem(int slot) {
             // TODO
             return null;
         }
 
-        public Item dropItem(byte slot)
-        {
-            // TODO
-            return null;
-        }
-
-        public void update()
-        {
+        public void update() {
             // TODO
         }
 
 
-        public void shoot()
+        public void Shoot(float orientation)
         {
-            System.Diagnostics.Debug.WriteLine("Shoot" + orientation);
+            // Sound management variables
+            List<Sounds> sounds = new List<Sounds> { Sounds.SHOT_PISTOL_0, Sounds.SHOT_PISTOL_1};
+            Random rand = new Random();
+
+            // Bullet variables.
+            Viewport viewport = Game.instance.GraphicsDevice.Viewport;
+            MouseState current_mouse = Mouse.GetState();
+            Vector2 bulletTarget = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
+            Vector2 spawnPosition;
+
+            spawnPosition.X = pos.X;
+            spawnPosition.Y = pos.Y;
+
+
+            Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation);
+            state.spawnedBullets.Add(bullet);
+            
+            // Play the gunsound.
+            int sound = rand.Next(0, sounds.Count());
+            state.PlaySoundEffect(sounds[sound]);
         }
 
-        private bool checkCollision(Vector2 pos)
-        {
+        public void ThrowExplosive() {
+            Vector2 spawnPosition;
+            Vector2 bulletTarget;
+
+            bulletTarget.X = Mouse.GetState().X;
+            bulletTarget.Y = Mouse.GetState().Y;
+
+            spawnPosition.X = pos.X;
+            spawnPosition.Y = pos.Y;
+
+            Bullet bullet = new Bullet(spawnPosition, bulletTarget, orientation);
+            state.spawnedBullets.Add(bullet);
+        }
+
+        private bool checkCollision(Vector2 pos) {
             // TODO
             return true;
+        }
+
+        public float getOrientation()
+        {
+            return orientation;
         }
     }
 }

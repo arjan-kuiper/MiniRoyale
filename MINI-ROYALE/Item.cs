@@ -12,7 +12,7 @@ namespace MINI_ROYALE
     {
         private string itemName { get; set; }
         private Texture2D sprite { get; set; }
-        private Vector2 pos { get; set; }
+        public Vector2 pos;
 
         public Item(String itemName, Texture2D sprite, Vector2 pos)
         {
@@ -21,18 +21,23 @@ namespace MINI_ROYALE
             this.pos = pos;
         }
 
+        public string getName()
+        {
+            return this.itemName;
+        }
+
         public bool RemoveItemFromMap(Vector2 pos)
         {
-            // TODO
-            Game.instance.RemoveItemFromMap(pos);
+            GameState state = (GameState)Game.instance.getState();
+            state.RemoveItemFromMap(pos);
             return true;
         }
 
         public bool AddItemToMap(Vector2 pos, Item item)
         {
             // for Item use this
-            // TODO
-            Game.instance.AddItemToMap(pos, item);
+            GameState state = (GameState)Game.instance.getState();
+            state.AddItemToMap(item);
             return true;
         }
 
