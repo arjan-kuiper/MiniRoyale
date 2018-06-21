@@ -69,11 +69,12 @@ namespace MINI_ROYALE
             }
             else
             {
-                Random r = new Random();
-                int r1 = r.Next(0, 2);
-                int r2 = r.Next(0, 2);
-             
+                int r1 = 0;
+                int r2 = 0;
                 rotation = 0.5f;
+
+                r1 = (p.pos.X > pos.X) ? 1 : -1;
+                r2 = (p.pos.Y > pos.Y) ? 1 : -1;
 
                 Move(new Vector2(r1, r2));
             }
