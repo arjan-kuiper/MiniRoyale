@@ -26,6 +26,7 @@ namespace MINI_ROYALE
             inventory = new Inventory(this);
             this.boundingBox = new Rectangle(32, 32, 16, 16);
             alive = true;
+            this.state = state;
         }
 
         public void collidesWithSurrounding()
