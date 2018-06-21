@@ -32,7 +32,7 @@ namespace MINI_ROYALE
 
         public Tile getTileOnLoc(int x, int y)
         {
-            return bitmap[new Tuple<int,int>(x,y)];
+            return bitmap[new Tuple<int, int>(x*16, y*16)];
 
         }
         public TileMap(GraphicsDevice gd)
@@ -102,6 +102,7 @@ namespace MINI_ROYALE
             }
 
             mapLoaded = true;
+            System.Diagnostics.Debug.WriteLine("MAPLOADED WAS SET TO TRUE");
         }
     }
 }

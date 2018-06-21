@@ -13,7 +13,7 @@ namespace MINI_ROYALE
         public static Game instance;
         GraphicsDeviceManager graphics;
         TileMap tm;
-        private SpriteBatch spritebatch;
+        public SpriteBatch spritebatch;
         Player p;
         InputHandler h;
 

@@ -20,45 +20,58 @@ namespace MINI_ROYALE
         private int team;
         public Rectangle boundingBox;
 
+        public bool[] moveDirs = { true, true, true, true };
 
         public Player()
         {
-            this.pos = new Vector2(32,32);
+            this.pos = new Vector2(400,400);
             inventory = new Inventory(this);
             this.boundingBox = new Rectangle(32, 32, 16, 16);
         }
 
-        public int collidesWithSurrounding()
+        public void collidesWithSurrounding()
         {
-            var xCoord = (int)this.pos.X / 16;
-            var yCoord = (int)this.pos.Y / 16;
+            var xCoord = (int)Math.Floor((this.pos.X) / 16);
+            var yCoord = (int)Math.Floor((this.pos.Y) / 16);
             //System.Diagnostics.Debug.WriteLine("X = {0}. Y = {1}", xCoord, yCoord);
             //Half block check met modulo
-            for (int y = yCoord - 1; y < yCoord + 1; y++)
-            { 
-                for (int x = xCoord - 1; x <= xCoord+1; x++)
+            if (TileMap.instance.mapLoaded)
+            {
+                System.Diagnostics.Debug.WriteLine("X: {0}, Y: {1}", xCoord, yCoord);
+                if( TileMap.instance.getTileOnLoc(xCoord, (yCoord - 1)).hasCollision)
                 {
-                   
-                    if (TileMap.instance.mapLoaded == true)
-                    {
-
-                        bool tileHasCollision = TileMap.instance.getTileOnLoc(x, y).hasCollision;
-                        if (tileHasCollision == true)
-                        {
-                            //System.Diagnostics.Debug.WriteLine("A tile was loaded");
-                            if (boundingBox.Intersects(new Rectangle((int)TileMap.instance.getTileOnLoc(x, y).position.X, (int)TileMap.instance.getTileOnLoc(x, y).position.Y, 16,16)))
-                            {
-                                //System.Diagnostics.Debug.WriteLine("Collision detected: " + position);
-                            }
-                            System.Diagnostics.Debug.WriteLine("Collision detected ");
-
-                        }
-                    }
-                    
-                    
+                    moveDirs[0] = false;
+                }
+                else
+                {
+                    moveDirs[0] = true;
+                }
+                if( TileMap.instance.getTileOnLoc(xCoord , (yCoord + 1)).hasCollision)
+                {
+                    moveDirs[2] = false;
+                }
+                else
+                {
+                    moveDirs[2] = true;
+                }
+                if( TileMap.instance.getTileOnLoc((xCoord - 1), yCoord).hasCollision)
+                {
+                    moveDirs[3] = false;
+                }
+                else
+                {
+                    moveDirs[3] = true;
+                }
+                if (TileMap.instance.getTileOnLoc((xCoord + 1), yCoord).hasCollision)
+                {
+                    moveDirs[1] = false;
+                }
+                else
+                {
+                    moveDirs[1] = true;
                 }
             }
-            return 1;
+            
         }
 
         public void draw(SpriteBatch spriteBatch, Game game)
@@ -75,16 +88,17 @@ namespace MINI_ROYALE
             this.orientation = rotation;
             spriteBatch.Draw(playerImg, new Vector2(viewport.Width / 2f, viewport.Height / 2f), null, Color.White, rotation, playerOrigin, .5f, SpriteEffects.None, 0f);
             spriteBatch.End();
-            boundingBox.X = (int)pos.X;
-            boundingBox.Y = (int)pos.Y;
+            boundingBox.X = (int)Math.Round(pos.X);
+            boundingBox.Y = (int)Math.Round(pos.Y+16);
         }
 
         public void Move(Vector2 vec)
         {
             this.pos.X += vec.X;
             pos.Y += vec.Y;
-            this.boundingBox.X = (int)pos.X;
-            this.boundingBox.Y = (int)pos.Y;
+            boundingBox.X = (int)Math.Round(pos.X-16);
+            boundingBox.Y = (int)Math.Round(pos.Y+16);
+            collidesWithSurrounding();
             //System.Diagnostics.Debug.WriteLine("{0} {1}", pos.x, pos.y);
         }
         

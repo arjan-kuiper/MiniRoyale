@@ -22,8 +22,13 @@ namespace MINI_ROYALE
             this.file = file;
             switch (tileId)
             {
-                case 44://Tiles met collision DEZE DOORLOPEN!!!
+                case 44: /*case 21:
+                case 1:
+                case 2:
+                case 23:
+                case 24:*///Tiles met collision DEZE DOORLOPEN!!!
                     hasCollision = true;
+                    
                     break;
                 default://loopbare tiles
                     hasCollision = false;
