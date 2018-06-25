@@ -19,9 +19,9 @@ namespace MINI_ROYALE
 
         }
 
-        public new void Use()
+        public override bool User()
         {
-            InterruptUse();
+            return true;
         }
 
         public void InterruptUse()

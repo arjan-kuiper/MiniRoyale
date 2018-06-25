@@ -17,10 +17,7 @@ namespace MINI_ROYALE
         public byte currentItem;
         public bool alive;
         private int hp;
-        private Inventory inventory;
         private float orientation;
-
-        private GameState state;
 
         DispatcherTimer dispatcherTimer;
         DateTimeOffset startTime;
