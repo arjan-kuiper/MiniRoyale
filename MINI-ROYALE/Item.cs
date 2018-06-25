@@ -41,26 +41,14 @@ namespace MINI_ROYALE
             return true;
         }
 
-        public bool Use()
+        public virtual bool Use()
         {
-            // TODO
-            if(this is Weapon)
-            {
-                //Reference to player.
-            }
-            if(this is Armor)
-            {
-
-            }
-            if(this is HealingItem)
-            {
-
-            }
-            if(this is Explosive)
-            {
-
-            }
             return true;
+        }
+
+        public virtual float getHealingCount()
+        {
+            return 0;
         }
 
         public void draw(SpriteBatch spriteBatch)

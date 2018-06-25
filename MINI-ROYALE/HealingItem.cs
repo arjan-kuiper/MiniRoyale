@@ -13,22 +13,15 @@ namespace MINI_ROYALE
         private float healingCount { get; set; }
         private int useTime { get; set; }
 
-        public HealingItem(String itemName, Texture2D sprite, Vector2 pos) : base(itemName, sprite, pos)
+        public HealingItem(String itemName, Texture2D sprite, Vector2 pos, float healingCount) : base(itemName, sprite, pos)
         {
-
+            this.healingCount = healingCount;
         }
 
-        public new void Use()
+        public override bool Use()
         {
-            if(useTime > 0)
-            {
-                InterruptUse();
-                useTime -= 1;
-            }
-            else
-            {
-                // destroy item in a way
-            }
+            System.Diagnostics.Debug.WriteLine("Using healing (Adding " + healingCount + " hp)");
+            return true;
         }
 
         public void InterruptUse()
@@ -39,6 +32,11 @@ namespace MINI_ROYALE
                 healthPlayer += 50;
                 i = 0;
             }
+        }
+
+        public override float getHealingCount()
+        {
+            return healingCount;
         }
     }
 }

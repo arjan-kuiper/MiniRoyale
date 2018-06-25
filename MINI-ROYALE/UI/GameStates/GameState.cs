@@ -161,9 +161,9 @@ namespace MINI_ROYALE {
             {
                 items.Add(new Weapon("Pistol", _content.Load<Texture2D>("items/pistol"), tileMap.getRandomOnMapPosition(),100));
             }
-            items.Add(new HealingItem("Medkit", _content.Load<Texture2D>("items/medic"), new Vector2(480, 480)));
-            items.Add(new HealingItem("Bandage", _content.Load<Texture2D>("items/bandage"), new Vector2(416, 480)));
-            items.Add(new HealingItem("Health Potion", _content.Load<Texture2D>("items/potion-health"), new Vector2(480, 416)));
+            items.Add(new HealingItem("Medkit", _content.Load<Texture2D>("items/medic"), new Vector2(480, 480), 100));
+            items.Add(new HealingItem("Bandage", _content.Load<Texture2D>("items/bandage"), new Vector2(416, 480), 25));
+            items.Add(new HealingItem("Health Potion", _content.Load<Texture2D>("items/potion-health"), new Vector2(480, 416), 50));
             items.Add(new Weapon("Pistol", _content.Load<Texture2D>("items/pistol"), new Vector2(512, 480),100));
             items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), new Vector2(512, 480),150));
             items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), new Vector2(550, 400),150));

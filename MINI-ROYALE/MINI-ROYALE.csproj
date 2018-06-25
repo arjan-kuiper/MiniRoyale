@@ -119,7 +119,6 @@
     <Compile Include="Item.cs" />
     <Compile Include="JsonParser.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -182,7 +181,9 @@
       <Version>3.6.0.1625</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Network\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

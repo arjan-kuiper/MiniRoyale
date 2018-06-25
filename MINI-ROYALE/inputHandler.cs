@@ -113,7 +113,21 @@ namespace MINI_ROYALE
                         state.AddItemToMap(item);
                     }
                 }
-                
+            }
+            if(k.IsKeyDown(Keys.F) && oldKeyState.IsKeyUp(Keys.Q))
+            {
+                Item item = p.getItemInSlot(p.currentItem - 1);
+                if(item != null)
+                {
+                    if (item.Use())
+                    {
+                        if(item is HealingItem)
+                        {
+                            p.increaseHealth((byte)item.getHealingCount());
+                            p.dropItem(item);
+                        }
+                    }
+                }
             }
 
             // Item Selection
