@@ -69,22 +69,23 @@ namespace MINI_ROYALE
                         // Bepalen of de tile in de zone is. Zoja, welk stadium en pas hier de kleur op aan
                         Tile currTile = tile.Value;
                         Texture2D tileToUse = game.Content.Load<Texture2D>(currTile.file);
-                        if(currTile.inZone == 3)
+                        if (currTile.inZone == 0)
                         {
-                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.Purple);
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.LightBlue);
                         }
-                        else if (currTile.inZone == 2)
-                        {
-                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.LightPink);
-                        }
-                        else if (currTile.inZone == 1)
+                        else if (currTile.inZone == 2 || currTile.inZone == 1)
                         {
                             spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.Pink);
                         }
-                        else if (currTile.inZone == 0)
+                        else if (currTile.inZone == 4 || currTile.inZone == 3)
                         {
-                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.White);
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.LightPink);
                         }
+                        if (currTile.inZone == 5)
+                        {
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.Purple);
+                        }
+
                     }
                 }
             }
