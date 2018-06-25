@@ -13,7 +13,7 @@ namespace MINI_ROYALE
         public Rectangle boundingBox;
         public byte currentItem;
         public bool alive;
-        public byte hp { get; private set; } = 60;
+        public byte hp { get; private set; } = 100;
         private byte armor;
         private Inventory inventory;
         private float orientation;
