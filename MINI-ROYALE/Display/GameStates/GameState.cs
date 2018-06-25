@@ -31,6 +31,7 @@ namespace MINI_ROYALE {
         public List<Item> items = new List<Item>();
         public List<Bullet> spawnedBullets = new List<Bullet>();
         public List<Bot> bots = new List<Bot>();
+        public List<Component> components = new List<Component>();
         private float currentTime = 0f;
 
         #endregion
@@ -54,6 +55,10 @@ namespace MINI_ROYALE {
             player.draw(spriteBatch, _game);
             Draw_Inventory(spriteBatch);
             ZoneContraction(gameTime, spriteBatch);
+
+            foreach (Component component in components) {
+                component.Draw(gameTime, spriteBatch);
+            }
         }
 
         public override void PostUpdate(GameTime gametime) {
@@ -78,6 +83,10 @@ namespace MINI_ROYALE {
             foreach(Bot b in toRemove)
             {
                 bots.Remove(b);
+            }
+
+            foreach (Component component in components) {
+                component.Update(gameTime);
             }
         }
         #endregion
@@ -156,7 +165,6 @@ namespace MINI_ROYALE {
         /// </summary>
         private void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
-
             for (var i =0; i<=100; i++)
             {
                 items.Add(new Weapon("Pistol", _content.Load<Texture2D>("items/pistol"), tileMap.getRandomOnMapPosition(),100));
@@ -177,6 +185,15 @@ namespace MINI_ROYALE {
             sounds.Add(Sounds.SHOT_SHOTGUN_1, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_1"));
             sounds.Add(Sounds.HIT_0, _content.Load<SoundEffect>(@"Sounds\Hit_0"));
             bots.Add(new Bot(new Vector2(300, 300)));
+
+
+            // === COMPONENT CREATION === 
+            Texture2D front = _content.Load<Texture2D>(@"Controls\Healthbar_Front");
+            Texture2D back = _content.Load<Texture2D>(@"Controls\Healthbar_Back");
+
+            components.Add(new Healthbar(front, back, _graphicsDevice, player) {
+                Position = new Vector2(25, 900)
+            });
         }
 
         /// <summary>
