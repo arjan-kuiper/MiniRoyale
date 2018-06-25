@@ -36,8 +36,8 @@ namespace MINI_ROYALE
 
         public int collidesWithSurrounding()
         {
-            var xCoord = (int)this.pos.X / 16;
-            var yCoord = (int)this.pos.Y / 16;
+            var xCoord = (int)this.pos.X * 16;
+            var yCoord = (int)this.pos.Y * 16;
             //System.Diagnostics.Debug.WriteLine("X = {0}. Y = {1}", xCoord, yCoord);
             //Half block check met modulo
             for (int y = yCoord - 1; y < yCoord + 1; y++)

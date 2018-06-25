@@ -24,8 +24,8 @@ namespace MINI_ROYALE {
         private Dictionary<Sounds, SoundEffect> sounds = new Dictionary<Sounds, SoundEffect>();
 
         private int counter;
-        private const int LIMIT = 15;
-        private const float COUNT_DURATION = 45f;
+        private const int LIMIT = 10;
+        private const float COUNT_DURATION = 15f;
 
         // Collections used in the GameState state.
         public List<Item> items = new List<Item>();
@@ -206,7 +206,7 @@ namespace MINI_ROYALE {
             if (currentTime >= COUNT_DURATION) {
                 counter++;
                 currentTime -= COUNT_DURATION;                                                  // "use up" the time
-                zone.update(zone.GetRandomCoordsForZone(), zone.GetRandomCoordsForZone());      //any actions to perform
+                zone.update();      //any actions to perform
             }
             if (counter >= LIMIT) {
                 //Reset the counter;

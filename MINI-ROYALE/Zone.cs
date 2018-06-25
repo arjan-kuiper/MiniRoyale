@@ -14,8 +14,10 @@ namespace MINI_ROYALE
         public Vector2 pos;
         private int min = 0;
         private int max = 6401;
-        private int radius = 250 * 16;
+        private int radius = 400 * 16;
         private int Coords;
+        private int controlXCoords = -16;
+        private int controlYCoords = -16;
 
         public void draw(SpriteBatch spriteBatch)
         {
@@ -32,24 +34,21 @@ namespace MINI_ROYALE
         {
             Random rnd = new Random();
             Coords = rnd.Next(min, max);
-            min = Coords - radius;
-            max = Coords + radius;
-            if (min < 0)
-            {
-                min = 0;
-            }
-            if (max > 6401)
-            {
-                max = 6401;
-            }
             return Coords;
         }
 
-        // Elke keer dat deze update functie wordt aangeroepen wordt de zone verkleint met als middelpunt
-        // de meegegeven x en y coordinaten.
-        public void update(int x, int y)
+        public void update()
         {
             // elke minuut
+
+            if (controlYCoords < -1)
+            {
+                controlYCoords = GetRandomCoordsForZone();
+            }
+            if (controlXCoords < -1)
+            {
+                controlYCoords = GetRandomCoordsForZone();
+            }
 
             foreach (KeyValuePair<Tuple<int, int>, Tile> tile in TileMap.instance.bitmap)
             {
@@ -57,11 +56,19 @@ namespace MINI_ROYALE
                 float worldX = tile.Key.Item1;
                 float worldY = tile.Key.Item2;
 
-                if ((worldX < x - radius || worldX > x + radius) || (worldY < y - radius || worldY > y + radius))
+                if ((worldX < controlXCoords - radius || worldX > controlXCoords + radius) || (worldY < controlYCoords - radius || worldY > controlYCoords + radius))
                 {
                     // Tile is in zone
 
-                    if (tile.Value.getZone() == 2)
+                    if (tile.Value.getZone() == 4)
+                    {
+                        tile.Value.SetZone(5);
+                    }
+                    else if (tile.Value.getZone() == 3)
+                    {
+                        tile.Value.SetZone(4);
+                    }
+                    else if (tile.Value.getZone() == 2)
                     {
                         tile.Value.SetZone(3);
                     }
@@ -76,7 +83,7 @@ namespace MINI_ROYALE
                     
                 }
             }
-            radius /= 2;
+            radius -= 2;
         }
     }
 }
