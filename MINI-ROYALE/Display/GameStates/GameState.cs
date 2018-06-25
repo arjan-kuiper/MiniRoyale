@@ -176,6 +176,16 @@ namespace MINI_ROYALE {
             items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), new Vector2(512, 480),150));
             items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), new Vector2(550, 400),150));
 
+
+            /* ==== DEZE KEVIN ====
+             for (var i = 0; i <= 100; i++) {items.Add(new HealingItem("Medkit", _content.Load<Texture2D>("items/medic"), tileMap.getRandomOnMapPosition(), 100));}
+            for (var i = 0; i <= 300; i++) {items.Add(new HealingItem("Bandage", _content.Load<Texture2D>("items/bandage"), tileMap.getRandomOnMapPosition(), 25));}
+            for (var i = 0; i <= 200; i++) {items.Add(new HealingItem("Health Potion", _content.Load<Texture2D>("items/potion-health"), tileMap.getRandomOnMapPosition(), 50));}
+
+            for (var i = 0; i <= 500; i++) {items.Add(new Weapon("Pistol", _content.Load<Texture2D>("items/pistol"), tileMap.getRandomOnMapPosition(), 100));}
+            for (var i = 0; i <= 500; i++) {items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), tileMap.getRandomOnMapPosition(), 150));}
+             */
+
             font = _content.Load<SpriteFont>(@"Fonts\TempInv");
 
             // Load the sound effects for the game.
@@ -196,6 +206,8 @@ namespace MINI_ROYALE {
             });
         }
 
+
+
         /// <summary>
         /// Contract the 'Rectangle' zone each duration time.
         /// </summary>
@@ -209,7 +221,7 @@ namespace MINI_ROYALE {
                 zone.update(zone.GetRandomCoordsForZone(), zone.GetRandomCoordsForZone());      //any actions to perform
             }
             if (counter >= LIMIT) {
-                //Reset the counter;
+                // Reset the counter;
                 counter = 0;
             }
             zone.draw(spriteBatch);

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 namespace MINI_ROYALE
 {
@@ -12,7 +13,7 @@ namespace MINI_ROYALE
         public Rectangle boundingBox;
         public byte currentItem;
         public bool alive;
-        public byte hp { get; private set; }
+        public byte hp { get; private set; } = 60;
         private byte armor;
         private Inventory inventory;
         private float orientation;
@@ -32,7 +33,6 @@ namespace MINI_ROYALE
             {
                 rnd = new Randomizer();
             }
-            
         }
 
         public void collidesWithSurrounding()

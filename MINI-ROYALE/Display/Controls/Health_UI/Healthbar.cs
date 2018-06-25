@@ -60,13 +60,12 @@ namespace MINI_ROYALE {
             int y = (int) Position.Y + 188 / 2 - 80;
 
             byte hp = _player.hp;
-            hp = 100;
             if (hp > 100)
                 hp = 100;
 
-            hp = 60;
 
-            int width = 340 / 100 * hp;
+            int width = (int)(340f / 100f * (float)hp);
+            System.Diagnostics.Debug.WriteLine("HP {0} || WIDTH: {1}", hp, width);
             return new Rectangle(x, y, width, 80);
         }
         #endregion
