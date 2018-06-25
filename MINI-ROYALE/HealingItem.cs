@@ -20,7 +20,6 @@ namespace MINI_ROYALE
 
         public override bool Use()
         {
-            System.Diagnostics.Debug.WriteLine("Using healing (Adding " + healingCount + " hp)");
             return true;
         }
 

@@ -27,6 +27,7 @@ namespace MINI_ROYALE
             spriteBatch.End();
         }
         
+        // Genereer een willekeurig getal binnen de huidige zone wat het middelpunt gaat worden van de nieuwe zone
         public int GetRandomCoordsForZone()
         {
             Random rnd = new Random();
@@ -44,6 +45,8 @@ namespace MINI_ROYALE
             return Coords;
         }
 
+        // Elke keer dat deze update functie wordt aangeroepen wordt de zone verkleint met als middelpunt
+        // de meegegeven x en y coordinaten.
         public void update(int x, int y)
         {
             // elke minuut
