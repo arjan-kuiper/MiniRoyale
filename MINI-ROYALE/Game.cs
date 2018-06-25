@@ -58,10 +58,6 @@ namespace MINI_ROYALE
             IsMouseVisible = true;
             nextSong = Songs.AMBIENT;
             base.Initialize();
-            /*
-             * NetworkManager nm = new NetworkManager();
-             * NetworkManager.callSendServerSocket("BERICHT");
-            */
         }
 
         /// <summary>
