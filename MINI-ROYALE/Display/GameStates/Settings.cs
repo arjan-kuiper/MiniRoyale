@@ -61,6 +61,15 @@ namespace MINI_ROYALE {
             btn.Click += GoBack_Click;
             _components.Add(btn);
             // === Stop define Play Button ===
+
+            Texture2D arrow_up, arrow_down;
+            arrow_up = _content.Load<Texture2D>("Controls/Arrow_Up");
+            arrow_down = _content.Load<Texture2D>("Controls/Arrow_Down");
+
+            VolumeEditor volumeEditor = new VolumeEditor(arrow_up, arrow_down, font) {
+                VolumePosition = new Vector2(25, 600)
+            };
+            _components.Add(volumeEditor);
         }
 
         private void GoBack_Click(object sender, EventArgs e) {
