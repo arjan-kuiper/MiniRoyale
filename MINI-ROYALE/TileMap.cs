@@ -92,9 +92,11 @@ namespace MINI_ROYALE
             spriteBatch.End();
         }
 
-        // Een magische methode die een 1-dimensionale array van 160.000 getallen omzet naar een 400*400 2-dimensionale array
-        // en daarbij ook een Tile object instantiate en meegeeft.
-        // De loadMap() functie is async, omdat hij een file moet laden.
+        /// <summary>
+        /// Een magische methode die een 1-dimensionale array van 160.000 getallen omzet naar een 400*400 2-dimensionale array
+        /// en daarbij ook een Tile object instantiate en meegeeft.
+        /// De loadMap() functie is async, omdat hij een file moet laden.
+        /// </summary>
         private async void loadMap()
         {
             // Pak de map.txt file uit de assets folder en laad deze
@@ -136,7 +138,10 @@ namespace MINI_ROYALE
             mapLoaded = true;
         }
 
-        // Een willekeurige positie op de map genereren
+        /// <summary>
+        /// Een willekeurige positie op de map genereren
+        /// </summary>
+        /// <returns></returns>
         public Vector2 getRandomOnMapPosition()
         {
             var result = true;
