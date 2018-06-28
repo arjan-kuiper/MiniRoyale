@@ -107,7 +107,8 @@
     <Compile Include="Bot.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="ConnectionController.cs" />
-    <Compile Include="Display\Controls\Health_UI\Healthbar.cs" />
+    <Compile Include="Display\Controls\Healthbar.cs" />
+    <Compile Include="Display\Controls\VolumeEditor.cs" />
     <Compile Include="Explosive.cs" />
     <Compile Include="GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
