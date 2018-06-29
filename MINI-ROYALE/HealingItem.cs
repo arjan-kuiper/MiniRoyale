@@ -16,23 +16,35 @@ namespace MINI_ROYALE
         public HealingItem(String itemName, Texture2D sprite, Vector2 pos, float healingCount) : base(itemName, sprite, pos)
         {
             this.healingCount = healingCount;
+            use();
         }
 
+        /// <summary>
+        /// calls the interrupt use so you can't heal and keep shooting
+        /// </summary>
+        /// <returns>true</returns>
         public override bool use()
         {
+            interruptUse();
             return true;
         }
 
-        public void InterruptUse()
+        /// <summary>
+        /// timer to wait before the player is healed.
+        /// </summary>
+        public void interruptUse()
         {
-            int healthPlayer = 30;
-            for(int i = 0; i == healingCount; i++)
+            for(int i = 0; i == useTime; i++)
             {
-                healthPlayer += 50;
+                getHealingCount();
                 i = 0;
             }
         }
 
+        /// <summary>
+        /// returns the healing count (the amount it can heal)
+        /// </summary>
+        /// <returns>healingCount</returns>
         public override float getHealingCount()
         {
             return healingCount;
