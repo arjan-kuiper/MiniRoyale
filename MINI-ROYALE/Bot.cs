@@ -69,7 +69,7 @@ namespace MINI_ROYALE
                 rotation = (float)Math.Atan2(this.pos.Y - p.pos.Y, this.pos.X - p.pos.X) + (float)Math.PI;
                 if (timer >= 40)
                 {
-                    Shoot(p, s);
+                    shoot(p, s, this);
                     timer = 0;
                 } 
                 timer++;
@@ -116,7 +116,7 @@ namespace MINI_ROYALE
             return alive;
         }
 
-        public void Shoot(Player p, GameState state)
+        public void shoot(Player p, GameState state, Bot b)
         {
             //TODO: Fire at player pos not mousePos
             // Sound management variables
@@ -130,10 +130,10 @@ namespace MINI_ROYALE
 
             //orientation = 0;
 
-            spawnPosition.X = pos.X;
-            spawnPosition.Y = pos.Y;
+            spawnPosition.X = b.pos.X;
+            spawnPosition.Y = b.pos.Y;
 
-            System.Diagnostics.Debug.WriteLine("{0}, {1}", pos.X, pos.Y);
+            System.Diagnostics.Debug.WriteLine("{0}, {1}", b.pos.X, b.pos.Y);
             System.Diagnostics.Debug.WriteLine("---");
             System.Diagnostics.Debug.WriteLine("{0}, {1}", p.pos.X, p.pos.Y);
 
