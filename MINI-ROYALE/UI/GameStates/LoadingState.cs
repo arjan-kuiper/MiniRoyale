@@ -51,13 +51,13 @@ namespace MINI_ROYALE {
         #endregion
         #region LoadinStateMethods
         private void CreateComponents() {
-            SpriteFont font = _content.Load<SpriteFont>(@"Fonts\ThirtheenPixels");
+            /*SpriteFont font = _content.Load<SpriteFont>(@"Fonts\ThirtheenPixels");
 
             _components.Add(new TextField(font, 400, 100) {
                 position = new Vector2(800, _graphicsDevice.Viewport.Bounds.Center.X),
                 text = "Loading...",
                 penColor = Color.OrangeRed
-            });
+            });*/
         }
         #endregion
     }

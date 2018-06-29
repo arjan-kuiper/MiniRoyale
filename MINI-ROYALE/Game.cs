@@ -16,17 +16,19 @@ namespace MINI_ROYALE
     public class Game : Microsoft.Xna.Framework.Game
     {
         // === GameState Manager variables ===
-        #region Fields&Properties
+        #region Fields
         #region GameStateVars
         private State currentState, nextState;
         private SpriteBatch spriteBatch;
         private GraphicsDeviceManager graphics;
         private MouseState _currentMouse, _previousMouse;
-        #endregion
 
         private Dictionary<Songs, Song> songs = new Dictionary<Songs, Song>();
         private Songs currentSong, nextSong;
-        public static Game instance;        
+        #endregion
+
+        public static Game instance;
+        
         #endregion
 
 
@@ -85,7 +87,7 @@ namespace MINI_ROYALE
         /// </summary>
         protected override void UnloadContent()
         {
-            // Nothing is being unloaded.
+            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -99,10 +101,9 @@ namespace MINI_ROYALE
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
 
-            //TODO: Remove this debug tool on deployment.
             // Check whether the user has pressed and released the leftmouse button whilst hovering over the button object.
             if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed) {
-                //Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
+                Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
             }
 
             if (nextState != null) {
@@ -138,12 +139,6 @@ namespace MINI_ROYALE
 
         public void ChangeSong(Songs song) {
             nextSong = song;
-        }
-
-        protected bool CollisionCheck()
-        {
-            // TODO
-            return false;
         }
 
         /// <summary>

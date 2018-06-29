@@ -192,10 +192,10 @@ namespace MINI_ROYALE
             if(w.getName().Equals("Shotgun"))
             {
                 System.Diagnostics.Debug.WriteLine("SHOT");
-                state.spawnedBullets.Add(new Bullet(pos, -bulletTarget, orientation, w.spread));
-                state.spawnedBullets.Add(new Bullet(pos, -bulletTarget, orientation, w.spread));
-                state.spawnedBullets.Add(new Bullet(pos, -bulletTarget, orientation, w.spread));
-                state.spawnedBullets.Add(new Bullet(pos, -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread));
             }
             state.spawnedBullets.Add(bullet);
             

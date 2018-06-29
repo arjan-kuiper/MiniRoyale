@@ -28,7 +28,7 @@ namespace MINI_ROYALE
         public Bullet(Vector2 position, Vector2 direction, float rotation, int randomnessfactor)
         {
             Viewport viewport = Game.instance.GraphicsDevice.Viewport;
-            this.position = new Vector2(viewport.Width / 2f, viewport.Height / 2f);
+            this.position = position;
             this.direction = direction;
             this.rotation = rotation;
             this.boundingBox = new Rectangle((int)position.X, (int)position.Y,3,3);
