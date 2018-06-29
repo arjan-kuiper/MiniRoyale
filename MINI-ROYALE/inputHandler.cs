@@ -144,5 +144,16 @@ namespace MINI_ROYALE
             oldKeyState = k;
         }
 
+        public void escapeKeyDown(Game game)
+        {
+            KeyboardState k = Keyboard.GetState();
+            GameState state = (GameState)Game.instance.getState();
+
+            if(k.IsKeyDown(Keys.Escape))
+            {
+                game.ChangeState(new MenuState(game, game.GetGraphics().GraphicsDevice, game.Content));
+            }
+        }
+
     }
 }

@@ -35,11 +35,13 @@ namespace MINI_ROYALE {
         private float currentTime = 0f;
 
         #endregion
+        private Game game;
         #region StateMethods
         public GameState(Game game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content) {
             // Initialize variables.
             tileMap = new TileMap(graphicsDevice);
             player = new Player(this);
+            this.game = game;
             inputHandler = new InputHandler(player);
             LoadContent();
         }
@@ -70,6 +72,7 @@ namespace MINI_ROYALE {
             inputHandler.walk();
             inputHandler.mouseListener();
             inputHandler.interaction();
+            inputHandler.escapeKeyDown(game);
             tileMap.Camera.LookAt(player.pos);
             List<Bot> toRemove = new List<Bot>();
             foreach(Bot b in bots)

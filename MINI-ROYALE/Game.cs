@@ -37,6 +37,12 @@ namespace MINI_ROYALE
         public void ChangeState(State state) {
             nextState = state;
         }
+
+        public GraphicsDeviceManager GetGraphics()
+        {
+            return graphics;
+        }
+
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
