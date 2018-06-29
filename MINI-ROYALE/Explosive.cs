@@ -25,52 +25,43 @@ namespace MINI_ROYALE
         }
 
 
-
+        /// <summary>
+        /// calls the armExplosive funtion to drop a bomb
+        /// </summary>
+        /// <returns>true</returns>
         public override bool use()
         {
-            ArmExplosive();
+            armExplosive();
             return true;
         }
-
-        public void Throw()
-        {
-            // throw function from trhow class here.
-        }
-
-        public void ArmExplosive()
+        
+        /// <summary>
+        /// gives and sets the dmg and radius of the bomb
+        /// and calls the function to drop it and make it go off.
+        /// </summary>
+        public void armExplosive()
         {
             for (int i = 0; i == 500; i++)
             {
-                Throw();
-                for (int x = 0; x == GetExplosionTime(); x++)
+                for (int x = 0; x == getExplosionTime(); x++)
                 {
                     int dmg = 25;
-                    // blast
-                    // something to do an explosion somehow. don't know yet how.
-                    // use blastradius for the dealing dmg, dmg is selected by the type of explosive
-                    // dmg is here an idea
                     if (bomb == type.CONTROLLED)
                     {
-                        // moet uitgewerkt worden
-                        GetBlastRadius();
+                        getBlastRadius();
                         dmg = 50;
-                        // mogelijke uitwerking voor explosive 
                         play.ThrowExplosive();
                     }
                     else if(bomb == type.IRREGULAR)
                     {
-                        // moet uitgewerkt worden
-                        GetBlastRadius();
+                        getBlastRadius();
                         dmg = 60;
-                        // mogelijke uitwerking voor explosive 
                         play.ThrowExplosive();
                     }
                     else if(bomb == type.PREFORMED)
                     {
-                        // moet uitgewerkt worden
-                        GetBlastRadius();
+                        getBlastRadius();
                         dmg = 70;
-                        // mogelijke uitwerking voor explosive 
                         play.ThrowExplosive();
                     }
                     x = 0;
@@ -79,12 +70,20 @@ namespace MINI_ROYALE
             }
         }
 
-        public int GetBlastRadius()
+        /// <summary>
+        /// return the blast radius
+        /// </summary>
+        /// <returns> blast radius</returns>
+        public int getBlastRadius()
         {
             return blastRadius;
         }
 
-        public int GetExplosionTime()
+        /// <summary>
+        /// return the explosion tim
+        /// </summary>
+        /// <returns>explosion time</returns>
+        public int getExplosionTime()
         {
             return explosionTime;
         }

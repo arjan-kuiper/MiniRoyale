@@ -16,15 +16,23 @@ namespace MINI_ROYALE
 
         public Armor(String itemName, Texture2D sprite, Vector2 pos) : base(itemName, sprite, pos)
         {
-
+            use();
         }
 
+        /// <summary>
+        /// calls the interrupt use
+        /// </summary>
+        /// <returns></returns>
         public override bool use()
         {
+            interruptUse();
             return true;
         }
 
-        public void InterruptUse()
+        /// <summary>
+        /// increases the armor of the player with a interrupt before it is equipped. 
+        /// </summary>
+        public void interruptUse()
         {
             // check so you have to wait 1 time and not more than ones
             int check = 0;

@@ -35,6 +35,9 @@ namespace MINI_ROYALE
             }
         }
 
+        /// <summary>
+        /// collision check with surrounding not with other bots or players.
+        /// </summary>
         public void collidesWithSurrounding()
         {
             var xCoord = (int)Math.Floor((this.pos.X) / 16);
@@ -81,6 +84,11 @@ namespace MINI_ROYALE
             
         }
 
+        /// <summary>
+        /// draws the player on the middle of the screen.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="game"></param>
         public void draw(SpriteBatch spriteBatch, Game game) {
             spriteBatch.Begin();
             Viewport viewport = game.GraphicsDevice.Viewport;
@@ -112,6 +120,10 @@ namespace MINI_ROYALE
             boundingBox.Y = (int)Math.Round(pos.Y+16);
         }
 
+        /// <summary>
+        /// makes the player meve over the map
+        /// </summary>
+        /// <param name="vec"></param>
         public void move(Vector2 vec) {
             this.pos.X += vec.X;
             pos.Y += vec.Y;
@@ -121,12 +133,20 @@ namespace MINI_ROYALE
             //System.Diagnostics.Debug.WriteLine("{0} {1}", pos.x, pos.y);
         }
         
-
+        /// <summary>
+        /// picks a specific item from the map and adds it to the inventory
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>the added item in the inventory</returns>
         public bool pickup(Item item) {
             if(inventory.getSizeOfInv() == 0) { currentItem = 1; }
             return inventory.addItemToInv(item);
         }
 
+        /// <summary>
+        /// gets the selected item name of the inventory
+        /// </summary>
+        /// <returns>the selected itemName</returns>
         public string getCurrentItemName() {
             return inventory.getItemName(currentItem - 1);
         }
@@ -140,12 +160,22 @@ namespace MINI_ROYALE
             return inventory.removeItemFromInv(item);
         }
 
+        /// <summary>
+        /// gets the item in the given slot of the list
+        /// </summary>
+        /// <param name="slot"></param>
+        /// <returns>specific item in slot</returns>
         public Item getItemInSlot(int slot) {
             return inventory.getItemInSlot(slot);
         }
 
+        /// <summary>
+        /// makes sure the player gets dmg on hit
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <returns>hp</returns>
         public byte takeDamage(byte damage) {
-            hp += damage;
+            hp -= damage;
             if (hp <= 0)
             {
                 this.alive = false;
@@ -153,6 +183,11 @@ namespace MINI_ROYALE
             return hp;
         }
 
+        /// <summary>
+        /// increases health with healing item
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns>hp</returns>
         public byte increaseHealth(byte amount) {
             hp += amount;
             if(hp > 100)
@@ -162,6 +197,11 @@ namespace MINI_ROYALE
             return hp;
         }
 
+        /// <summary>
+        /// increases armor with armor item
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public byte increaseArmor(byte amount) {
             armor += amount;
             if(armor > 100)
@@ -171,11 +211,15 @@ namespace MINI_ROYALE
             return armor;
         }
 
+
         public void update() {
             // TODO
         }
 
-
+        /// <summary>
+        /// shoot a bullet from the player
+        /// </summary>
+        /// <param name="orientation"></param>
         public void shoot(float orientation)
         {
             // Sound management variables
@@ -207,6 +251,9 @@ namespace MINI_ROYALE
             state.PlaySoundEffect(soundsList[sound]);
         }
 
+        /// <summary>
+        /// throws an explosive away
+        /// </summary>
         public void ThrowExplosive() {
             Vector2 spawnPosition;
             Vector2 bulletTarget;
@@ -226,6 +273,10 @@ namespace MINI_ROYALE
             return true;
         }
 
+        /// <summary>
+        /// returns the orientation of the player
+        /// </summary>
+        /// <returns></returns>
         public float getOrientation()
         {
             return orientation;
