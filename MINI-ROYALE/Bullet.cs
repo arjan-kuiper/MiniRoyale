@@ -55,8 +55,6 @@ namespace MINI_ROYALE
                 if (b.boundingBox.Intersects(this.boundingBox))
                 {
                     b.takeDamage(30);
-                    //System.Diagnostics.Debug.WriteLine("DAMAGE WAS TAKEN");
-                    //System.Diagnostics.Debug.WriteLine("X:{0}, Y:{1}", boundingBox.X, boundingBox.Y);
                     state.PlaySoundEffect(Sounds.HIT_0);
                     lifeTime = 0;
                 }
@@ -84,7 +82,6 @@ namespace MINI_ROYALE
             boundingBox.Y = (int)position.Y;
             boundingBox.Width = bulletSprite.Width;
             boundingBox.Height = bulletSprite.Height;
-            //System.Diagnostics.Debug.WriteLine("b update");
         }
     }
 }

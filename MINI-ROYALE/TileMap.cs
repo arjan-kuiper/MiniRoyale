@@ -29,12 +29,13 @@ namespace MINI_ROYALE
             }
         }
         
-
+        // Pak het tile object op de opgegeven X en Y
         public Tile getTileOnLoc(int x, int y)
         {
             return bitmap[new Tuple<int, int>(x*16, y*16)];
 
         }
+        // TileMap is een singleton omdat we in verschillende classes bij de tilemap moeten kunnen
         public TileMap(GraphicsDevice gd)
         {
             cam = new Camera2D(gd);
@@ -46,53 +47,70 @@ namespace MINI_ROYALE
         {
             this.game = g;
         }
+
+        // De draw method van de gehele map
         public void draw(SpriteBatch spriteBatch, Player p)
         {
+            // We willen pas beginnen met het drawen van de map wanneer deze geladen is
             if (!mapLoaded) return;
             spriteBatch.Begin(transformMatrix: cam.GetViewMatrix(), samplerState: SamplerState.PointClamp);
             Viewport viewport = game.GraphicsDevice.Viewport;
 
+            // Loop door elke tile heen in de bitmap
             foreach (KeyValuePair<Tuple<int,int>, Tile> tile in bitmap)
             {
+                // We pakken de coordinaten van de tile en gaan kijken of deze binnen de viewport van de player ligt.
+                // We willen tenslotte geen overbodige tiles tekenen.
                 Tuple<int,int> coords = tile.Key;
-                // Only draw visible tiles
                 if(coords.Item1 > p.pos.X - (viewport.Width / 2) && coords.Item1 < p.pos.X + (viewport.Width / 2))
                 {
                     if (coords.Item2 > p.pos.Y - (viewport.Height / 2) && coords.Item2 < p.pos.Y + (viewport.Height / 2))
                     {
+                        // Bepalen of de tile in de zone is. Zoja, welk stadium en pas hier de kleur op aan
                         Tile currTile = tile.Value;
                         Texture2D tileToUse = game.Content.Load<Texture2D>(currTile.file);
-                        if(currTile.inZone == 3)
+                        if (currTile.inZone == 0)
                         {
-                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.Purple);
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.LightBlue);
                         }
-                        else if (currTile.inZone == 2)
-                        {
-                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.LightPink);
-                        }
-                        else if (currTile.inZone == 1)
+                        else if (currTile.inZone == 2 || currTile.inZone == 1)
                         {
                             spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.Pink);
                         }
-                        else if (currTile.inZone == 0)
+                        else if (currTile.inZone == 4 || currTile.inZone == 3)
                         {
-                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.White);
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.LightPink);
                         }
+                        if (currTile.inZone == 5)
+                        {
+                            spriteBatch.Draw(tileToUse, new Vector2(coords.Item1, coords.Item2), Color.Purple);
+                        }
+
                     }
                 }
             }
             spriteBatch.End();
         }
 
+        /// <summary>
+        /// Een magische methode die een 1-dimensionale array van 160.000 getallen omzet naar een 400*400 2-dimensionale array
+        /// en daarbij ook een Tile object instantiate en meegeeft.
+        /// De loadMap() functie is async, omdat hij een file moet laden.
+        /// </summary>
         private async void loadMap()
         {
+            // Pak de map.txt file uit de assets folder en laad deze
             var localizationDirectory = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
             Windows.Storage.StorageFile sampleFile = await localizationDirectory.GetFileAsync("map.txt");
             string txt = await Windows.Storage.FileIO.ReadTextAsync(sampleFile);
 
+            // Alle 'ruwe' coordinaten omzetten naar een int[] array
             int[] rawCoords = txt.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
             int[,] coords = new int[401, 401];
             int currRow = 0, currColumn = 0;
+
+            // Loopen door alle coordinaten om ze vervolgens om de 400 tiles naar een nieuwe row te duwen
+            // Op deze manier maken we een 2D array
             for(int i = 0; i < rawCoords.Length; i++)
             {
                 coords[currRow, currColumn] = rawCoords[i];
@@ -105,6 +123,7 @@ namespace MINI_ROYALE
             }
             mapCoords = coords;
             
+            // We loopen door de uiteindelijke array en kennen het Tile object toe
             for (int y = 1; y < 400; y++)
             {
                 for(int x = 1; x < 400; x++)
@@ -115,9 +134,14 @@ namespace MINI_ROYALE
                 }
             }
 
+            // De map is nu geladen
             mapLoaded = true;
-            //System.Diagnostics.Debug.WriteLine("MAPLOADED WAS SET TO TRUE");
         }
+
+        /// <summary>
+        /// Een willekeurige positie op de map genereren
+        /// </summary>
+        /// <returns></returns>
         public Vector2 getRandomOnMapPosition()
         {
             var result = true;
@@ -132,7 +156,6 @@ namespace MINI_ROYALE
                 result = false; // this.getTileOnLoc(xCoord, yCoord).hasCollision;
                 vec2 = new Vector2(num1, num1);
             }
-            //System.Diagnostics.Debug.WriteLine("Printed");
             return vec2;
 
         }

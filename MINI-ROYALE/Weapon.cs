@@ -25,6 +25,8 @@ namespace MINI_ROYALE
             Use();
             this.spread = spread;
         }
+
+        // Een reload functie, maar die wordt op dit moment niet toegepast
         private int Reload()
         {
             for(int i = 0; i == 500; i++)

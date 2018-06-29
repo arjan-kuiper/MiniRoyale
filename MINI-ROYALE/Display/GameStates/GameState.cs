@@ -24,13 +24,14 @@ namespace MINI_ROYALE {
         private Dictionary<Sounds, SoundEffect> sounds = new Dictionary<Sounds, SoundEffect>();
 
         private int counter;
-        private const int LIMIT = 15;
-        private const float COUNT_DURATION = 45f;
+        private const int LIMIT = 10;
+        private const float COUNT_DURATION = 15f;
 
         // Collections used in the GameState state.
         public List<Item> items = new List<Item>();
         public List<Bullet> spawnedBullets = new List<Bullet>();
         public List<Bot> bots = new List<Bot>();
+        public List<Component> components = new List<Component>();
         private float currentTime = 0f;
 
         #endregion
@@ -54,6 +55,10 @@ namespace MINI_ROYALE {
             player.draw(spriteBatch, _game);
             Draw_Inventory(spriteBatch);
             ZoneContraction(gameTime, spriteBatch);
+
+            foreach (Component component in components) {
+                component.Draw(gameTime, spriteBatch);
+            }
         }
 
         public override void PostUpdate(GameTime gametime) {
@@ -78,6 +83,10 @@ namespace MINI_ROYALE {
             foreach(Bot b in toRemove)
             {
                 bots.Remove(b);
+            }
+
+            foreach (Component component in components) {
+                component.Update(gameTime);
             }
         }
         #endregion
@@ -156,17 +165,26 @@ namespace MINI_ROYALE {
         /// </summary>
         private void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
-
             for (var i =0; i<=100; i++)
             {
                 items.Add(new Weapon("Pistol", _content.Load<Texture2D>("items/pistol"), tileMap.getRandomOnMapPosition(),100));
             }
-            items.Add(new HealingItem("Medkit", _content.Load<Texture2D>("items/medic"), new Vector2(480, 480)));
-            items.Add(new HealingItem("Bandage", _content.Load<Texture2D>("items/bandage"), new Vector2(416, 480)));
-            items.Add(new HealingItem("Health Potion", _content.Load<Texture2D>("items/potion-health"), new Vector2(480, 416)));
+            items.Add(new HealingItem("Medkit", _content.Load<Texture2D>("items/medic"), new Vector2(480, 480), 100));
+            items.Add(new HealingItem("Bandage", _content.Load<Texture2D>("items/bandage"), new Vector2(416, 480), 25));
+            items.Add(new HealingItem("Health Potion", _content.Load<Texture2D>("items/potion-health"), new Vector2(480, 416), 50));
             items.Add(new Weapon("Pistol", _content.Load<Texture2D>("items/pistol"), new Vector2(512, 480),100));
             items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), new Vector2(512, 480),150));
             items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), new Vector2(550, 400),150));
+
+
+            /* ==== DEZE KEVIN ====
+             for (var i = 0; i <= 100; i++) {items.Add(new HealingItem("Medkit", _content.Load<Texture2D>("items/medic"), tileMap.getRandomOnMapPosition(), 100));}
+            for (var i = 0; i <= 300; i++) {items.Add(new HealingItem("Bandage", _content.Load<Texture2D>("items/bandage"), tileMap.getRandomOnMapPosition(), 25));}
+            for (var i = 0; i <= 200; i++) {items.Add(new HealingItem("Health Potion", _content.Load<Texture2D>("items/potion-health"), tileMap.getRandomOnMapPosition(), 50));}
+
+            for (var i = 0; i <= 500; i++) {items.Add(new Weapon("Pistol", _content.Load<Texture2D>("items/pistol"), tileMap.getRandomOnMapPosition(), 100));}
+            for (var i = 0; i <= 500; i++) {items.Add(new Weapon("Shotgun", _content.Load<Texture2D>("items/shotgun"), tileMap.getRandomOnMapPosition(), 150));}
+             */
 
             font = _content.Load<SpriteFont>(@"Fonts\TempInv");
 
@@ -177,7 +195,18 @@ namespace MINI_ROYALE {
             sounds.Add(Sounds.SHOT_SHOTGUN_1, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_1"));
             sounds.Add(Sounds.HIT_0, _content.Load<SoundEffect>(@"Sounds\Hit_0"));
             bots.Add(new Bot(new Vector2(300, 300)));
+
+
+            // === COMPONENT CREATION === 
+            Texture2D front = _content.Load<Texture2D>(@"Controls\Healthbar_Front");
+            Texture2D back = _content.Load<Texture2D>(@"Controls\Healthbar_Back");
+
+            components.Add(new Healthbar(front, back, _graphicsDevice, player) {
+                Position = new Vector2(25, 900)
+            });
         }
+
+
 
         /// <summary>
         /// Contract the 'Rectangle' zone each duration time.
@@ -189,10 +218,10 @@ namespace MINI_ROYALE {
             if (currentTime >= COUNT_DURATION) {
                 counter++;
                 currentTime -= COUNT_DURATION;                                                  // "use up" the time
-                zone.update(zone.GetRandomCoordsForZone(), zone.GetRandomCoordsForZone());      //any actions to perform
+                zone.update();      //any actions to perform
             }
             if (counter >= LIMIT) {
-                //Reset the counter;
+                // Reset the counter;
                 counter = 0;
             }
             zone.draw(spriteBatch);

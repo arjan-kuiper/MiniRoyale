@@ -17,10 +17,7 @@ namespace MINI_ROYALE
         public byte currentItem;
         public bool alive;
         private int hp;
-        private Inventory inventory;
         private float orientation;
-
-        private GameState state;
 
         DispatcherTimer dispatcherTimer;
         DateTimeOffset startTime;
@@ -39,8 +36,8 @@ namespace MINI_ROYALE
 
         public int collidesWithSurrounding()
         {
-            var xCoord = (int)this.pos.X / 16;
-            var yCoord = (int)this.pos.Y / 16;
+            var xCoord = (int)this.pos.X * 16;
+            var yCoord = (int)this.pos.Y * 16;
             //System.Diagnostics.Debug.WriteLine("X = {0}. Y = {1}", xCoord, yCoord);
             //Half block check met modulo
             for (int y = yCoord - 1; y < yCoord + 1; y++)
@@ -52,12 +49,10 @@ namespace MINI_ROYALE
                         bool tileHasCollision = TileMap.instance.getTileOnLoc(x, y).hasCollision;
                         if (tileHasCollision == true)
                         {
-                            //System.Diagnostics.Debug.WriteLine("A tile was loaded");
                             if (boundingBox.Intersects(new Rectangle((int)TileMap.instance.getTileOnLoc(x, y).position.X, (int)TileMap.instance.getTileOnLoc(x, y).position.Y, 16, 16)))
                             {
-                                //System.Diagnostics.Debug.WriteLine("Collision detected: " + position);
+                                // Collision
                             }
-                            //System.Diagnostics.Debug.WriteLine("Collision detected ");
                         }
                     }
                 }
@@ -75,7 +70,6 @@ namespace MINI_ROYALE
             if (getTarget(p))
             {
                 rotation = 0;
-
                 //Shoot(p, s);
             }
             else
@@ -91,37 +85,27 @@ namespace MINI_ROYALE
             }
 
             string texture = "player-weapon";
-
             Texture2D botImg = game.Content.Load<Texture2D>(texture);
-
             Vector2 playerOrigin = new Vector2(botImg.Width / 2f, botImg.Height / 2f);
-
-            //MouseState current_mouse = Mouse.GetState();
-
-            //Vector2 dPos = new Vector2(viewport.Width / 2f, viewport.Height / 2f) - current_mouse.Position.ToVector2();
-            //float rotation = (float)Math.Atan2(dPos.Y, dPos.X) + (float)Math.PI;
-
             this.orientation = rotation;
 
             spriteBatch.Draw(botImg, pos, null, Color.White, rotation, playerOrigin, .1f, SpriteEffects.None, 0f);
             this.boundingBox.X = (int)Math.Round(pos.X - 16);
             this.boundingBox.Y = (int)Math.Round(pos.Y + 16);
             spriteBatch.End();
-            
         }
 
         public void Move(Vector2 vec)
         {
             this.pos.X += vec.X;
-            pos.Y += vec.Y;
-            
-            //System.Diagnostics.Debug.WriteLine("Box {0}, {1}, Box {2}, {3}", boundingBox.X, boundingBox.Y, pos.X, pos.Y);
+            this.pos.Y += vec.Y;
+            boundingBox.X = (int)pos.X;
+            boundingBox.Y = (int)pos.Y;
         }
 
         public bool takeDamage(byte damage)
         {
             hp -= damage;
-            //System.Diagnostics.Debug.WriteLine("Current hp: " + hp);
             if (hp <= 0)
             {
                 
@@ -166,10 +150,8 @@ namespace MINI_ROYALE
             float pX = p.pos.X;
             float pY = p.pos.Y;
             
-            //System.Diagnostics.Debug.WriteLine(boundingBox.X);
             if (((pos.X - 54) <= pX && (pos.X + 54) >= pX) || ((pos.Y - 64) <= pY && (pos.Y + 64) >= pY))
             {
-                //System.Diagnostics.Debug.WriteLine("hit");
                 return true;
             }
             else 

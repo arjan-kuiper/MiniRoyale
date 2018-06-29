@@ -26,9 +26,10 @@ namespace MINI_ROYALE
 
 
 
-        public new void Use()
+        public override bool Use()
         {
             ArmExplosive();
+            return true;
         }
 
         public void Throw()

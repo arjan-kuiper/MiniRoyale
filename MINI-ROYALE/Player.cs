@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 namespace MINI_ROYALE
 {
@@ -12,7 +13,8 @@ namespace MINI_ROYALE
         public Rectangle boundingBox;
         public byte currentItem;
         public bool alive;
-        private byte hp;
+        public byte hp { get; private set; } = 100;
+        private byte armor;
         private Inventory inventory;
         private float orientation;
         public Randomizer rnd;
@@ -31,7 +33,6 @@ namespace MINI_ROYALE
             {
                 rnd = new Randomizer();
             }
-            
         }
 
         public void collidesWithSurrounding()
@@ -141,7 +142,7 @@ namespace MINI_ROYALE
         }
 
         public byte takeDamage(byte damage) {
-            this.hp += damage;
+            hp += damage;
             if (hp <= 0)
             {
                 this.alive = false;
@@ -150,7 +151,7 @@ namespace MINI_ROYALE
         }
 
         public byte increaseHealth(byte amount) {
-            this.hp += amount;
+            hp += amount;
             if(hp > 100)
             {
                 hp = 100;
@@ -159,8 +160,12 @@ namespace MINI_ROYALE
         }
 
         public byte increaseArmor(byte amount) {
-            // TODO
-            return 0;
+            armor += amount;
+            if(armor > 100)
+            {
+                armor = 100;
+            }
+            return armor;
         }
 
         public Throwable throwItem(int slot) {
