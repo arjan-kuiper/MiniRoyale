@@ -95,7 +95,7 @@ namespace MINI_ROYALE {
         #region ClickEvents
         private void PlayGameButton_Click(object sender, EventArgs e) {
             // Start the pre-loader of the GameState State.
-            _game.ChangeState(new LoadingState(_game, _graphicsDevice, _content));
+            _game.changeState(new LoadingState(_game, _graphicsDevice, _content));
         }
 
         private void SettingsGameButton_Click(object sender, EventArgs e) {

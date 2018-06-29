@@ -137,7 +137,7 @@ namespace MINI_ROYALE
             System.Diagnostics.Debug.WriteLine("---");
             System.Diagnostics.Debug.WriteLine("{0}, {1}", p.pos.X, p.pos.Y);
 
-            Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation, 100);
+            Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation, 100, true);
             state.spawnedBullets.Add(bullet);
 
             // Play the gunsound.

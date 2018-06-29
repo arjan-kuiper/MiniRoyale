@@ -191,14 +191,14 @@ namespace MINI_ROYALE
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
             Weapon w = (Weapon)inventory.getItemInSlot(currentItem - 1);
-            Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation, w.spread);
+            Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation, w.spread, false);
             if(w.getName().Equals("Shotgun"))
             {
                 System.Diagnostics.Debug.WriteLine("SHOT");
-                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread));
-                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread));
-                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread));
-                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread));
+                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread, false));
+                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread, false));
+                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread, false));
+                state.spawnedBullets.Add(new Bullet(boundingBox.Center.ToVector2(), -bulletTarget, orientation, w.spread, false));
             }
             state.spawnedBullets.Add(bullet);
             
@@ -217,7 +217,7 @@ namespace MINI_ROYALE
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
 
-            Bullet bullet = new Bullet(spawnPosition, bulletTarget, orientation,100);
+            Bullet bullet = new Bullet(spawnPosition, bulletTarget, orientation,100, false);
             state.spawnedBullets.Add(bullet);
         }
 

@@ -25,10 +25,18 @@ namespace MINI_ROYALE
         private Rectangle boundingBox;
         private Texture2D bulletSprite;
 
-        public Bullet(Vector2 position, Vector2 direction, float rotation, int randomnessfactor)
+        public Bullet(Vector2 position, Vector2 direction, float rotation, int randomnessfactor, bool isBot)
         {
-            Viewport viewport = Game.instance.GraphicsDevice.Viewport;
-            this.position = new Vector2(viewport.Width / 2f, viewport.Height / 2f);
+            if (!isBot)
+            {
+                Viewport viewport = Game.instance.GraphicsDevice.Viewport;
+                this.position = new Vector2(viewport.Width / 2f, viewport.Height / 2f);
+            }
+            else
+            {
+                this.position = position;
+            }
+            
             this.direction = direction;
             this.rotation = rotation;
             this.boundingBox = new Rectangle((int)position.X, (int)position.Y,3,3);
@@ -74,8 +82,8 @@ namespace MINI_ROYALE
             Vector2 origin = new Vector2(bulletSprite.Width, bulletSprite.Height);
             scale = radius * 2 / bulletSprite.Width;
 
-            Viewport viewport = Game.instance.GraphicsDevice.Viewport;
-            MouseState current_mouse = Mouse.GetState();
+            //Viewport viewport = Game.instance.GraphicsDevice.Viewport;
+            //MouseState current_mouse = Mouse.GetState();
             spriteBatch.Draw(bulletSprite, position, null, Color.White, (rotation - 80), origin, scale, SpriteEffects.None, 0);
 
             spriteBatch.End();
