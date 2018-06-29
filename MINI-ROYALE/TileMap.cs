@@ -35,7 +35,11 @@ namespace MINI_ROYALE
             return bitmap[new Tuple<int, int>(x*16, y*16)];
 
         }
-        // TileMap is een singleton omdat we in verschillende classes bij de tilemap moeten kunnen
+
+        /// <summary>
+        /// TileMap is a singleton because we want to access it in multiple places
+        /// </summary>
+        /// <param name="gd"></param>
         public TileMap(GraphicsDevice gd)
         {
             cam = new Camera2D(gd);
@@ -43,12 +47,21 @@ namespace MINI_ROYALE
             loadMap();
             instance = this;
         }
+
+        /// <summary>
+        /// sets the game device
+        /// </summary>
+        /// <param name="g"></param>
         public void setGameDevice(Game g)
         {
             this.game = g;
         }
 
-        // De draw method van de gehele map
+        /// <summary>
+        /// draw the whole map
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="p"></param>
         public void draw(SpriteBatch spriteBatch, Player p)
         {
             // We willen pas beginnen met het drawen van de map wanneer deze geladen is

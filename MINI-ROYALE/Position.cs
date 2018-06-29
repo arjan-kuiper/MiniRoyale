@@ -19,6 +19,12 @@ namespace MINI_ROYALE
             this.x = x;
             this.y = y;
         }
+
+        /// <summary>
+        /// gets the position on the grid field
+        /// </summary>
+        /// <param name="tileSize"></param>
+        /// <returns>position</returns>
         public float[] getGridPosition(float tileSize)
         {
             //Format X,Y in tiles.
