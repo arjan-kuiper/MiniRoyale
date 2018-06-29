@@ -14,7 +14,7 @@ namespace MINI_ROYALE
 
         public bool hasCollision;
         public string file { get; set; }
-        public Rectangle Collisionbox { get; set; }
+        public Rectangle collisionbox { get; set; }
         public Vector2 position;
         public byte inZone = 0;
         public Tile(string file, int tileId, Vector2 pos)
@@ -41,12 +41,21 @@ namespace MINI_ROYALE
             }
         }
 
-        public byte SetZone(byte zones)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="zones"></param>
+        /// <returns></returns>
+        public byte setZone(byte zones)
         {
             inZone = zones;
             return inZone;
         }
        
+        /// <summary>
+        /// returns the inside of the zone
+        /// </summary>
+        /// <returns>inZone</returns>
         public byte getZone()
         {
             return inZone;

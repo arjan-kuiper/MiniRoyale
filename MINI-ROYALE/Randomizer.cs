@@ -18,7 +18,12 @@ namespace MINI_ROYALE
 
         public static Randomizer instance;
         
-        
+        /// <summary>
+        /// get a random number between given values
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns>random number</returns>
         public int randomNumber(int min, int max)
         {
             return rnd.Next(min, max);

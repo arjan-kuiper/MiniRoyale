@@ -67,23 +67,23 @@ namespace MINI_ROYALE
                     // with multiple stages of the zone it will be more playable
                     if (tile.Value.getZone() == 4)
                     {
-                        tile.Value.SetZone(5);
+                        tile.Value.setZone(5);
                     }
                     else if (tile.Value.getZone() == 3)
                     {
-                        tile.Value.SetZone(4);
+                        tile.Value.setZone(4);
                     }
                     else if (tile.Value.getZone() == 2)
                     {
-                        tile.Value.SetZone(3);
+                        tile.Value.setZone(3);
                     }
                     else if (tile.Value.getZone() == 1)
                     {
-                        tile.Value.SetZone(2);
+                        tile.Value.setZone(2);
                     }
                     else if (tile.Value.getZone() == 0)
                     {
-                        tile.Value.SetZone(1);
+                        tile.Value.setZone(1);
                     }
                     
                 }
