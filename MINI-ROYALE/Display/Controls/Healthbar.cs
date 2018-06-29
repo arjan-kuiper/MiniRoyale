@@ -6,7 +6,6 @@ namespace MINI_ROYALE {
         
         #region Fields
         private Texture2D _texture_front, _texture_back, empty;
-        private Rectangle healtbar;
         private Player _player;
         #endregion
 
@@ -25,6 +24,7 @@ namespace MINI_ROYALE {
             _texture_back = texture_back;
             _player = player;
 
+            // Declare the colorData for the healthbar so it draws a green rectangle.
             empty = new Texture2D(graphics, 1, 1);
 
             Color[] colorData = {
@@ -65,7 +65,7 @@ namespace MINI_ROYALE {
             int x = (int)Position.X + 32;
             int y = (int) Position.Y + 188 / 2 - 80;
 
-            // Precaution so that health will never be drawn over it's limit.
+            // Precaution so that healthbar will never be drawn over it's limit.
             byte hp = _player.hp;
             if (hp > 100)
                 hp = 100;
