@@ -21,7 +21,7 @@ namespace MINI_ROYALE {
         private InputHandler inputHandler;
         
         private Zone zone = new Zone();
-        private Dictionary<Sounds, SoundEffect> sounds = new Dictionary<Sounds, SoundEffect>();
+        private Dictionary<sounds, SoundEffect> soundsList = new Dictionary<sounds, SoundEffect>();
 
         private int counter;
         private const int LIMIT = 10;
@@ -189,11 +189,11 @@ namespace MINI_ROYALE {
             font = _content.Load<SpriteFont>(@"Fonts\TempInv");
 
             // Load the sound effects for the game.
-            sounds.Add(Sounds.SHOT_PISTOL_0, _content.Load<SoundEffect>(@"Sounds\Shot_Pistol_0"));
-            sounds.Add(Sounds.SHOT_PISTOL_1, _content.Load<SoundEffect>(@"Sounds\Shot_Pistol_1"));
-            sounds.Add(Sounds.SHOT_SHOTGUN_0, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_0"));
-            sounds.Add(Sounds.SHOT_SHOTGUN_1, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_1"));
-            sounds.Add(Sounds.HIT_0, _content.Load<SoundEffect>(@"Sounds\Hit_0"));
+            soundsList.Add(sounds.SHOT_PISTOL_0, _content.Load<SoundEffect>(@"Sounds\Shot_Pistol_0"));
+            soundsList.Add(sounds.SHOT_PISTOL_1, _content.Load<SoundEffect>(@"Sounds\Shot_Pistol_1"));
+            soundsList.Add(sounds.SHOT_SHOTGUN_0, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_0"));
+            soundsList.Add(sounds.SHOT_SHOTGUN_1, _content.Load<SoundEffect>(@"Sounds\Shot_Shotgun_1"));
+            soundsList.Add(sounds.HIT_0, _content.Load<SoundEffect>(@"Sounds\Hit_0"));
             bots.Add(new Bot(new Vector2(300, 300)));
 
 
@@ -227,8 +227,8 @@ namespace MINI_ROYALE {
             zone.draw(spriteBatch);
         }
 
-        public void PlaySoundEffect(Sounds sound) {
-            SoundEffectInstance instance = sounds[sound].CreateInstance();
+        public void PlaySoundEffect(sounds sound) {
+            SoundEffectInstance instance = soundsList[sound].CreateInstance();
             instance.Play();
         }
 

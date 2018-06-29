@@ -103,7 +103,7 @@ namespace MINI_ROYALE {
         }
 
         private void CreditsGameButton_Click(object sender, EventArgs e) {
-            _game.changeSong(Songs.WIN);
+            _game.changeSong(songs.WIN);
         }
 
         private void QuitGameButton_Click(object sender, EventArgs e) {

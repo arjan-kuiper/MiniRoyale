@@ -181,7 +181,7 @@ namespace MINI_ROYALE
         public void Shoot(float orientation)
         {
             // Sound management variables
-            List<Sounds> sounds = new List<Sounds> { Sounds.SHOT_PISTOL_0, Sounds.SHOT_PISTOL_1};
+            List<sounds> soundsList = new List<sounds> { sounds.SHOT_PISTOL_0, sounds.SHOT_PISTOL_1};
             Random rand = new Random();
 
             // Bullet variables.
@@ -205,8 +205,8 @@ namespace MINI_ROYALE
             state.spawnedBullets.Add(bullet);
             
             // Play the gunsound.
-            int sound = rand.Next(0, sounds.Count());
-            state.PlaySoundEffect(sounds[sound]);
+            int sound = rand.Next(0, soundsList.Count());
+            state.PlaySoundEffect(soundsList[sound]);
         }
 
         public void ThrowExplosive() {

@@ -8,8 +8,8 @@ using Microsoft.Xna.Framework.Media;
 
 namespace MINI_ROYALE
 {
-    public enum Songs { NONE, AMBIENT, WIN, LOSS }
-    public enum Sounds { NONE, SHOT_PISTOL_0, SHOT_PISTOL_1, SHOT_SHOTGUN_0, SHOT_SHOTGUN_1, HIT_0, HIT_1}
+    public enum songs { NONE, AMBIENT, WIN, LOSS }
+    public enum sounds { NONE, SHOT_PISTOL_0, SHOT_PISTOL_1, SHOT_SHOTGUN_0, SHOT_SHOTGUN_1, HIT_0, HIT_1}
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -23,15 +23,18 @@ namespace MINI_ROYALE
         private GraphicsDeviceManager graphics;
         private MouseState _currentMouse, _previousMouse;
 
-        private Dictionary<Songs, Song> songs = new Dictionary<Songs, Song>();
-        private Songs currentSong, nextSong;
+        private Dictionary<songs, Song> songsList = new Dictionary<songs, Song>();
+        private songs currentSong, nextSong;
         #endregion
 
         public static Game instance;
         
         #endregion
         
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public State getState() {
             return currentState;
         }
@@ -39,6 +42,7 @@ namespace MINI_ROYALE
         public void changeState(State state) {
             nextState = state;
         }
+
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -58,7 +62,7 @@ namespace MINI_ROYALE
         protected override void Initialize()
         {
             IsMouseVisible = true;
-            nextSong = Songs.AMBIENT;
+            nextSong = songs.AMBIENT;
             base.Initialize();
         }
 
@@ -72,9 +76,9 @@ namespace MINI_ROYALE
             currentState = new MenuState(this, graphics.GraphicsDevice, Content);
 
             // Load songs.
-            songs.Add(Songs.AMBIENT, Content.Load<Song>(@"Sounds\Ambient"));
-            songs.Add(Songs.WIN, Content.Load<Song>(@"Sounds\Win"));
-            songs.Add(Songs.LOSS, Content.Load<Song>(@"Sounds\Loss"));
+            songsList.Add(songs.AMBIENT, Content.Load<Song>(@"sounds\Ambient"));
+            songsList.Add(songs.WIN, Content.Load<Song>(@"sounds\Win"));
+            songsList.Add(songs.LOSS, Content.Load<Song>(@"sounds\Loss"));
         }
 
         /// <summary>
@@ -115,7 +119,7 @@ namespace MINI_ROYALE
             // === Call the current state's update methods. === //
             currentState.Update(gameTime);
             currentState.PostUpdate(gameTime);
-            SoundHandler(gameTime);
+            soundHandler(gameTime);
 
             base.Update(gameTime);
         }
@@ -124,14 +128,14 @@ namespace MINI_ROYALE
         /// This method is being called each update. to check whether another song should be played.
         /// </summary>
         /// <param name="gametime"></param>
-        private void SoundHandler(GameTime gametime) {
-            if (nextSong != Songs.NONE) {
+        private void soundHandler(GameTime gametime) {
+            if (nextSong != songs.NONE) {
                 currentSong = nextSong;
-                nextSong = Songs.NONE;
+                nextSong = songs.NONE;
 
                 // sets the volume of the song
                 MediaPlayer.Volume = 0.1f;
-                MediaPlayer.Play(songs[currentSong]);
+                MediaPlayer.Play(songsList[currentSong]);
             }
         }
 
@@ -139,7 +143,7 @@ namespace MINI_ROYALE
         /// loops through all the songs that are in a list
         /// </summary>
         /// <param name="song"></param>
-        public void changeSong(Songs song) {
+        public void changeSong(songs song) {
             nextSong = song;
         }
 
