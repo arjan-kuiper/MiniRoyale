@@ -36,8 +36,6 @@ namespace MINI_ROYALE
         {
             // check so you have to wait 1 time and not more than ones
             int check = 0;
-            // armor default test has te boe replaced with player.armor
-            int armor = 0;
             if(check == 0)
             {
                 // waiting time

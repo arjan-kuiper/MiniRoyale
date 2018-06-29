@@ -45,23 +45,19 @@ namespace MINI_ROYALE
             {
                 for (int x = 0; x == getExplosionTime(); x++)
                 {
-                    int dmg = 25;
                     if (bomb == type.CONTROLLED)
                     {
                         getBlastRadius();
-                        dmg = 50;
                         play.ThrowExplosive();
                     }
                     else if(bomb == type.IRREGULAR)
                     {
                         getBlastRadius();
-                        dmg = 60;
                         play.ThrowExplosive();
                     }
                     else if(bomb == type.PREFORMED)
                     {
                         getBlastRadius();
-                        dmg = 70;
                         play.ThrowExplosive();
                     }
                     x = 0;
