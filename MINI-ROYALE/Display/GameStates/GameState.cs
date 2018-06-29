@@ -123,7 +123,7 @@ namespace MINI_ROYALE {
                     continue;
                 }
                 // Re-draw bullet for next location.
-                bullet.Update();
+                bullet.update();
                 bullet.Draw(spriteBatch);
             }
             

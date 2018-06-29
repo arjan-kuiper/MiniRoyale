@@ -38,7 +38,7 @@ namespace MINI_ROYALE
             shotoffset = rotation + 0.001 * result;
         }
 
-        public void Update()
+        public void update()
         {
             velocity.Y = speed;
             velocity.X = speed;

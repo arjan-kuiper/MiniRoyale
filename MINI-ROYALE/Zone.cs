@@ -10,56 +10,62 @@ namespace MINI_ROYALE
 {
     class Zone
     {
-        private Texture2D sprite { get; set; }
         public Vector2 pos;
         private int min = 0;
         private int max = 6401;
         private int radius = 400 * 16;
-        private int Coords;
+        private int coords;
         private int controlXCoords = -16;
         private int controlYCoords = -16;
 
+        /// <summary>
+        /// draw is a function that draws the tiles on the map on the right position.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(transformMatrix: TileMap.instance.cam.GetViewMatrix());
-
-            // Need rectangle stuff so we can resize it
-            //spriteBatch.Draw(sprite, new Rectangle((int)pos.X, (int)pos.Y, xcoord, ycoord), new Rectangle(4, 4, sprite.Width, sprite.Height), Color.Purple);
-            //update(GetRandomCoordsForZone(), GetRandomCoordsForZone());
+            
             spriteBatch.End();
         }
         
-        // Genereer een willekeurig getal binnen de huidige zone wat het middelpunt gaat worden van de nieuwe zone
-        public int GetRandomCoordsForZone()
+        /// <summary>
+        /// getRandomCoordsForZone() is a specific function to get random numbers between 0 and 6401
+        /// </summary>
+        /// <returns></returns>
+        public int getRandomCoordsForZone()
         {
+            // generate a random number inside the zone, this will be the middle point of the new zone.
             Random rnd = new Random();
-            Coords = rnd.Next(min, max);
-            return Coords;
+            coords = rnd.Next(min, max);
+            return coords;
         }
 
+        /// <summary>
+        /// The update makes sure the tile color changes over time to stay in sync with the 'zone.'
+        /// </summary>
         public void update()
         {
-            // elke minuut
-
+            // control to see if the y and x coords already has a number between 0 and 6401 if not controlXCoords and controlYCoords will be given some random numbers.
             if (controlYCoords < -1)
             {
-                controlYCoords = GetRandomCoordsForZone();
+                controlYCoords = getRandomCoordsForZone();
             }
             if (controlXCoords < -1)
             {
-                controlYCoords = GetRandomCoordsForZone();
+                controlYCoords = getRandomCoordsForZone();
             }
 
             foreach (KeyValuePair<Tuple<int, int>, Tile> tile in TileMap.instance.bitmap)
             {
-                Vector2 tilePos = tile.Value.position;
+                // gets the x and y coords on the map
                 float worldX = tile.Key.Item1;
                 float worldY = tile.Key.Item2;
-
+                // checks to see if x and y coords is on the map and between the controlXCoords and YCoords with and without the radius if so the zone will be set
                 if ((worldX < controlXCoords - radius || worldX > controlXCoords + radius) || (worldY < controlYCoords - radius || worldY > controlYCoords + radius))
                 {
-                    // Tile is in zone
-
+                    // The tiles that are out of a specific area are set to the zone.
+                    // with multiple stages of the zone it will be more playable
                     if (tile.Value.getZone() == 4)
                     {
                         tile.Value.SetZone(5);
@@ -83,6 +89,7 @@ namespace MINI_ROYALE
                     
                 }
             }
+            // radius is set smaller so the zone will go more smootly to the middle point
             radius -= 2;
         }
     }

@@ -36,7 +36,7 @@ namespace MINI_ROYALE
             return currentState;
         }
 
-        public void ChangeState(State state) {
+        public void changeState(State state) {
             nextState = state;
         }
         public Game()
@@ -112,13 +112,14 @@ namespace MINI_ROYALE
                 Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
             }
 
-            // === Call the current state's update methods. ===
+            // === Call the current state's update methods. === //
             currentState.Update(gameTime);
             currentState.PostUpdate(gameTime);
             SoundHandler(gameTime);
 
             base.Update(gameTime);
         }
+
         /// <summary>
         /// This method is being called each update. to check whether another song should be played.
         /// </summary>
@@ -128,12 +129,17 @@ namespace MINI_ROYALE
                 currentSong = nextSong;
                 nextSong = Songs.NONE;
 
+                // sets the volume of the song
                 MediaPlayer.Volume = 0.1f;
                 MediaPlayer.Play(songs[currentSong]);
             }
         }
 
-        public void ChangeSong(Songs song) {
+        /// <summary>
+        /// loops through all the songs that are in a list
+        /// </summary>
+        /// <param name="song"></param>
+        public void changeSong(Songs song) {
             nextSong = song;
         }
 

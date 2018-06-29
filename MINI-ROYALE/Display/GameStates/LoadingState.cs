@@ -24,7 +24,7 @@ namespace MINI_ROYALE {
 
         void Tick_Timer(object sender, object e) {
             timer.Stop();
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+            _game.changeState(new GameState(_game, _graphicsDevice, _content));
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
