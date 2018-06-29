@@ -21,36 +21,63 @@ namespace MINI_ROYALE
             this.pos = pos;
         }
 
+        /// <summary>
+        /// gets the name of the item
+        /// </summary>
+        /// <returns>itemName</returns>
         public string getName()
         {
             return this.itemName;
         }
 
-        public bool RemoveItemFromMap(Vector2 pos)
+        /// <summary>
+        /// removes the item from the map
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns>true because called</returns>
+        public bool removeItemFromMap(Vector2 pos)
         {
             GameState state = (GameState)Game.instance.getState();
             state.RemoveItemFromMap(pos);
             return true;
         }
 
-        public bool AddItemToMap(Vector2 pos, Item item)
+        /// <summary>
+        /// adds item to the map
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="item"></param>
+        /// <returns>true because called</returns>
+        public bool addItemToMap(Vector2 pos, Item item)
         {
             // for Item use this
-            GameState state = (GameState)Game.instance.sgetState();
+            GameState state = (GameState)Game.instance.getState();
             state.AddItemToMap(item);
             return true;
         }
 
-        public virtual bool Use()
+        /// <summary>
+        /// this fucntion is called in other classes
+        /// </summary>
+        /// <returns>returns true</returns>
+        public virtual bool use()
         {
             return true;
         }
 
+        /// <summary>
+        /// this fucntion is called in other classes
+        /// </summary>
+        /// <returns></returns>
         public virtual float getHealingCount()
         {
             return 0;
         }
 
+        /// <summary>
+        /// draws the items on the map
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(transformMatrix: TileMap.instance.cam.GetViewMatrix());

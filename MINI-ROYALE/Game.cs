@@ -32,17 +32,24 @@ namespace MINI_ROYALE
         #endregion
         
         /// <summary>
-        /// 
+        /// gets the current state
         /// </summary>
-        /// <returns></returns>
+        /// <returns>current state</returns>
         public State getState() {
             return currentState;
         }
 
+        /// <summary>
+        /// change the currentstate if a change happens
+        /// </summary>
+        /// <param name="state"></param>
         public void changeState(State state) {
             nextState = state;
         }
 
+        /// <summary>
+        /// makes the game with the screen
+        /// </summary>
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
