@@ -62,7 +62,7 @@ namespace MINI_ROYALE
             }
             if (k.IsKeyDown(Keys.Escape))
             {
-
+                
             }
 
             if (running) speed *= 2;

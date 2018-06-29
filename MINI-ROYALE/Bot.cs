@@ -87,8 +87,7 @@ namespace MINI_ROYALE
             string texture = "player-weapon";
             Texture2D botImg = game.Content.Load<Texture2D>(texture);
             Vector2 playerOrigin = new Vector2(botImg.Width / 2f, botImg.Height / 2f);
-            this.orientation = rotation;
-
+            rotation = (float)Math.Atan2(this.pos.Y - p.pos.Y, this.pos.X - p.pos.X) + (float)Math.PI;
             spriteBatch.Draw(botImg, pos, null, Color.White, rotation, playerOrigin, .1f, SpriteEffects.None, 0f);
             this.boundingBox.X = (int)Math.Round(pos.X - 16);
             this.boundingBox.Y = (int)Math.Round(pos.Y + 16);

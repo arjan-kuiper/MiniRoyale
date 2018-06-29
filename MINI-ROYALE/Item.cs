@@ -36,7 +36,7 @@ namespace MINI_ROYALE
         public bool AddItemToMap(Vector2 pos, Item item)
         {
             // for Item use this
-            GameState state = (GameState)Game.instance.getState();
+            GameState state = (GameState)Game.instance.sgetState();
             state.AddItemToMap(item);
             return true;
         }
