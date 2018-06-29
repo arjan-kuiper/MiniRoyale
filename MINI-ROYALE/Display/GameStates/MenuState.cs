@@ -95,15 +95,15 @@ namespace MINI_ROYALE {
         #region ClickEvents
         private void PlayGameButton_Click(object sender, EventArgs e) {
             // Change state to screen where you can enter IP and Port for server.
-            _game.ChangeState(new LoadingState(_game, _graphicsDevice, _content));
+            _game.changeState(new LoadingState(_game, _graphicsDevice, _content));
         }
 
         private void SettingsGameButton_Click(object sender, EventArgs e) {
-            _game.ChangeState(new Settings(_game, _graphicsDevice, _content));
+            _game.changeState(new Settings(_game, _graphicsDevice, _content));
         }
 
         private void CreditsGameButton_Click(object sender, EventArgs e) {
-            _game.ChangeSong(Songs.WIN);
+            _game.changeSong(songs.WIN);
         }
 
         private void QuitGameButton_Click(object sender, EventArgs e) {

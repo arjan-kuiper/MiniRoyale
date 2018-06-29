@@ -13,7 +13,7 @@ namespace MINI_ROYALE {
 
         #region StateMethods
         public Settings(Game game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content) {
-            CreateComponents();
+            createComponents();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
@@ -39,7 +39,7 @@ namespace MINI_ROYALE {
         }
         #endregion
         #region SettingStateMethods
-        private void CreateComponents() {
+        private void createComponents() {
             SpriteFont font = _content.Load<SpriteFont>(@"Fonts\ThirteenPixels");
             Texture2D btnTexture, btnHoverTexture;
             Button btn;
@@ -74,7 +74,7 @@ namespace MINI_ROYALE {
 
         private void GoBack_Click(object sender, EventArgs e) {
             // Change state to screen where you can enter IP and Port for server.
-            _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
+            _game.changeState(new MenuState(_game, _graphicsDevice, _content));
         }
         #endregion
     }

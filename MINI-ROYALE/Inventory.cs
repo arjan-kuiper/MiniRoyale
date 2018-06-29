@@ -13,33 +13,40 @@ namespace MINI_ROYALE
         private Player player { get; }
         private Bot bot { get; }
 
-        // making the list Item with a size of 5
+        /// <summary>
+        /// making the list Item with a size of 5
+        /// </summary>
+        /// <param name="p"></param>
         public Inventory(Player p)
         {
             items = new List<Item>(5);
             player = p;
         }
 
-        // function to add an item to the inventory
-        public bool AddItemToInv(Item item)
+        /// <summary>
+        ///  function to add an item to the inventory
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>true if added else false</returns>
+        public bool addItemToInv(Item item)
         {
             // check to see if there is inventory space and if there is to much in the inventorys;
-            if (GetSizeOfInv() > 5)
+            if (getSizeOfInv() > 5)
             {
                 // inventory is overflowed full 
                 return false;
             }
-            else if (GetSizeOfInv() == 5)
+            else if (getSizeOfInv() == 5)
             {
                 // inventory is full 
                 return false;
             }
-            else if (GetSizeOfInv() >= 0 && GetSizeOfInv() < 5)
+            else if (getSizeOfInv() >= 0 && getSizeOfInv() < 5)
             {
                 // add item to inv
                 items.Add(item);
 
-                item.RemoveItemFromMap(player.pos);
+                item.removeItemFromMap(player.pos);
                 return true;
             }
             else
@@ -49,25 +56,43 @@ namespace MINI_ROYALE
             }
         }
 
-        public bool RemoveItemFromInv(Item item)
+        /// <summary>
+        /// removes the item in inventory
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>return true for removing</returns>
+        public bool removeItemFromInv(Item item)
         {
+            item.addItemToMap(player.pos, item);
             items.Remove(item);
             return true;
         }
 
-        // function to check the size of the list.
-        // don't rlly know why...
-        public int GetSizeOfInv()
+        /// <summary>
+        ///  function to check the size of the list.
+        /// </summary>
+        /// <returns>list count</returns>
+        public int getSizeOfInv()
         {
             return items.Count;
         }
 
-        public Item GetItemInSlot(int slot)
+        /// <summary>
+        /// gets the item in the list
+        /// </summary>
+        /// <param name="slot"></param>
+        /// <returns>item in the slot</returns>
+        public Item getItemInSlot(int slot)
         {
             return items.ElementAtOrDefault(slot);
         }
 
-        public string GetItemName(int slot)
+        /// <summary>
+        /// gets the item name in the list
+        /// </summary>
+        /// <param name="slot"></param>
+        /// <returns>item names in the list</returns>
+        public string getItemName(int slot)
         {
             return items.ElementAt(slot).getName();
         }

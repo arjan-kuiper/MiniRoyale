@@ -154,6 +154,10 @@ namespace MINI_ROYALE
                 var xCoord = (int)(num1/16);
                 var yCoord = (int)(num2 /16);
                 result = false; // this.getTileOnLoc(xCoord, yCoord).hasCollision;
+
+                //Result = false is een tijdelijke oplossing die ervoor zorgt dat de eerste random locatie geladen word.
+                //dit is omdat result = this.getTileOnLoc(xCoord, yCoord).hasCollision een null reference geeft in de dictionary.
+                //Dit komt de map nog niet gepopulate is
                 vec2 = new Vector2(num1, num1);
             }
             return vec2;

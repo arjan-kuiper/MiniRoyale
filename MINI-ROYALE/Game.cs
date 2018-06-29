@@ -8,33 +8,42 @@ using Microsoft.Xna.Framework.Media;
 
 namespace MINI_ROYALE
 {
-    public enum Songs { NONE, AMBIENT, WIN, LOSS }
-    public enum Sounds { NONE, SHOT_PISTOL_0, SHOT_PISTOL_1, SHOT_SHOTGUN_0, SHOT_SHOTGUN_1, HIT_0, HIT_1}
+    public enum songs { NONE, AMBIENT, WIN, LOSS }
+    public enum sounds { NONE, SHOT_PISTOL_0, SHOT_PISTOL_1, SHOT_SHOTGUN_0, SHOT_SHOTGUN_1, HIT_0, HIT_1}
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
         // === GameState Manager variables ===
-        #region Fields&Properties
+        #region Fields
         #region GameStateVars
         private State currentState, nextState;
         private SpriteBatch spriteBatch;
         private GraphicsDeviceManager graphics;
         private MouseState _currentMouse, _previousMouse;
+
+        private Dictionary<songs, Song> songsList = new Dictionary<songs, Song>();
+        private songs currentSong, nextSong;
         #endregion
 
-        private Dictionary<Songs, Song> songs = new Dictionary<Songs, Song>();
-        private Songs currentSong, nextSong;
-        public static Game instance;        
+        public static Game instance;
+        
         #endregion
-
-
+        
+        /// <summary>
+        /// gets the current state
+        /// </summary>
+        /// <returns>current state</returns>
         public State getState() {
             return currentState;
         }
 
-        public void ChangeState(State state) {
+        /// <summary>
+        /// change the currentstate if a change happens
+        /// </summary>
+        /// <param name="state"></param>
+        public void changeState(State state) {
             nextState = state;
         }
 
@@ -43,10 +52,14 @@ namespace MINI_ROYALE
             return graphics;
         }
 
+
+        /// <summary>
+        /// makes the game with the screen
+        /// </summary>
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-
+            graphics.IsFullScreen = true;
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
             
@@ -62,7 +75,7 @@ namespace MINI_ROYALE
         protected override void Initialize()
         {
             IsMouseVisible = true;
-            nextSong = Songs.AMBIENT;
+            nextSong = songs.AMBIENT;
             base.Initialize();
         }
 
@@ -76,9 +89,9 @@ namespace MINI_ROYALE
             currentState = new MenuState(this, graphics.GraphicsDevice, Content);
 
             // Load songs.
-            songs.Add(Songs.AMBIENT, Content.Load<Song>(@"Sounds\Ambient"));
-            songs.Add(Songs.WIN, Content.Load<Song>(@"Sounds\Win"));
-            songs.Add(Songs.LOSS, Content.Load<Song>(@"Sounds\Loss"));
+            songsList.Add(songs.AMBIENT, Content.Load<Song>(@"sounds\Ambient"));
+            songsList.Add(songs.WIN, Content.Load<Song>(@"sounds\Win"));
+            songsList.Add(songs.LOSS, Content.Load<Song>(@"sounds\Loss"));
         }
 
         /// <summary>
@@ -87,7 +100,7 @@ namespace MINI_ROYALE
         /// </summary>
         protected override void UnloadContent()
         {
-            // Nothing is being unloaded.
+            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -101,10 +114,9 @@ namespace MINI_ROYALE
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
 
-            //TODO: Remove this debug tool on deployment.
             // Check whether the user has pressed and released the leftmouse button whilst hovering over the button object.
             if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed) {
-                //Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
+                Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
             }
 
             if (nextState != null) {
@@ -117,35 +129,35 @@ namespace MINI_ROYALE
                 Debug.WriteLine("X = {0} || Y= {1}", _currentMouse.X, _currentMouse.Y);
             }
 
-            // === Call the current state's update methods. ===
+            // === Call the current state's update methods. === //
             currentState.Update(gameTime);
             currentState.PostUpdate(gameTime);
-            SoundHandler(gameTime);
+            soundHandler(gameTime);
 
             base.Update(gameTime);
         }
+
         /// <summary>
         /// This method is being called each update. to check whether another song should be played.
         /// </summary>
         /// <param name="gametime"></param>
-        private void SoundHandler(GameTime gametime) {
-            if (nextSong != Songs.NONE) {
+        private void soundHandler(GameTime gametime) {
+            if (nextSong != songs.NONE) {
                 currentSong = nextSong;
-                nextSong = Songs.NONE;
+                nextSong = songs.NONE;
 
+                // sets the volume of the song
                 MediaPlayer.Volume = 0.1f;
-                MediaPlayer.Play(songs[currentSong]);
+                MediaPlayer.Play(songsList[currentSong]);
             }
         }
 
-        public void ChangeSong(Songs song) {
+        /// <summary>
+        /// loops through all the songs that are in a list
+        /// </summary>
+        /// <param name="song"></param>
+        public void changeSong(songs song) {
             nextSong = song;
-        }
-
-        protected bool CollisionCheck()
-        {
-            // TODO
-            return false;
         }
 
         /// <summary>

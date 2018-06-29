@@ -24,7 +24,7 @@ namespace MINI_ROYALE {
 
         void Tick_Timer(object sender, object e) {
             timer.Stop();
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+            _game.changeState(new GameState(_game, _graphicsDevice, _content));
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
@@ -51,13 +51,14 @@ namespace MINI_ROYALE {
         #endregion
         #region LoadinStateMethods
         private void CreateComponents() {
+            /*SpriteFont font = _content.Load<SpriteFont>(@"Fonts\ThirtheenPixels");
             SpriteFont font = _content.Load<SpriteFont>(@"Fonts\ThirteenPixels");
 
             _components.Add(new TextField(font, 400, 100) {
                 position = new Vector2(800, _graphicsDevice.Viewport.Bounds.Center.X),
                 text = "Loading...",
                 penColor = Color.OrangeRed
-            });
+            });*/
         }
         #endregion
     }

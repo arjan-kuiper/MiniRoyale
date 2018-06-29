@@ -87,8 +87,7 @@ namespace MINI_ROYALE
             string texture = "player-weapon";
             Texture2D botImg = game.Content.Load<Texture2D>(texture);
             Vector2 playerOrigin = new Vector2(botImg.Width / 2f, botImg.Height / 2f);
-            this.orientation = rotation;
-
+            rotation = (float)Math.Atan2(this.pos.Y - p.pos.Y, this.pos.X - p.pos.X) + (float)Math.PI;
             spriteBatch.Draw(botImg, pos, null, Color.White, rotation, playerOrigin, .1f, SpriteEffects.None, 0f);
             this.boundingBox.X = (int)Math.Round(pos.X - 16);
             this.boundingBox.Y = (int)Math.Round(pos.Y + 16);
@@ -119,7 +118,7 @@ namespace MINI_ROYALE
             //TODO: Fire at player pos not mousePos
             // Sound management variables
          
-            List<Sounds> sounds = new List<Sounds> { Sounds.SHOT_PISTOL_0, Sounds.SHOT_PISTOL_1 };
+            List<sounds> soundsList = new List<sounds> { sounds.SHOT_PISTOL_0, sounds.SHOT_PISTOL_1 };
             Random rand = new Random();
 
             // Bullet variables.
@@ -135,8 +134,8 @@ namespace MINI_ROYALE
             state.spawnedBullets.Add(bullet);
 
             // Play the gunsound.
-            int sound = rand.Next(0, sounds.Count());
-            state.PlaySoundEffect(sounds[sound]);
+            int sound = rand.Next(0, soundsList.Count());
+            state.PlaySoundEffect(soundsList[sound]);
         }
 
         private bool checkCollision(Vector2 pos)
