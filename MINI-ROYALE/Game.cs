@@ -30,7 +30,7 @@ namespace MINI_ROYALE
         public static Game instance;
         
         #endregion
-
+        
 
         public State getState() {
             return currentState;
@@ -42,7 +42,7 @@ namespace MINI_ROYALE
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-
+            graphics.IsFullScreen = true;
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
             

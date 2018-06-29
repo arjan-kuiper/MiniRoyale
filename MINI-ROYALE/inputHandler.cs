@@ -60,6 +60,10 @@ namespace MINI_ROYALE
             {
                 running = true;
             }
+            if (k.IsKeyDown(Keys.Escape))
+            {
+
+            }
 
             if (running) speed *= 2;
             moveVel *= speed;
