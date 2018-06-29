@@ -155,7 +155,7 @@ namespace MINI_ROYALE
 
             if(k.IsKeyDown(Keys.Escape))
             {
-                game.ChangeState(new MenuState(game, game.GetGraphics().GraphicsDevice, game.Content));
+                game.changeState(new MenuState(game, game.getGraphics().GraphicsDevice, game.Content));
             }
         }
 

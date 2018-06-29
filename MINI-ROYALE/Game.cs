@@ -47,7 +47,10 @@ namespace MINI_ROYALE
             nextState = state;
         }
 
-        public GraphicsDeviceManager GetGraphics()
+        /// <summary>
+        /// Gets the graphicsdevicemanager
+        /// </summary>
+        public GraphicsDeviceManager getGraphics()
         {
             return graphics;
         }
