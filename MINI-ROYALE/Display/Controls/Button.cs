@@ -39,10 +39,11 @@ namespace MINI_ROYALE {
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             Texture2D buttonTexture = _texture;
-
+            // Check whether the texture should be swapped.
             if (_isHovering)
                 buttonTexture = _hoverTexture;
 
+            // Draw the texture to the screen.
             spriteBatch.Draw(buttonTexture, btnRectangle, Color.White);
 
 

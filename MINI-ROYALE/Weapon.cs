@@ -8,27 +8,35 @@ using System.Threading.Tasks;
 
 namespace MINI_ROYALE
 {
-    class Weapon : Item, Throwable
+    class Weapon : Item
     {
-        private float damage { get; set; }
         private float shotCoolDown { get; set; }
-        private enum FiringType { SEMI, FULL }
         private int bulletInClip { get; set; }
         private int maxBulletInClip { get; set; }
         public int spread;
-        private float recoil { get; set; }
         private Player play { get; }
 
+        /// <summary>
+        /// makes an weapon
+        /// </summary>
+        /// <param name="itemName"></param>
+        /// <param name="sprite"></param>
+        /// <param name="pos"></param>
+        /// <param name="spread"></param>
         public Weapon(String itemName, Texture2D sprite, Vector2 pos, int spread) : base(itemName, sprite, pos)
         {
 
-            Use();
+            use();
             this.spread = spread;
         }
 
-        // Een reload functie, maar die wordt op dit moment niet toegepast
-        private int Reload()
+        /// <summary>
+        /// reloads the bullets in the clip with a cooldown
+        /// </summary>
+        /// <returns>bullets after reload</returns>
+        private int reload()
         {
+            // reset the bullets with a reload cooldown
             for(int i = 0; i == 500; i++)
             {
                 bulletInClip = maxBulletInClip;
@@ -36,40 +44,37 @@ namespace MINI_ROYALE
             return bulletInClip;
         }
 
-        private int Fire()
+        /// <summary>
+        /// shoots the bullet 
+        /// </summary>
+        /// <returns></returns>
+        private int fire()
         {
-            // something like this?
-            // for loop for shots maybe 2 fast 
             for (float i = 0; i < 999; i++)
             {
                 if (i == shotCoolDown)
                 {
                     i = 0;
                 }
-                // something for full and semi?? override or??
                 if (bulletInClip > 0)
                 {
-                    // SHOOT
-                    // mogelijke schiet functie gaat volgensmij de verkeerde kant op moet vanuit weapon naar player en niet player naar weapon
-                    play.Shoot(play.getOrientation());
+                    //play.shoot(play.getOrientation());
                 }
                 else
                 {
-                    // reload and can't shoot
-                    Reload();
+                    reload();
                 }
             }
             return 0;
         }
 
-        public void ThrowItem()
+        /// <summary>
+        /// calls the fire function
+        /// </summary>
+        /// <returns>true when called</returns>
+        public new bool use()
         {
-            // throw function from throw class here.
-        }
-
-        public new bool Use()
-        {
-            Fire();
+            fire();
             return true;
         }
     }

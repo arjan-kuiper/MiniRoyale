@@ -21,12 +21,12 @@ namespace MINI_ROYALE
 
         public Explosive(String itemName, Texture2D sprite, Vector2 pos) : base(itemName, sprite, pos)
         {
-            Use();
+            use();
         }
 
 
 
-        public override bool Use()
+        public override bool use()
         {
             ArmExplosive();
             return true;

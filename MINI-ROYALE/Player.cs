@@ -112,7 +112,7 @@ namespace MINI_ROYALE
             boundingBox.Y = (int)Math.Round(pos.Y+16);
         }
 
-        public void Move(Vector2 vec) {
+        public void move(Vector2 vec) {
             this.pos.X += vec.X;
             pos.Y += vec.Y;
             boundingBox.X = (int)Math.Round(pos.X-16);
@@ -123,22 +123,25 @@ namespace MINI_ROYALE
         
 
         public bool pickup(Item item) {
-            if(inventory.GetSizeOfInv() == 0) { currentItem = 1; }
-            return inventory.AddItemToInv(item);
+            if(inventory.getSizeOfInv() == 0) { currentItem = 1; }
+            return inventory.addItemToInv(item);
         }
 
         public string getCurrentItemName() {
-            return inventory.GetItemName(currentItem - 1);
+            return inventory.getItemName(currentItem - 1);
         }
 
-        // Voor het removen van een item heb de functie naar een bool veranderd van een Item. 
-        // Als dit niet goed is graag aangeven
+        /// <summary>
+        /// Drops the item in the inventory
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>the item that removed is</returns>
         public bool dropItem(Item item) {
-            return inventory.RemoveItemFromInv(item);
+            return inventory.removeItemFromInv(item);
         }
 
         public Item getItemInSlot(int slot) {
-            return inventory.GetItemInSlot(slot);
+            return inventory.getItemInSlot(slot);
         }
 
         public byte takeDamage(byte damage) {
@@ -168,20 +171,15 @@ namespace MINI_ROYALE
             return armor;
         }
 
-        public Throwable throwItem(int slot) {
-            // TODO
-            return null;
-        }
-
         public void update() {
             // TODO
         }
 
 
-        public void Shoot(float orientation)
+        public void shoot(float orientation)
         {
             // Sound management variables
-            List<Sounds> sounds = new List<Sounds> { Sounds.SHOT_PISTOL_0, Sounds.SHOT_PISTOL_1};
+            List<sounds> soundsList = new List<sounds> { sounds.SHOT_PISTOL_0, sounds.SHOT_PISTOL_1};
             Random rand = new Random();
 
             // Bullet variables.
@@ -192,7 +190,7 @@ namespace MINI_ROYALE
 
             spawnPosition.X = pos.X;
             spawnPosition.Y = pos.Y;
-            Weapon w = (Weapon)inventory.GetItemInSlot(currentItem - 1);
+            Weapon w = (Weapon)inventory.getItemInSlot(currentItem - 1);
             Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation, w.spread);
             if(w.getName().Equals("Shotgun"))
             {
@@ -205,8 +203,8 @@ namespace MINI_ROYALE
             state.spawnedBullets.Add(bullet);
             
             // Play the gunsound.
-            int sound = rand.Next(0, sounds.Count());
-            state.PlaySoundEffect(sounds[sound]);
+            int sound = rand.Next(0, soundsList.Count());
+            state.PlaySoundEffect(soundsList[sound]);
         }
 
         public void ThrowExplosive() {

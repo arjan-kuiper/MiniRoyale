@@ -67,7 +67,7 @@ namespace MINI_ROYALE
 
             if (running) speed *= 2;
             moveVel *= speed;
-            p.Move(moveVel);
+            p.move(moveVel);
         }
 
         public void mouseListener()
@@ -78,7 +78,7 @@ namespace MINI_ROYALE
             {
                 if(p.getItemInSlot(p.currentItem - 1) is Weapon)
                 {
-                    p.Shoot(p.getOrientation());
+                    p.shoot(p.getOrientation());
                 }
             }
 
@@ -122,7 +122,7 @@ namespace MINI_ROYALE
                 Item item = p.getItemInSlot(p.currentItem - 1);
                 if(item != null)
                 {
-                    if (item.Use())
+                    if (item.use())
                     {
                         if(item is HealingItem)
                         {
@@ -146,6 +146,17 @@ namespace MINI_ROYALE
                 p.currentItem = 5;
 
             oldKeyState = k;
+        }
+
+        public void escapeKeyDown(Game game)
+        {
+            KeyboardState k = Keyboard.GetState();
+            GameState state = (GameState)Game.instance.getState();
+
+            if(k.IsKeyDown(Keys.Escape))
+            {
+                game.changeState(new MenuState(game, game.getGraphics().GraphicsDevice, game.Content));
+            }
         }
 
     }

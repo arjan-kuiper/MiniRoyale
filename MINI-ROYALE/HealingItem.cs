@@ -18,7 +18,7 @@ namespace MINI_ROYALE
             this.healingCount = healingCount;
         }
 
-        public override bool Use()
+        public override bool use()
         {
             return true;
         }

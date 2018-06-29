@@ -34,10 +34,12 @@ namespace MINI_ROYALE {
             _height = height;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) { 
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
+            // Calculate right positioning for the text based on the font dimensions and defined rectangle sizes.
             float x = (btnRectangle.X + (btnRectangle.Width / 2) - (_font.MeasureString(text).X / 2));
-            float y = (btnRectangle.X + (btnRectangle.Height / 2) - (_font.MeasureString(text).Y / 2));
+            float y = (btnRectangle.Y + (btnRectangle.Height / 2) - (_font.MeasureString(text).Y / 2));
 
+            // Draw the text to the viewport.
             spriteBatch.DrawString(_font, text, new Vector2(x, y), penColor);
         }
 

@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MINI_ROYALE {
+    /// <summary>
+    /// Base class for each State. Defines the required methods and fields for an abstraction of this class.
+    /// </summary>
     public abstract class State {
         #region Fields
         protected ContentManager _content;

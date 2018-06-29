@@ -19,7 +19,7 @@ namespace MINI_ROYALE
 
         }
 
-        public override bool Use()
+        public override bool use()
         {
             return true;
         }

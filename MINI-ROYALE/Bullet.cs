@@ -55,7 +55,7 @@ namespace MINI_ROYALE
                 if (b.boundingBox.Intersects(this.boundingBox))
                 {
                     b.takeDamage(30);
-                    state.PlaySoundEffect(Sounds.HIT_0);
+                    state.PlaySoundEffect(sounds.HIT_0);
                     lifeTime = 0;
                 }
             }

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace MINI_ROYALE {
     class Settings : State {
         private List<Component> _components = new List<Component>();
+        private TextField volumeShower;
 
         #region StateMethods
         public Settings(Game game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content) {
@@ -39,9 +40,12 @@ namespace MINI_ROYALE {
         }
         #endregion
         #region SettingStateMethods
+        /// <summary>
+        /// Constructs the components necessary to run the MenuState screen.
+        /// </summary>
         private void createComponents() {
             SpriteFont font = _content.Load<SpriteFont>(@"Fonts\ThirteenPixels");
-            Texture2D btnTexture, btnHoverTexture;
+            Texture2D btnTexture, btnHoverTexture, arrow_up, arrow_down;
             Button btn;
 
             _components.Add(new TextField(font, 400, 100) {
@@ -55,21 +59,49 @@ namespace MINI_ROYALE {
             btnHoverTexture = _content.Load<Texture2D>("Controls/Quit_Selected");
 
             btn = new Button(btnTexture, btnHoverTexture) {
-                Position = new Vector2(25, 450)
+                Position = new Vector2(25, 870)
             };
             // Set click event listener.
             btn.Click += GoBack_Click;
             _components.Add(btn);
             // === Stop define Play Button ===
 
-            Texture2D arrow_up, arrow_down;
+            // === Start define volume control ===
             arrow_up = _content.Load<Texture2D>("Controls/Arrow_Up");
             arrow_down = _content.Load<Texture2D>("Controls/Arrow_Down");
 
-            VolumeEditor volumeEditor = new VolumeEditor(arrow_up, arrow_down, font) {
-                VolumePosition = new Vector2(25, 600)
+            btn = new Button(arrow_up) {
+                Position = new Vector2(600, 400)
             };
-            _components.Add(volumeEditor);
+            // Set click event listener.
+            //TODO: Set ClickEvent Listener
+            // Due to lack of time this functionality has not been implemented.
+            //btn.Click += ;
+            _components.Add(btn);
+
+            btn = new Button(arrow_down) {
+                Position = new Vector2(600, 510)
+            };
+            // Set click event listener.
+            //TODO: Set ClickEvent Listener
+            // Due to lack of time this functionality has not been implemented.
+            //btn.Click += ;
+            _components.Add(btn);
+
+            _components.Add(new TextField(font, 400, 100) {
+                position = new Vector2(100, 425),
+                text = "Music Volume",
+                penColor = Color.Black
+            });
+
+            volumeShower = new TextField(font, 400, 100) {
+                position = new Vector2(450, 425),
+                text = "100%",
+                penColor = Color.Red
+            };
+
+            _components.Add(volumeShower);
+            // === Stop define volume control ===
         }
 
         private void GoBack_Click(object sender, EventArgs e) {

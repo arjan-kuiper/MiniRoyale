@@ -10,7 +10,6 @@ namespace MINI_ROYALE
 {
     class Zone
     {
-        public Vector2 pos;
         private int min = 0;
         private int max = 6401;
         private int radius = 400 * 16;
@@ -32,7 +31,7 @@ namespace MINI_ROYALE
         /// <summary>
         /// getRandomCoordsForZone() is a specific function to get random numbers between 0 and 6401
         /// </summary>
-        /// <returns></returns>
+        /// <returns>number</returns>
         public int getRandomCoordsForZone()
         {
             // generate a random number inside the zone, this will be the middle point of the new zone.
