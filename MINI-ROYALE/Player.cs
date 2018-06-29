@@ -105,7 +105,7 @@ namespace MINI_ROYALE
             float rotation = (float)Math.Atan2(dPos.Y, dPos.X) + (float)Math.PI;
             // System.Diagnostics.Debug.WriteLine("{0} {1}", current_mouse.X, current_mouse.Y);
             //collidesWithSurrounding(); // debugging only
-            //this.orientation = rotation;
+            this.orientation = rotation;
             spriteBatch.Draw(playerImg, new Vector2(viewport.Width / 2f, viewport.Height / 2f), null, Color.White, rotation, playerOrigin, .5f, SpriteEffects.None, 0f);
             spriteBatch.End();
             boundingBox.X = (int)Math.Round(pos.X);

@@ -13,25 +13,22 @@ namespace MINI_ROYALE
     public class Bot
     {
         public Vector2 pos;
+        public bool isBot;
         public Rectangle boundingBox;
         public byte currentItem;
         public bool alive;
         private int hp;
         private float orientation;
-
-        DispatcherTimer dispatcherTimer;
-        DateTimeOffset startTime;
-        DateTimeOffset lastTime;
-        DateTimeOffset stopTime;
-        int timesTicked = 1;
-        int timesToTick = 20;
+        public int timer;
 
         public Bot(Vector2 pos)
         {
+            this.isBot = true;
             this.pos = pos;
             this.boundingBox = new Rectangle(32, 32, 16, 16);
             alive = true;
             hp = 100;
+            timer = 0;
         }
 
         public int collidesWithSurrounding()
@@ -69,10 +66,15 @@ namespace MINI_ROYALE
 
             if (getTarget(p))
             {
-                rotation = 0;
-                //Shoot(p, s);
+                rotation = (float)Math.Atan2(this.pos.Y - p.pos.Y, this.pos.X - p.pos.X) + (float)Math.PI;
+                if (timer >= 40)
+                {
+                    Shoot(p, s);
+                    timer = 0;
+                } 
+                timer++;
             }
-            else
+            else    
             {
                 int r1 = 0;
                 int r2 = 0;
@@ -87,7 +89,8 @@ namespace MINI_ROYALE
             string texture = "player-weapon";
             Texture2D botImg = game.Content.Load<Texture2D>(texture);
             Vector2 playerOrigin = new Vector2(botImg.Width / 2f, botImg.Height / 2f);
-            rotation = (float)Math.Atan2(this.pos.Y - p.pos.Y, this.pos.X - p.pos.X) + (float)Math.PI;
+            this.orientation = rotation;
+
             spriteBatch.Draw(botImg, pos, null, Color.White, rotation, playerOrigin, .1f, SpriteEffects.None, 0f);
             this.boundingBox.X = (int)Math.Round(pos.X - 16);
             this.boundingBox.Y = (int)Math.Round(pos.Y + 16);
@@ -125,10 +128,14 @@ namespace MINI_ROYALE
             Vector2 bulletTarget = new Vector2(p.pos.X, p.pos.Y);
             Vector2 spawnPosition;
 
-            orientation = 0;
+            //orientation = 0;
 
-            spawnPosition.X = this.pos.X;
-            spawnPosition.Y = this.pos.Y;
+            spawnPosition.X = pos.X;
+            spawnPosition.Y = pos.Y;
+
+            System.Diagnostics.Debug.WriteLine("{0}, {1}", pos.X, pos.Y);
+            System.Diagnostics.Debug.WriteLine("---");
+            System.Diagnostics.Debug.WriteLine("{0}, {1}", p.pos.X, p.pos.Y);
 
             Bullet bullet = new Bullet(spawnPosition, -bulletTarget, orientation, 100);
             state.spawnedBullets.Add(bullet);
@@ -156,34 +163,6 @@ namespace MINI_ROYALE
             else 
             {
                 return false;
-            }
-        }
-
-        public void DispatcherTimerSetup()
-        {
-            dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            //IsEnabled defaults to false
-            startTime = DateTimeOffset.Now;
-            lastTime = startTime;
-            dispatcherTimer.Start();
-            //IsEnabled should now be true after calling start
-        }
-
-        void dispatcherTimer_Tick(object sender, object e)
-        {
-            DateTimeOffset time = DateTimeOffset.Now;
-            TimeSpan span = time - lastTime;
-            lastTime = time;
-            //Time since last tick should be very very close to Interval
-            timesTicked++;
-            if (timesTicked > timesToTick)
-            {
-                stopTime = time;
-                dispatcherTimer.Stop();
-                //IsEnabled should now be false after calling stop
-                span = stopTime - startTime;
             }
         }
     }
